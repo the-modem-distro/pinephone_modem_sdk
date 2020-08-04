@@ -1,0 +1,95 @@
+#!/bin/sh
+
+########################################################
+#  Copyright (C) 2016-2020 Quectel Wireless Co.,Ltd. 
+#  Quectel Wireless Proprietary and Confidential.
+#
+#  Created by Gale
+#
+########################################################
+
+img2dts()
+{
+	echo "deplicated..."
+}
+
+dts2img()
+{
+	echo "deplicated..."
+}
+
+dtb2img()
+{
+	[ -f $dtb -a -f $kernel ] || usage
+	./mkqcomdt -i $dtb -o dt.img
+
+	#set -x
+
+	if [ ${ramdisk}x = x ]
+	then
+		./mkbootimg --kernel $kernel  \
+		    --ramdisk /dev/null \
+		    --cmdline "${KERNEL_CMD_PARAMS}" \
+		    --pagesize ${PAGE_SIZE} \
+		    --base ${KERNEL_BASE} \
+		    --dt dt.img \
+		    --tags-addr ${KERNEL_TAGS_OFFSET} \
+		    --output boot.img
+	else
+		./mkbootimg --kernel $kernel \
+		    --ramdisk $ramdisk  \
+		    --cmdline "${KERNEL_CMD_PARAMS}"  \
+		    --pagesize ${PAGE_SIZE}  \
+		    --base ${KERNEL_BASE}  \
+		    --ramdisk_offset ${RAMDISK_OFFSET} \
+		    --dt dt.img  \
+		    --tags-addr ${KERNEL_TAGS_OFFSET} \
+		    --output boot.img
+	fi
+	mkdir -p target
+	mv boot.img target/mdm9607-perf-boot.img
+	echo "############# generate mdm9607-perf-boot.img into target/ directory ###############"
+}
+
+clean()
+{
+	rm -rf *.img *.dts *.dtb zImage target
+}
+
+usage()
+{
+cat << EOF
+Usage:
+	./quec_mkboot dtb2img  dtb_file zimage
+	./quec_mkboot dtb2img  dtb_file zimage  ramdisk
+	./quec_mkboot clean all
+EOF
+exit
+}
+
+
+
+# start here
+[ $# -ge 2 ] || usage
+
+arg0=$0
+arg1=$1
+
+dts=$2
+dtimg=$2
+dtb=$2
+
+kernel=$3
+ramdisk=$4
+
+output_bootimg="unauth_boot.img"
+
+
+case $arg1 in
+	img2dts | dts2img | dtb2img | clean)
+		$arg1
+		;;
+	*)
+		usage
+		;;
+esac

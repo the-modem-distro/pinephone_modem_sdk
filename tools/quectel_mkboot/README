@@ -1,0 +1,24 @@
+Usage:
+	./quec_mkboot img2dts img_file
+	./quec_mkboot dts2img dts_file
+	./quec_mkboot dtb2img dtb_file
+	./quec_mkboot clean all
+
+1.Without kernel source codes
+steps:
+	a) clean: Command: ./quec_mkboot clean all
+	b) copy boot.img into current directory
+	c) generate dts file, Command: ./quec_mkboot img2dts <img_file>
+	d) according to your requirements, modify the dts file which has been generated in step b)
+	e) generate new boot.img, Command: ./quec_mkboot dts2img <dts_file>
+	f) burn the new boot.img
+
+2.With kernel source code
+If you modify the kernel source codes
+steps:
+	a) clean: Command: ./quec_mkboot clean all
+	b) according develop guide document, you can compile the kernel to get: zImage and mdm9607-mtp.dtb
+	c) copy the zImage and mdm9607-mtp.dtb into current directory
+	d) generate boot.img, Command: ./quec_mkboot dtb2img <dtb_file>
+	e) burn the boot.img
+	

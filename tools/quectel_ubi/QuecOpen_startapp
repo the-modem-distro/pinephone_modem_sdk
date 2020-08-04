@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+#  Copyright (C) 2016-2020 Quectel Wireless Co.,Ltd. 
+#  Quectel Wireless Proprietary and Confidential.
+# -----------------------------------------------
+#
+# Description: 
+#   init.d script for Quectel QuecOpen application.
+#
+# Created by Stanely.YONG
+#
+#############################################################
+#
+
+set -e
+
+# here user can indicate the user app path
+AppProgram=/data/QuecOpen/helloworld
+
+case "$1" in
+       start)
+                if ! [ -f $AppProgram ]
+                then
+                    echo "### QuecOpen Application doesn't exist ###"
+                    exit 3
+                fi
+                echo -n ">>> Starting QuecOpen application: "
+#                start-stop-daemon -S -b -a $AppProgram
+                $AppProgram &
+                echo "done"
+                ;;
+       stop)
+                echo -n "Stopping quectel daemon: "
+                start-stop-daemon -K -n AppImageBinV01
+                echo "done"
+                ;;
+       restart)
+                $0 stop
+                $0 start
+                ;;
+       *)
+                echo "Usage: QuecOpen_startapp { start | stop | restart }" >&2
+                exit 1
+                ;;
+esac
+
+exit 0
