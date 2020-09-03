@@ -57,7 +57,7 @@ echo "Now get the kernel source"
 if [ ! -d "poky/kernel/linux-3.18" ]
 then
     echo "Cloning Kernel repository"
-    git clone https://github.com/Biktorgj/quectel_eg25_kernel.git
+    git clone https://github.com/Biktorgj/quectel_eg25_kernel.git yocto/kernel/linux-3.18
 else
     echo "Pulling latest changes from the kernel"
     cd poky/kernel/linux-3.18 && git pull && cd ..
