@@ -8,12 +8,13 @@ YOCTO_PATH:=$(CURRENT_PATH)/yocto
 NUM_THREADS?=12
 # Cross compile
 CROSS_COMPILE:=$(CURRENT_PATH)/tools/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-
-
 $(shell mkdir -p target)
-all: help
-everything: kernel_menuconfig aboot kernel kernel_module rootfs
 
 export ARCH=arm
+
+all: help
+everything: aboot_signed kernel root_fs
+
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
 	@echo "------------------------------------"
@@ -44,15 +45,14 @@ aboot_signed:
 	cp $(CURRENT_PATH)/target/signwk/9607/appsboot/appsboot.mbn $(CURRENT_PATH)/target
 
 kernel:
-	cd $(YOCTO_PATH) && \
-	source ./oe-init-build-env && bitbake virtual/kernel && \
-	cp build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
+	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
+	bitbake virtual/kernel && \
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target || exit 1
 
-rootfs:
-	cd $(YOCTO_PATH) && \
-	source $(YOCTO_PATH)/oe-init-build-env && \
+root_fs:
+	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
-	cp build/tmp/deploy/images/mdm9607/* $(CURRENT_PATH)/target
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/* $(CURRENT_PATH)/target || exit 1
 
 clean: aboot/clean kernel/clean
 
