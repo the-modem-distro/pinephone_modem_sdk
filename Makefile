@@ -54,14 +54,23 @@ root_fs:
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/* $(CURRENT_PATH)/target || exit 1
 
-clean: aboot/clean kernel/clean
+clean: aboot_clean target_clean yocto_clean yocto_cleancache
 
-aboot/clean:
+target_extract:
+	rm -rf $(CURRENT_PATH)/target/dump ; \
+	mkdir $(CURRENT_PATH)/target/dump && \
+	cd $(CURRENT_PATH)/target/dump && \
+	tar xzvf ../core-image-minimal-mdm9607.tar.gz
+
+target_clean:
+	rm -rf $(CURRENT_PATH)/target && mkdir $(CURRENT_PATH)/target
+
+aboot_clean:
 	rm -rf $(APPSBOOT_PATH)/build-mdm9607
 	rm -rf target/appsboot.mbn
 
-yocto/clean:
-	rm -rf build/tmp
+yocto_clean:
+	rm -rf $(YOCTO_PATH)/build/tmp
 
-yocto/cleancache:
-	rm -rf build/sstate-cache
+yocto_cleancache:
+	rm -rf $(YOCTO_PATH)/build/sstate-cache
