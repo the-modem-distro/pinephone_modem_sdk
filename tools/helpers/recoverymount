@@ -1,0 +1,6 @@
+#!/bin/sh
+# Push this into Quectel's OS
+# to mount the recovery partition and play with it
+mkdir -p /recovery
+ubiattach -m 13 -d 3 /dev/ubi_ctrl 
+mount -t ubifs /dev/ubi3_0 /recovery
