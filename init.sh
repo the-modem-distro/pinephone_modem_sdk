@@ -68,7 +68,7 @@ if [ ! -d "build" ]
 then
     echo "Initializing poky and copying the configuration file"
     source $BASE_PATH/yocto/oe-init-build-env $BASE_PATH/yocto/build && \
-    cp ../../tools/config/poky/local.conf conf/ && \
+    cp ../../tools/config/poky/rootfs.conf conf/ && \
     bitbake-layers add-layer ../meta-qcom  && \
     bitbake-layers add-layer ../meta-openembedded/meta-oe && \
     bitbake-layers add-layer ../meta-python2

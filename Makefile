@@ -50,17 +50,35 @@ kernel:
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target || exit 1
 
 root_fs:
+	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
+	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/* $(CURRENT_PATH)/target || exit 1
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
+	rm $(YOCTO_PATH)/build/conf/local.conf
+	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf 
+
+recovery_fs:
+	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
+	cp $(CURRENT_PATH)/tools/config/poky/recovery.conf $(YOCTO_PATH)/build/conf/local.conf
+	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
+	bitbake core-image-minimal && \
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/recoveryfs.ubi && \
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target/recovery.img
+	rm $(YOCTO_PATH)/build/conf/local.conf
+	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf 
+
 
 clean: aboot_clean target_clean yocto_clean yocto_cleancache
 
 target_extract:
 	rm -rf $(CURRENT_PATH)/target/dump ; \
-	mkdir $(CURRENT_PATH)/target/dump && \
-	cd $(CURRENT_PATH)/target/dump && \
-	tar xzvf ../core-image-minimal-mdm9607.tar.gz
+	mkdir -p $(CURRENT_PATH)/target/dump/rootfs ; \
+	mkdir -p $(CURRENT_PATH)/target/dump/recoveryfs ; \
+	python3 $(CURRENT_PATH)/tools/ubidump/ubidump.py $(CURRENT_PATH)/target/rootfs-mdm9607.ubi --savedir $(CURRENT_PATH)/target/dump/rootfs
+	python3 $(CURRENT_PATH)/tools/ubidump/ubidump.py $(CURRENT_PATH)/target/recoveryfs.ubi --savedir $(CURRENT_PATH)/target/dump/recoveryfs
+	
 
 target_clean:
 	rm -rf $(CURRENT_PATH)/target && mkdir $(CURRENT_PATH)/target
