@@ -19,7 +19,6 @@ done
 echo 1 > /sys/class/gpio/gpio232/value
 echo 1 > /sys/class/gpio/gpio68/value && sleep 1 && echo 0 > /sys/class/gpio/gpio68/value 
 fastboot flash boot mdm9607-boot.img
-fastboot flash system mdm9607-sysfs.ubi
+fastboot flash system rootfs-mdm9607.ubi
 echo 0 > /sys/class/gpio/gpio232/value && sleep 1
 fastboot reboot
-#echo 1 > /sys/class/gpio/gpio68/value && sleep 1 && echo 0 > /sys/class/gpio/gpio68/value
