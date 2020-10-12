@@ -13,7 +13,7 @@ $(shell mkdir -p target)
 export ARCH=arm
 
 all: help
-everything: aboot_signed kernel root_fs
+everything: aboot_signed root_fs recovery_fs package
 
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
@@ -24,7 +24,12 @@ help:
 	@echo "    make aboot : It will build the LK bootloader"
 	@echo "    make aboot_signed : It will build the LK bootloader and sign it with Qcom sectools, if available (run make help-sectools)"
 	@echo "    make kernel : Will build the kernel and place it in /target"
-	@echo "    make rootfs : Will build you a rootfs from Yocto"
+	@echo "    make root_fs : Will build you a rootfs from Yocto"
+	@echo "    make recovery_fs : Will build you a minimal recovery image from Yocto"
+	@echo "    make everything : Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script "
+	@echo "    ---- "
+	@echo "    make clean : Removes all the built images and temporary directories from bootloader and yocto"
+
 
 help-sectools:
 	@echo "QCom Sectools cannot be distributed since they are proprietary"
@@ -45,6 +50,8 @@ aboot_signed:
 	cp $(CURRENT_PATH)/target/signwk/9607/appsboot/appsboot.mbn $(CURRENT_PATH)/target
 
 kernel:
+	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
+	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake virtual/kernel && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target || exit 1
@@ -69,8 +76,11 @@ recovery_fs:
 	rm $(YOCTO_PATH)/build/conf/local.conf
 	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf 
 
-
-clean: aboot_clean target_clean yocto_clean yocto_cleancache
+package: 
+	cp $(CURRENT_PATH)/tools/helpers/flashall $(CURRENT_PATH)/target && \
+	cd $(CURRENT_PATH)/target && \
+	chmod +x flashall && \
+	tar czvf package.tar.gz flashall boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi
 
 target_extract:
 	rm -rf $(CURRENT_PATH)/target/dump ; \
@@ -79,9 +89,11 @@ target_extract:
 	python3 $(CURRENT_PATH)/tools/ubidump/ubidump.py $(CURRENT_PATH)/target/rootfs-mdm9607.ubi --savedir $(CURRENT_PATH)/target/dump/rootfs
 	python3 $(CURRENT_PATH)/tools/ubidump/ubidump.py $(CURRENT_PATH)/target/recoveryfs.ubi --savedir $(CURRENT_PATH)/target/dump/recoveryfs
 	
+clean: aboot_clean target_clean yocto_clean yocto_cleancache
+clean_all: aboot_clean target_clean yocto_clean yocto_cleancache yocto_cleandownloads
 
 target_clean:
-	rm -rf $(CURRENT_PATH)/target && mkdir $(CURRENT_PATH)/target
+	rm -rf $(CURRENT_PATH)/target && mkdir -p $(CURRENT_PATH)/target/dump
 
 aboot_clean:
 	rm -rf $(APPSBOOT_PATH)/build-mdm9607
@@ -92,3 +104,6 @@ yocto_clean:
 
 yocto_cleancache:
 	rm -rf $(YOCTO_PATH)/build/sstate-cache
+
+yocto_cleandownloads:
+	rm -rf $(YOCTO_PATH)/build/downloads
