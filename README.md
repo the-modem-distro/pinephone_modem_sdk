@@ -40,7 +40,7 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
       * Jump to...
         * Fastboot mode: OK (fastboot reboot-bootloader)
         * DLOAD Mode: NO (fastboot oem reboot-emergency): Pending
-        * Recovery mode: NO (fastboot oem reboot-recovery): In progress
+        * Recovery mode: OK (fastboot oem reboot-recovery)
 * Quectel Kernel:
 	* Building: Works
 	* Booting: Works
@@ -49,22 +49,24 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
 		* Sleep: Partially working with custom image, tends to have issues waking usb back from suspend when >3 hours in sleep mode
 * CAF Kernel:
 	* Building: Works
-	* Booting: Works... sort of
-		* USB Peripheral mode: usb gadget working, adb supported though it sometimes doesnt completely start
-		* Modem: Firmware uploading works, rest is crashing when you attempt to start it
+	* Booting: Works
+		* USB Peripheral mode: Mostly working, right now issue with ADB but WWAN interface is working
+		* Modem (ADSP): Firmware loading, booting, data and calling work.
+    * Audio: Not working
+    * Ring In: Not working (doesn't send the signal when there's an incoming call in progress)
 		* Sleep: Some parts of it are working, but ring_in and all that stuff isn't really implemented yet. About 26hours of battery runtime with the modem in zombie mode
 * Yocto:
 	* Two images available: root_fs and recovery_fs
         * root_fs: Includes all Quectel and Qualcomm binary blobs, patched to work with a newer glibc (more or less)
-                - Problems with libcrypt in atfwd_daemon. Everything has been compiled with older libraries, path to make it fully work is still WIP
         * recovery_fs: Minimal bootable image to be flashed into the recovery MTD partitions to retrieve logs and make changes to the root image
 
 
-
 Next steps:
- 1. Debug why PSM sometimes fails to find the modem image (maybe the partition is mounted after PSM has started?)
- 2. Debug why USB doesn't always start (but sometimes it does)
- 3. Find a way to actually start the atfwd daemon, or find newer libraries which haven't been compiled for a 4 year old distro
+ 1. Try to fix ADB again
+ 2. Try to fix audio
+ 3. Fix Ring_in so you can receive calls
+ 4. Check power management
+ 5. Cleanup as many blobs as possible (take out all that isn't really required)
 
 NOTES:
 Inside meta-qcom there are now 3 proprietary recipes:
@@ -73,4 +75,4 @@ Inside meta-qcom there are now 3 proprietary recipes:
     * proprietary-libraries: Shared libraries between both
 
 All these libraries and binaries have been compiled with an older GLIBC and all of them have been patched to _not complain_ with glibc 2.37, as bundled
-with Yocto 3.1 release with _patchelf_. 
+with Yocto 3.1 release with _patchelf_.
