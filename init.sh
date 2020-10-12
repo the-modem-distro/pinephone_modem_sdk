@@ -77,8 +77,6 @@ then
     bitbake-layers add-layer ../meta-openembedded/meta-python && \
     bitbake-layers add-layer ../meta-openembedded/meta-networking && \
     bitbake-layers add-layer ../meta-python2
-    # Build the toolchain on init so we have the tools ready to do other stuff
-    bitbake meta-toolchain
 fi
 
 echo " Now run make without arguments to see what you can build"
