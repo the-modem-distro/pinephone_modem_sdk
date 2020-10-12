@@ -51,7 +51,9 @@ if [ ! -d "yocto/meta-openembedded" ]
 then
     echo "Adding meta-oe"
    # git clone git://git.openembedded.org/meta-openembedded yocto/meta-openembedded
-   git clone https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
+   git clone -b dunfell https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
+   # Meta python requires core version 12 or higher but still works with core version 11 (yocto 3.1)
+   sed -i 's/>= 12/>= 11/g' yocto/meta-openembedded/meta-python/conf/layer.conf
 fi
 
 echo "Getting the ARM toolchain to be able to compile LK"
@@ -72,6 +74,7 @@ then
     cp ../../tools/config/poky/rootfs.conf conf/ && \
     bitbake-layers add-layer ../meta-qcom  && \
     bitbake-layers add-layer ../meta-openembedded/meta-oe && \
+    bitbake-layers add-layer ../meta-openembedded/meta-python && \
     bitbake-layers add-layer ../meta-openembedded/meta-networking && \
     bitbake-layers add-layer ../meta-python2
     # Build the toolchain on init so we have the tools ready to do other stuff
