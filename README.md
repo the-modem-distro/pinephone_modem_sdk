@@ -50,10 +50,10 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
 * CAF Kernel:
 	* Building: Works
 	* Booting: Works
-		* USB Peripheral mode: Mostly working, right now issue with ADB but WWAN interface is working
+		* USB Peripheral mode: WWAN + GPS + ADB
 		* Modem (ADSP): Firmware loading, booting, data and calling work.
-    * Audio: Not working
-    * Ring In: Not working (doesn't send the signal when there's an incoming call in progress)
+    * Audio: Half working. Earpiece works but microphone doesn't seem to. Needs more testing
+    * Ring In: RI Signal works, depending on distro it shows the incoming call or not. Needs more testing
 		* Sleep: Some parts of it are working, but ring_in and all that stuff isn't really implemented yet. About 26hours of battery runtime with the modem in zombie mode
 * Yocto:
 	* Two images available: root_fs and recovery_fs
@@ -62,14 +62,13 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
 
 
 Next steps:
- 1. Try to fix ADB again
- 2. Try to fix audio
- 3. Fix Ring_in so you can receive calls
- 4. Check power management
- 5. Cleanup as many blobs as possible (take out all that isn't really required)
+ 1. Audio. Don't really know if the problem is in the modem side or in the distro's userspace, check with other distros
+ 2. RingIn: Check with latest builds of Mobian, UBPorts and pmOS if Ring In is working and it's just my install
+ 3. Check power management. If you have GPS + DATA it gets quite hot
+ 4. Cleanup as many blobs as possible (take out all that isn't really required)
 
 NOTES:
-Inside meta-qcom there are now 3 proprietary recipes:
+Inside meta-qcom there are 3 proprietary recipes:
     * qualcomm-proprietary: All the Qualcomm blobs
     * quectel-proprietary: Quectel management server and client with some more libraries
     * proprietary-libraries: Shared libraries between both
