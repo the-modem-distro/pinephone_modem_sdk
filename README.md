@@ -52,7 +52,7 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
 	* Booting: Works
 		* USB Peripheral mode: WWAN + GPS + ADB
 		* Modem (ADSP): Firmware loading, booting, data and calling work.
-    * Audio: Half working. Earpiece works but microphone doesn't seem to. Needs more testing
+    * Audio: Should be working (tested with headset as my mic is broken)
     * Ring In: RI Signal works, depending on distro it shows the incoming call or not. Needs more testing
 		* Sleep: Some parts of it are working, but ring_in and all that stuff isn't really implemented yet. About 26hours of battery runtime with the modem in zombie mode
 * Yocto:
@@ -62,11 +62,11 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
 
 
 Next steps:
- 1. Audio. Don't really know if the problem is in the modem side or in the distro's userspace, check with other distros
- 2. RingIn: Check with latest builds of Mobian, UBPorts and pmOS if Ring In is working and it's just my install
- 3. Check power management. If you have GPS + DATA it gets quite hot
- 4. Cleanup as many blobs as possible (take out all that isn't really required)
-
+ 1. RingIn: Check with latest builds of Mobian, UBPorts and pmOS if Ring In is working and it's just my install
+ 2. Check power management. If you have GPS + DATA it gets quite hot
+ 3. Cleanup as many blobs as possible (take out all that isn't really required)
+ 4. Another cleaning in the device tree and unnecessary kernel drivers would be welcome
+ 
 NOTES:
 Inside meta-qcom there are 3 proprietary recipes:
     * qualcomm-proprietary: All the Qualcomm blobs
