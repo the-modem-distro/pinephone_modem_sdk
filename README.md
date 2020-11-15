@@ -41,20 +41,19 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
         * Fastboot mode: OK (fastboot reboot-bootloader)
         * DLOAD Mode: NO (fastboot oem reboot-emergency): Pending
         * Recovery mode: OK (fastboot oem reboot-recovery)
-* Quectel Kernel:
-	* Building: Works
-	* Booting: Works
-		* USB Working with custom image based in original firmware
-		* Modem: Working with custom image based in original firmware
-		* Sleep: Partially working with custom image, tends to have issues waking usb back from suspend when >3 hours in sleep mode
 * CAF Kernel:
 	* Building: Works
 	* Booting: Works
-		* USB Peripheral mode: WWAN + GPS + ADB
+		* USB Peripheral mode: Audio, WWAN, GPS and ADB are working
 		* Modem (ADSP): Firmware loading, booting, data and calling work.
-    * Audio: Should be working (tested with headset as my mic is broken)
-    * Ring In: RI Signal works, depending on distro it shows the incoming call or not. Needs more testing
-		* Sleep: Some parts of it are working, but ring_in and all that stuff isn't really implemented yet. About 26hours of battery runtime with the modem in zombie mode
+    * Audio: Working
+    * Ring In: Works correctly when setting the modem to report RING to all interfaces. You can do this by sending the following command to the modem:
+      * AT+QURCCFG:"urcport","all"
+      * You can also make this permanent by editing "pinephone-modem-setup.sh" and replacing the following line:
+        * configure_modem "QURCCFG" '"urcport","usbat"' to
+        * configure_modem "QURCCFG" '"urcport","all"'
+      * I need to investigate where is the USB driver not passing it through (if it really is or is another issue, for sure it is kernel related)
+		* Sleep: About 23-26 hours of runtime, consistent with Quectel's kernel
 * Yocto:
 	* Two images available: root_fs and recovery_fs
         * root_fs: Includes all Quectel and Qualcomm binary blobs, patched to work with a newer glibc (more or less)
@@ -62,10 +61,9 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
 
 
 Next steps:
- 1. RingIn: Check with latest builds of Mobian, UBPorts and pmOS if Ring In is working and it's just my install
- 2. Check power management. If you have GPS + DATA it gets quite hot
- 3. Cleanup as many blobs as possible (take out all that isn't really required)
- 4. Another cleaning in the device tree and unnecessary kernel drivers would be welcome
+ 1. Check power management. If you have GPS + DATA it gets quite hot
+ 2. Cleanup as many blobs as possible (take out all that isn't really required)
+ 3. Another cleaning in the device tree and unnecessary kernel drivers would be welcome
  
 NOTES:
 Inside meta-qcom there are 3 proprietary recipes:
