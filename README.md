@@ -54,6 +54,7 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
         * configure_modem "QURCCFG" '"urcport","all"'
       * I need to investigate where is the USB driver not passing it through (if it really is or is another issue, for sure it is kernel related)
 		* Sleep: About 23-26 hours of runtime, consistent with Quectel's kernel
+    * Modem services no longer run as root
 * Yocto:
 	* Two images available: root_fs and recovery_fs
         * root_fs: Includes all Quectel and Qualcomm binary blobs, patched to work with a newer glibc (more or less)
@@ -64,6 +65,7 @@ Next steps:
  1. Check power management. If you have GPS + DATA it gets quite hot
  2. Cleanup as many blobs as possible (take out all that isn't really required)
  3. Another cleaning in the device tree and unnecessary kernel drivers would be welcome
+ 4. Some of the modem services need the ability to create network sockets, and fail if they aren't run as root. I added the capability for them while running as the mdmuser to all of them to avoid breaking anything. Next on the line is removing those permissions one by one and only keep them on those binaries that really need it
  
 NOTES:
 Inside meta-qcom there are 3 proprietary recipes:
