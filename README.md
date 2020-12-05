@@ -55,6 +55,7 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
       * I need to investigate where is the USB driver not passing it through (if it really is or is another issue, for sure it is kernel related)
 		* Sleep: About 23-26 hours of runtime, consistent with Quectel's kernel
     * Modem services no longer run as root
+    * Non persistent data partition (now there's no way of corrupting anything when killing the modem)
 * Yocto:
 	* Two images available: root_fs and recovery_fs
         * root_fs: Includes all Quectel and Qualcomm binary blobs, patched to work with a newer glibc (more or less)
