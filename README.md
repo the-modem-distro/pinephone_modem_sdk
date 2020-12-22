@@ -37,10 +37,14 @@ Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yo
       * Debugging: Via debug pins
       * Signals and custom boot modes via GPIO pins: OK
         * Check tools/helpers for scripts to force boot into fastboot or out of it
+      * Fastboot auto entering: OK
+	* On reset, the bootloader enters into fastboot mode automatically for 5 seconds, and boots normally unless instructed to stay.
+	* On reset, run _fastboot oem stay_ to stay in fastboot mode to flash the modem
       * Jump to...
         * Fastboot mode: OK (fastboot reboot-bootloader)
         * DLOAD Mode: NO (fastboot oem reboot-emergency): Pending
         * Recovery mode: OK (fastboot oem reboot-recovery)
+   ** If there's a functionality you would like to see in the modem, drop me a message and I'll see what I can do **
 * CAF Kernel:
 	* Building: Works
 	* Booting: Works
