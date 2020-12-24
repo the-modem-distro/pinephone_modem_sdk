@@ -5,13 +5,13 @@
 #### Requirements
 Before you can use this make sure your OS has all the packages needed by Yocto
 
-Check them out here: https://www.yoctoproject.org/docs/2.4.2/yocto-project-qs/yocto-project-qs.html
+Check them out here: https://docs.yoctoproject.org/singleindex.html
 
 #### How to use
 
 1.	Clone this repository in your computer
 2.	Go to the folder where you downloaded your copy and run ./init.sh
-3.	The script will download the LK bootloader, arm toolchain, Yocto 3.1 build environment and all the layers required to biild a bootanle sysyem.
+3.	The script will download the LK bootloader, arm toolchain, Yocto 3.2 build environment and all the layers required to biild a bootanle sysyem.
 4.	Run make, without arguments, to see what you can build:
     - Make aboot: build the LK bootloader but don’t sign it
     - Make aboot_signed: same as above, but sign it with Sectools (if available, sectools is not provided here to respect Qualcomm’s license)
@@ -79,4 +79,4 @@ Inside meta-qcom there are 3 proprietary recipes:
     * proprietary-libraries: Shared libraries between both
 
 All these libraries and binaries have been compiled with an older GLIBC and all of them have been patched to _not complain_ with glibc 2.37, as bundled
-with Yocto 3.1 release with _patchelf_.
+with Yocto 3.2 release with _patchelf_.

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASE_PATH=`pwd`
 mkdir -p target
 mkdir -p rootfs
@@ -21,7 +21,7 @@ then
     echo "Cloning Yocto repository from the Yocto Project"
     git clone git://git.yoctoproject.org/poky yocto && \
     cd yocto && \
-    git checkout tags/yocto-3.1 -b my-yocto-3.1
+    git checkout tags/yocto-3.2 -b my-yocto-3.2
     cd $BASE_PATH
 else
     echo "Yocto is already there"
@@ -51,9 +51,7 @@ if [ ! -d "yocto/meta-openembedded" ]
 then
     echo "Adding meta-oe"
    # git clone git://git.openembedded.org/meta-openembedded yocto/meta-openembedded
-   git clone -b dunfell https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
-   # Meta python requires core version 12 or higher but still works with core version 11 (yocto 3.1)
-   sed -i 's/>= 12/>= 11/g' yocto/meta-openembedded/meta-python/conf/layer.conf
+   git clone -b gatesgarth https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
 fi
 
 echo "Getting the ARM toolchain to be able to compile LK"

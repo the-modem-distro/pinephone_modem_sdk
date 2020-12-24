@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 # Paths - Remember to first run the script "initialize_repositories.sh" to download
 # both the ARM toolchain and the source code repositories
 # Need to fix all this since I'm moving almost everything to the yocto build tree, why make it twice?
