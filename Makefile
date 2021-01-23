@@ -1,7 +1,6 @@
 SHELL := /bin/bash
 # Paths - Remember to first run the script "initialize_repositories.sh" to download
 # both the ARM toolchain and the source code repositories
-# Need to fix all this since I'm moving almost everything to the yocto build tree, why make it twice?
 CURRENT_PATH:=$(shell pwd)
 APPSBOOT_PATH:=$(CURRENT_PATH)/quectel_lk
 YOCTO_PATH:=$(CURRENT_PATH)/yocto
@@ -14,7 +13,7 @@ $(shell mkdir -p target)
 export ARCH=arm
 
 all: help
-everything: aboot_signed root_fs recovery_fs packagewldr
+everything: aboot root_fs recovery_fs packagewldr
 
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
@@ -60,16 +59,6 @@ kernel:
 root_fs:
 	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
 	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
-	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
-	bitbake core-image-minimal && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
-	rm $(YOCTO_PATH)/build/conf/local.conf
-	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf 
-
-root_fs_full:
-	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
-	cp $(CURRENT_PATH)/tools/config/poky/rootfs_full.conf $(YOCTO_PATH)/build/conf/local.conf
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
