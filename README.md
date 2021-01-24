@@ -49,7 +49,7 @@ Check them out here: https://docs.yoctoproject.org/singleindex.html
 	* Building: Works
 	* Booting: Works
 		* USB Peripheral mode: Audio, WWAN, GPS and ADB are working
-		* Modem (ADSP): Firmware loading, booting, data and calling work.
+		* Modem (ADSP): Firmware loading, booting, data and calling works.
     * Audio: Working
     * Ring In: Works correctly when setting the modem to report RING to all interfaces. You can do this by sending the following command to the modem:
       * AT+QURCCFG:"urcport","all"
@@ -60,9 +60,9 @@ Check them out here: https://docs.yoctoproject.org/singleindex.html
 		* Sleep: About 23-26 hours of runtime, consistent with Quectel's kernel
     * Modem services no longer run as root
     * Non persistent data partition (now there's no way of corrupting anything when killing the modem)
-* Yocto:
+* System images:
 	* Two images available: root_fs and recovery_fs
-        * root_fs: Includes all Quectel and Qualcomm binary blobs, patched to work with a newer glibc (more or less)
+        * root_fs: From now on, by default rootfs won't include any proprietary blobs. In practice and at this point in development, this makes calls unusable because audio routing is not implemented yet. Opensource replacements for closed binaries only include "openirscutil" (to handle IPC router security) and "openqti" (modem initialization and QMI passthrough). This allows the modem to work for data related functions
         * recovery_fs: Minimal bootable image to be flashed into the recovery MTD partitions to retrieve logs and make changes to the root image
 
 
