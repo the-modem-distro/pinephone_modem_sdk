@@ -58,6 +58,7 @@ kernel:
 
 root_fs:
 	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
+	rm -rf $(YOCTO_PATH)/build/tmp
 	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
@@ -68,6 +69,7 @@ root_fs:
 
 recovery_fs:
 	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
+	rm -rf $(YOCTO_PATH)/build/tmp
 	cp $(CURRENT_PATH)/tools/config/poky/recovery.conf $(YOCTO_PATH)/build/conf/local.conf
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
@@ -80,12 +82,7 @@ package:
 	cp $(CURRENT_PATH)/tools/helpers/flashall $(CURRENT_PATH)/target && \
 	cd $(CURRENT_PATH)/target && \
 	chmod +x flashall && \
-	tar czvf package.tar.gz flashall boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi
-packagewldr: 
-	cp $(CURRENT_PATH)/tools/helpers/flashall $(CURRENT_PATH)/target && \
-	cd $(CURRENT_PATH)/target && \
-	chmod +x flashall && \
-	tar czvf package.tar.gz flashall appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi
+	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi
 
 target_extract:
 	rm -rf $(CURRENT_PATH)/target/dump ; \
