@@ -13,7 +13,7 @@ $(shell mkdir -p target)
 export ARCH=arm
 
 all: help
-everything: aboot root_fs recovery_fs packagewldr
+everything: aboot root_fs recovery_fs package
 
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
