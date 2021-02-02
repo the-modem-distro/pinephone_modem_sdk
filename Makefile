@@ -67,6 +67,17 @@ root_fs:
 	rm $(YOCTO_PATH)/build/conf/local.conf
 	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf 
 
+root_fs_full:
+	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
+	rm -rf $(YOCTO_PATH)/build/tmp
+	cp $(CURRENT_PATH)/tools/config/poky/rootfs_full.conf $(YOCTO_PATH)/build/conf/local.conf
+	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
+	bitbake core-image-minimal && \
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
+	rm $(YOCTO_PATH)/build/conf/local.conf
+	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf 
+
 recovery_fs:
 	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
 	rm -rf $(YOCTO_PATH)/build/tmp

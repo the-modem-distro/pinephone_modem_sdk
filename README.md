@@ -62,21 +62,23 @@ Check them out here: https://docs.yoctoproject.org/singleindex.html
     * Non persistent data partition (now there's no way of corrupting anything when killing the modem)
 * System images:
 	* Two images available: root_fs and recovery_fs
-        * root_fs: From now on, by default rootfs won't include any proprietary blobs. In practice and at this point in development, this makes calls unusable because audio routing is not implemented yet. Opensource replacements for closed binaries only include "openirscutil" (to handle IPC router security) and "openqti" (modem initialization and QMI passthrough). This allows the modem to work for data related functions
+        * root_fs: From now on, by default rootfs won't include any proprietary blobs. In practice and at this point in development, this makes calls only half usable because internal DSP volume is quite low, and there's a lingering issue with some distros and URC port settings, which at this point is impossible to set without blobs. Opensource replacements for closed binaries only include "openirscutil" (to handle IPC router security) and "openqti" (modem initialization and QMI passthrough). This allows the modem to work for at least outgoing audio calls and 3G/LTE data
         * recovery_fs: Minimal bootable image to be flashed into the recovery MTD partitions to retrieve logs and make changes to the root image
 
 
 Next steps:
  1. Check power management. If you have GPS + DATA it gets quite hot
- 2. Cleanup as many blobs as possible (take out all that isn't really required)
- 3. Another cleaning in the device tree and unnecessary kernel drivers would be welcome
- 4. Some of the modem services need the ability to create network sockets, and fail if they aren't run as root. I added the capability for them while running as the mdmuser to all of them to avoid breaking anything. Next on the line is removing those permissions one by one and only keep them on those binaries that really need it
+ 2. Another cleaning in the device tree and unnecessary kernel drivers would be welcome
+ 3. Continue development of OpenQTI so it does handle everything it needs to without problems
  
 NOTES:
-Inside meta-qcom there are 3 proprietary recipes:
+Proprietary recipes
     * qualcomm-proprietary: All the Qualcomm blobs
     * quectel-proprietary: Quectel management server and client with some more libraries
     * proprietary-libraries: Shared libraries between both
 
 All these libraries and binaries have been compiled with an older GLIBC and all of them have been patched to _not complain_ with glibc 2.37, as bundled
 with Yocto 3.2 release with _patchelf_.
+Opensource recipes:
+  * openirscutil: Sets access for all DSP services to a specific user
+  * openqti: Initializes the modem, handles audio in calls and can optionally dump all packets passing between rmnet_ctl and smdcntl8
