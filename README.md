@@ -7,6 +7,14 @@ Before you can use this make sure your OS has all the packages needed by Yocto
 
 Check them out here: https://docs.yoctoproject.org/singleindex.html
 
+#### Dependencies
+This project depends on the following repositories:
+* LK - Little Kernel bootloader: https://github.com/Biktorgj/quectel_lk
+* Downstream 3.18.140 Kernel based on CAF: https://github.com/Biktorgj/quectel_eg25_kernel
+* Forked meta-qcom repository: https://github.com/Biktorgj/meta-qcom
+Make sure you have your recoveries ready just in case:
+* Quectel EG25 firmware repo: https://github.com/Biktorgj/quectel_eg25_recovery
+
 #### How to use
 
 1.	Clone this repository in your computer
@@ -48,7 +56,7 @@ Check them out here: https://docs.yoctoproject.org/singleindex.html
 * CAF Kernel:
 	* Building: Works
 	* Booting: Works
-		* USB Peripheral mode: Audio, WWAN, GPS and ADB are working
+		* USB Peripheral mode: WWAN, GPS and ADB are working
 		* Modem (ADSP): Firmware loading, booting, data and calling works.
     * Audio: Working
     * Ring In: Works correctly when setting the modem to report RING to all interfaces. You can do this by sending the following command to the modem:
@@ -57,20 +65,19 @@ Check them out here: https://docs.yoctoproject.org/singleindex.html
         * configure_modem "QURCCFG" '"urcport","usbat"' to
         * configure_modem "QURCCFG" '"urcport","all"'
       * I need to investigate where is the USB driver not passing it through (if it really is or is another issue, for sure it is kernel related)
-		* Sleep: About 23-26 hours of runtime, consistent with Quectel's kernel
-    * Modem services no longer run as root
+    * Sleep / Power management: The kernel is always running in low power mode now, this should make the Pinephone consume between 1.12%-1.89% battery on suspend, giving a max runtime on a battery charge of 78 hours / 3 days if there's nothing waking it up, in par with factory firmware with ADB disabled.
     * Non persistent data partition (now there's no way of corrupting anything when killing the modem)
 * System images:
-	* Two images available: root_fs and recovery_fs
-        * root_fs: From now on, by default rootfs won't include any proprietary blobs. In practice and at this point in development, this makes calls only half usable because internal DSP volume is quite low, and there's a lingering issue with some distros and URC port settings, which at this point is impossible to set without blobs. Opensource replacements for closed binaries only include "openirscutil" (to handle IPC router security) and "openqti" (modem initialization and QMI passthrough). This allows the modem to work for at least outgoing audio calls and 3G/LTE data
+	* Three images available: root_fs and recovery_fs
+        * root_fs: From now on, by default rootfs won't include any proprietary blobs. In practice and at this point in development, this makes calls unstable because audio routing is handled by some ugly hacks. In my limited testing capacity they work all the time, but ymmv. Opensource replacements for closed binaries only include "openirscutil" (to handle IPC router security)  "openqti" (modem initialization, audio configuration and QMI passthrough) and "openatfwd", which is not really implemented yet but only used as a learning exercise. These two applications set up the modem enough to make calls, have 4G data and make the AGPS work. Not tested GPS/GNSS due to lack of time, but it probably works too, as it apparently doesn't need anything in the userspace
+        * root_fs_full: Rootfs with all Qualcomm and Quectel blobs. Takes the fun out of it
         * recovery_fs: Minimal bootable image to be flashed into the recovery MTD partitions to retrieve logs and make changes to the root image
 
 
 Next steps:
- 1. Check power management. If you have GPS + DATA it gets quite hot
- 2. Another cleaning in the device tree and unnecessary kernel drivers would be welcome
- 3. Continue development of OpenQTI so it does handle everything it needs to without problems
- 
+ 1. Continue development of OpenQTI so it does handle everything it needs to without problems
+ 2. Continue development of OpenATFWD so we can register our own AT commands and subscribe to modem's notifications
+
 NOTES:
 Proprietary recipes
     * qualcomm-proprietary: All the Qualcomm blobs

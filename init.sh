@@ -50,7 +50,6 @@ echo "Fetching meta-openembedded (to provide support to meta-python2)"
 if [ ! -d "yocto/meta-openembedded" ]
 then
     echo "Adding meta-oe"
-   # git clone git://git.openembedded.org/meta-openembedded yocto/meta-openembedded
    git clone -b gatesgarth https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
 fi
 
@@ -77,4 +76,5 @@ then
     bitbake-layers add-layer ../meta-python2
 fi
 
+cp tools/config/poky/rootfs.conf yocto/build/conf/
 echo " Now run make without arguments to see what you can build"
