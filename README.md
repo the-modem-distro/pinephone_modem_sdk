@@ -80,9 +80,9 @@ Next steps:
 
 NOTES:
 Proprietary recipes
-    * qualcomm-proprietary: All the Qualcomm blobs
-    * quectel-proprietary: Quectel management server and client with some more libraries
-    * proprietary-libraries: Shared libraries between both
+  * qualcomm-proprietary: All the Qualcomm blobs
+  * quectel-proprietary: Quectel management server and client with some more libraries
+  * proprietary-libraries: Shared libraries between both
 
 All these libraries and binaries have been compiled with an older GLIBC and all of them have been patched to _not complain_ with glibc 2.37, as bundled
 with Yocto 3.2 release with _patchelf_.
