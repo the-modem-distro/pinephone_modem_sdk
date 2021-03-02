@@ -77,6 +77,7 @@ Make sure you have your recoveries ready just in case:
 Next steps:
  1. Continue development of OpenQTI so it does handle everything it needs to without problems
  2. Continue development of OpenATFWD so we can register our own AT commands and subscribe to modem's notifications
+ 3. Fix GPS: A-GPS works, but GPS can be started but won't output any data over it's USB port, probably because it can't be properly set up from userspace because it's missing its blob
 
 NOTES:
 Proprietary recipes
@@ -84,8 +85,8 @@ Proprietary recipes
   * quectel-proprietary: Quectel management server and client with some more libraries
   * proprietary-libraries: Shared libraries between both
 
-All these libraries and binaries have been compiled with an older GLIBC and all of them have been patched to _not complain_ with glibc 2.37, as bundled
-with Yocto 3.2 release with _patchelf_.
+All these libraries and binaries have been compiled with an older GLIBC and all of them have been patched to _not complain_ with glibc 2.37, as bundled with Yocto 3.2 release with _patchelf_.
+
 Opensource recipes:
   * openirscutil: Sets access for all DSP services to a specific user
   * openqti: Initializes the modem, handles audio in calls and can optionally dump all packets passing between rmnet_ctl and smdcntl8
