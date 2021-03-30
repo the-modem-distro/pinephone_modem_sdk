@@ -84,13 +84,13 @@ All these libraries and binaries have been compiled with an older GLIBC and all 
 
 ###### Opensource recipes:
   * meta-qcom/recipes-modem/openqti: I've reimplemented everything I had separated in three different utilities into OpenQTI. This takes care of the folllowing at this point:
-   - Initialize Kernel's IPC Security settings
-   - Initialize DPM to start the required devices for QMI to pass through USB
-   - Initialize I2S settings for call audio
-   - Initialize the AT service in the DSP and register all commands
-   - Act as a proxy between modem's USB QMI and the kernel smdcntl8 node
-   - Listen to AT Commands and blindly respond OK to everything not implemented (to make userspace happy)
-   - Sniffs on the QMI port to try and detect when there's a CS/VoLTE call and enable/disable audio accordingly
+     - Initialize Kernel's IPC Security settings
+     - Initialize DPM to start the required devices for QMI to pass through USB
+     - Initialize I2S settings for call audio
+     - Initialize the AT service in the DSP and register all commands
+     - Act as a proxy between modem's USB QMI and the kernel smdcntl8 node
+     - Listen to AT Commands and blindly respond OK to everything not implemented (to make userspace happy)
+     - Sniffs on the QMI port to try and detect when there's a CS/VoLTE call and enable/disable audio accordingly
 
 #### About call audio
    My detection method is currently shit. It sniffs out whateves is going between ModemManager/oFono in the host side and the modem itself looking for certain magic packets. Everytime there's a call a packet is sent from the modem to the host indicating the call type and the phone number calling, with some other stuff. These typically look like 0x01 [CALLTYPE] 0x00 0x80 0x09 [0x02/0x06] followed by a bunch of other stuff. I'm investigating on how to actually subscribe to call events to do this nicer, but it seems to work on my limited testing capacity.
