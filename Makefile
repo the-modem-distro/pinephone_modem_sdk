@@ -43,12 +43,6 @@ aboot:
 	cd $(APPSBOOT_PATH) ; make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=1 || exit ; \
 	cp build-mdm9607/appsboot.mbn $(CURRENT_PATH)/target
 
-aboot_signed:
-	cd $(APPSBOOT_PATH) ; make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=1 || exit ; \
-	mkdir -p tools/signwk
-	python tools/sectools/sectools.py secimage -i $(CURRENT_PATH)/quectel_lk/build-mdm9607/appsboot.mbn -o $(CURRENT_PATH)/target/signwk -g appsboot -c $(CURRENT_PATH)/tools/sectools/config/9607/9607_secimage.xml -sa && \
-	cp $(CURRENT_PATH)/target/signwk/9607/appsboot/appsboot.mbn $(CURRENT_PATH)/target
-
 kernel:
 	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
 	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
