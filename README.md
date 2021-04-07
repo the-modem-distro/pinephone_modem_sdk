@@ -47,7 +47,7 @@ Make sure you have your recoveries ready just in case:
 	* On reset, run _fastboot oem stay_ to stay in fastboot mode to flash the modem
       * Jump to...
         * Fastboot mode: OK (fastboot reboot-bootloader)
-        * DLOAD Mode: NO (fastboot oem reboot-emergency): Pending
+        * DLOAD Mode: OK (fastboot oem reboot-edl)
         * Recovery mode: OK (fastboot oem reboot-recovery)
    ** If there's a functionality you would like to see in the modem, drop me a message and I'll see what I can do **
 * CAF Kernel:
@@ -93,7 +93,7 @@ All these libraries and binaries have been compiled with an older GLIBC and all 
      - Sniffs on the QMI port to try and detect when there's a CS/VoLTE call and enable/disable audio accordingly
 
 #### About call audio
-   My detection method is currently shit. It sniffs out whateves is going between ModemManager/oFono in the host side and the modem itself looking for certain magic packets. Everytime there's a call a packet is sent from the modem to the host indicating the call type and the phone number calling, with some other stuff. These typically look like 0x01 [CALLTYPE] 0x00 0x80 0x09 [0x02/0x06] followed by a bunch of other stuff. I'm investigating on how to actually subscribe to call events to do this nicer, but it seems to work on my limited testing capacity.
+   My detection method is currently shit. It sniffs out whatever is going between ModemManager/oFono in the host side and the modem itself looking for certain magic packets. Everytime there's a call a packet is sent from the modem to the host indicating the call type and the phone number calling, with some other stuff. These typically look like 0x01 [CALLTYPE] 0x00 0x80 0x09 [0x02/0x06] followed by a bunch of other stuff. I'm investigating on how to actually subscribe to call events to do this nicer, but it seems to work on my limited testing capacity.
 
    If you want to help out, and it doesn't work for you, you can help by sending me logs. Note **you will/may be leaking phone numbers or other PII info so don't post it somewhere public**.
 
