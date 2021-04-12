@@ -2,6 +2,8 @@
 
 ### Collection of tools and scripts to build custom boot images for Quectel EG25G modem.
 
+## WARNING: Currently producing non-bootable builds in this branch
+
 #### Requirements
 Before you can use this make sure your OS has all the packages needed by Yocto
 
