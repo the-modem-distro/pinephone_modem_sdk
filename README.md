@@ -14,42 +14,27 @@ This project depends on the following repositories:
 * Forked meta-qcom repository: https://github.com/Biktorgj/meta-qcom
 Make sure you have your recoveries ready just in case:
 * Quectel EG25 firmware repo: https://github.com/Biktorgj/quectel_eg25_recovery
+* Yocto distro creation tool: https://yoctoproject.org
 
 #### How to use
-
-1.	Clone this repository in your computer
-2.	Go to the folder where you downloaded your copy and run ./init.sh
-3.	The script will download the LK bootloader, arm toolchain, Yocto 3.2 build environment and all the layers required to biild a bootanle sysyem.
-4.	Run make, without arguments, to see what you can build:
-    - Make aboot: build the LK bootloader but don’t sign it
-    - Make kernel: Build the kernel and place a bootable image in target/
-    - Make root_fs: Build the kernel and rootfs without proprietary blobs and place both in target/
-    - Make root_fs_full: Build the kernel and rootfs _with_ proprietary blobs and place both in target/
-    - Make recovery_fs: will initialize Yocto’s build environment if it wasn’t already done before, and will build a 15Mb bootable image that fits into the recovery partition to make debugging easier. I've left two scripts: recoverymount and rootfs mount that mount either of the rootfs partitions into /tmp so you can make modifications to the running image more easily
-    - Make clean: Will remove build and temporary directories
-    - Make target_extract: Will dump the contents of the generated image to target/dump so you can examine the contents of what you're pushing
-    - make target_clean: Removes the target directory contents
-    - make aboot_clean: Cleans the LK bootloader build folder along with the generated binary
-    - make yocto_clean: Removes Yocto's temporary folder
-    - make yocto_cleancache: Removes Yocto's sstate-cache in case you need to force a rebuild while working on recipes
+Check: https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md
 
 #### Current Status:
 * LK Bootloader
-   * Image building: Works
-   * Bootloader functionality:
-      * Boot: OK
-      * Flash: OK
-      * Debugging: Via debug UART
-      * Signals and custom boot modes via GPIO pins: OK
-        * Check tools/helpers for scripts to force boot into fastboot or out of it
+  * Image building: Works
+  * Bootloader functionality:
+    * Boot: OK
+    * Flash: OK
+    * Debugging: Via debug UART
+    * Signals and custom boot modes via GPIO pins: OK
+      * Check tools/helpers for scripts to force boot into fastboot or out of it
       * Fastboot auto entering: OK
 	* On reset, the bootloader enters into fastboot mode automatically for 2 seconds, and boots normally unless instructed to stay.
 	* On reset, run _fastboot oem stay_ to stay in fastboot mode to flash the modem
       * Jump to...
         * Fastboot mode: OK (fastboot reboot-bootloader)
-        * DLOAD Mode: OK (fastboot oem reboot-edl)
+        * DLOAD Mode: WIP (fastboot oem reboot-edl) (currently correct values are stored in what should be the correct memory area but the sbl ignores them, under investigation)
         * Recovery mode: OK (fastboot oem reboot-recovery)
-   ** If there's a functionality you would like to see in the modem, drop me a message and I'll see what I can do **
 * CAF Kernel:
 	* Building: Works
 	* Booting: Works
@@ -63,9 +48,7 @@ Make sure you have your recoveries ready just in case:
 * System images:
 	* Three images available: root_fs, root_fs_full and recovery_fs
         * root_fs: Default system image. Includes a minimal root filesystem and one application replacing the entire Qualcomm / Quectel stack. Some functions are not yet functional
-        * root_fs_full: Rootfs with all Qualcomm and Quectel blobs. Takes the fun out of it
         * recovery_fs: Minimal bootable image to be flashed into the recovery MTD partitions to retrieve logs and make changes to the root image
-
 
 Next steps:
  1. Implement the AT commands we actually use (QDAI et al)
@@ -75,12 +58,8 @@ Next steps:
 
 
 ##### NOTES:
-###### Proprietary recipes
-  * qualcomm-proprietary: All the Qualcomm blobs
-  * quectel-proprietary: Quectel management server and client with some more libraries
-  * proprietary-libraries: Shared libraries between both
-
-All these libraries and binaries have been compiled with an older GLIBC and all of them have been patched to _not complain_ with glibc 2.37, as bundled with Yocto 3.2 release with _patchelf_.
+###### Proprietary recipes removed
+With the move from Yocto 3.2 to 3.3, I have removed all the proprietary recipes. You can still check them out in the `meta-qcom` repository's *main* branch if you're looking for something specific, but I won't be checking if it builds and boots with it as I don't think they're necessary anymore
 
 ###### Opensource recipes:
   * meta-qcom/recipes-modem/openqti: I've reimplemented everything I had separated in three different utilities into OpenQTI. This takes care of the folllowing at this point:
@@ -101,8 +80,8 @@ All these libraries and binaries have been compiled with an older GLIBC and all 
    `adb shell mount -o remount,rw /`
    `adb shell`
    `vi /etc/init.d/init_openqti`
-   Add the parameter ` -l` at the end of line #14 so it looks like this:
-   `start-stop-daemon -c $USER:$GROUP -S -b -a $DAEMON_PATH$DAEMON -l`
+   Add the parameter ` -- -l` at the end of line #14 so it looks like this:
+   `start-stop-daemon -c $USER:$GROUP -S -b -a $DAEMON_PATH$DAEMON -- -l`
    Save and reboot, and on next boot the log file (/var/log/openqti.log) will be filled with debug messages and the packets being sent and received on each side (usb & modem)
    You can get that file from the modem by simply running
    `adb pull /var/log/openqti.log` 

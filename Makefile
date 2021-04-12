@@ -22,22 +22,12 @@ help:
 	@echo "the init.sh script."
 	@echo "After you've done that, you can run: "
 	@echo "    make aboot : It will build the LK bootloader"
-	@echo "    make aboot_signed : It will build the LK bootloader and sign it with Qcom sectools, if available (run make help-sectools)"
 	@echo "    make kernel : Will build the kernel and place it in /target"
 	@echo "    make root_fs : Will build you a rootfs from Yocto"
 	@echo "    make recovery_fs : Will build you a minimal recovery image from Yocto"
 	@echo "    make everything : Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script "
 	@echo "    ---- "
 	@echo "    make clean : Removes all the built images and temporary directories from bootloader and yocto"
-
-
-help-sectools:
-	@echo "QCom Sectools cannot be distributed since they are proprietary"
-	@echo "If you manage to find them from some leak, you can extract it to tools/sectools"
-	@echo "and if it follows sectools folder structure, you will be able to sign LK images with it"
-	@echo "Make sure 'sectools.py' can be reached from 'tools/sectools/sectools.py'"
-	@echo "And SECIMAGE.xml is available at 'tools/sectools/config/9607/9607_secimage.xml'"
-	@echo "Hope these are enough hints :)"
 
 aboot:
 	cd $(APPSBOOT_PATH) ; make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=1 || exit ; \
@@ -54,17 +44,6 @@ root_fs:
 	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
 	rm -rf $(YOCTO_PATH)/build/tmp
 	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
-	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
-	bitbake core-image-minimal && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
-	rm $(YOCTO_PATH)/build/conf/local.conf
-	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf 
-
-root_fs_full:
-	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
-	rm -rf $(YOCTO_PATH)/build/tmp
-	cp $(CURRENT_PATH)/tools/config/poky/rootfs_full.conf $(YOCTO_PATH)/build/conf/local.conf
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \

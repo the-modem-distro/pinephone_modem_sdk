@@ -1,5 +1,8 @@
 #!/bin/bash
 BASE_PATH=`pwd`
+
+YOCTOBRANCH="hardknott"
+
 mkdir -p target
 mkdir -p rootfs
 
@@ -21,7 +24,7 @@ then
     echo "Cloning Yocto repository from the Yocto Project"
     git clone git://git.yoctoproject.org/poky yocto && \
     cd yocto && \
-    git checkout tags/yocto-3.2 -b my-yocto-3.2
+    git checkout tags/yocto-3.3 -b my-yocto-3.3
     cd $BASE_PATH
 else
     echo "Yocto is already there"
@@ -31,7 +34,7 @@ echo "Get meta-qcom fork from github"
 if [ ! -d "yocto/meta-qcom" ]
 then
     echo "Cloning meta-qcom repository"
-    git clone https://github.com/Biktorgj/meta-qcom.git yocto/meta-qcom
+    git clone -b $YOCTOBRANCH https://github.com/Biktorgj/meta-qcom.git yocto/meta-qcom
 else
     echo "Pulling latest changes from the kernel"
     cd yocto/meta-qcom && \
@@ -43,14 +46,14 @@ echo "Fetching meta-python2 from OpenEmbedded"
 if [ ! -d "yocto/meta-python2" ]
 then
     echo "Adding meta-python2"
-    git clone git://git.openembedded.org/meta-python2 yocto/meta-python2
+    git clone -b $YOCTOBRANCH git://git.openembedded.org/meta-python2 yocto/meta-python2
 fi
 
 echo "Fetching meta-openembedded (to provide support to meta-python2)"
 if [ ! -d "yocto/meta-openembedded" ]
 then
     echo "Adding meta-oe"
-   git clone -b gatesgarth https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
+   git clone -b $YOCTOBRANCH https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
 fi
 
 echo "Getting the ARM toolchain to be able to compile LK"
@@ -75,6 +78,7 @@ then
     bitbake-layers add-layer ../meta-openembedded/meta-networking && \
     bitbake-layers add-layer ../meta-python2
 fi
-
+cd $BASE_PATH
+mkdir -p yocto/build/conf
 cp tools/config/poky/rootfs.conf yocto/build/conf/
 echo " Now run make without arguments to see what you can build"
