@@ -1,5 +1,5 @@
 
-# How to use this
+# HOW TO BUILD YOUR OWN FIRMWARE
 1. Make sure you have these packages preinstalled in your host:
  * gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint3 xterm python3-subunit mesa-common-dev
 2. Make sure you have at least 50Gb of available space
@@ -17,9 +17,9 @@
  - Make aboot: build the LK bootloader
  - Make kernel: Build the kernel and place a bootable image in target/
  - Make root_fs: Build the kernel and rootfs without proprietary blobs and place both in target/
- - Make recovery_fs: will initialize Yocto’s build environment if it wasn’t already done before, and will build a 15Mb bootable image that fits into the recovery partition to make debugging easier. I've left two scripts: recoverymount and rootfs mount that mount either of the rootfs partitions into /tmp so you can make modifications to the running image more easily
+ - Make recovery_fs: will initialize Yocto’s build environment if it wasn’t already done before, and will build a bootable image that fits into the recovery partition to make debugging easier. I've left two scripts: recoverymount and rootfs mount that mount either of the rootfs partitions into /tmp so you can make modifications to the running image more easily
  - Make clean: Will remove build and temporary directories
- - Make target_extract: Will dump the contents of the generated image to target/dump so you can examine the contents of what you're pushing
+ - Make target_extract: Will dump the contents of the generated image to target/dump so you can examine the contents of what you're pushing (you'll need python and python's CRC and LZO modules for it to work - check out [UBIDUMP here](https://github.com/nlitsme/ubidump))
  - make target_clean: Removes the target directory contents
  - make aboot_clean: Cleans the LK bootloader build folder along with the generated binary
  - make yocto_clean: Removes Yocto's temporary folder
