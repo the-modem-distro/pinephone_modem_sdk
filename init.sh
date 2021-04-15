@@ -4,7 +4,6 @@ BASE_PATH=`pwd`
 YOCTOBRANCH="hardknott"
 
 mkdir -p target
-mkdir -p rootfs
 
 echo "Get the source for the bootloader"
 if [ ! -d "quectel_lk" ]
