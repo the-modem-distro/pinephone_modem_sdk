@@ -1,25 +1,28 @@
 # Pinephone Modem SDK
 
-### Collection of tools and scripts to build custom boot images for Quectel EG25G modem.
-
-## WARNING: Currently in testing stage. It boots but there might be lingering problems
-
-#### Requirements
-Before you can use this make sure your OS has all the packages needed by Yocto
-
-Check them out here: https://docs.yoctoproject.org/singleindex.html
+### Custom firmware for your Pinephone's modem
 
 #### Dependencies
 This project depends on the following repositories:
-* LK - Little Kernel bootloader: https://github.com/Biktorgj/quectel_lk
-* Downstream 3.18.140 Kernel based on CAF: https://github.com/Biktorgj/quectel_eg25_kernel
-* Forked meta-qcom repository: https://github.com/Biktorgj/meta-qcom
+* LK - [Little Kernel bootloader](https://github.com/Biktorgj/quectel_lk)
+* [Downstream 3.18.140 Kernel based on CAF](https://github.com/Biktorgj/quectel_eg25_kernel)
+* [Forked meta-qcom repository](https://github.com/Biktorgj/meta-qcom)
 Make sure you have your recoveries ready just in case:
-* Quectel EG25 firmware repo: https://github.com/Biktorgj/quectel_eg25_recovery
-* Yocto distro creation tool: https://yoctoproject.org
+*[Quectel EG25 firmware repo](https://github.com/Biktorgj/quectel_eg25_recovery)
+*[The Yocto Project](https://yoctoproject.org)
 
-#### How to use
-Check: https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md
+#### Rolling your own
+Check the [Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
+
+### Flashing
+Check the [Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
+
+### Going back to stock
+Check the [Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md)
+
+### Latest release:
+[Yocto 3.3](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.0)
+[Yocto 3.3 - debug version](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.0-dbg)
 
 #### Current Status:
 * LK Bootloader
@@ -31,12 +34,14 @@ Check: https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO
     * Signals and custom boot modes via GPIO pins: OK
       * Check tools/helpers for scripts to force boot into fastboot or out of it
       * Fastboot auto entering: OK
-	* On reset, the bootloader enters into fastboot mode automatically for 2 seconds, and boots normally unless instructed to stay.
-	* On reset, run _fastboot oem stay_ to stay in fastboot mode to flash the modem
-      * Jump to...
-        * Fastboot mode: OK (fastboot reboot-bootloader)
-        * DLOAD Mode: WIP (fastboot oem reboot-edl) (currently correct values are stored in what should be the correct memory area but the sbl ignores them, under investigation)
-        * Recovery mode: OK (fastboot oem reboot-recovery)
+	* On reset, the bootloader enters into fastboot mode automatically for 2 seconds, and boots normally unless instructed to stay (leave the command `fastboot oem stay` running while rebooting the modemto make it stop at fastboot).
+  * Custom fastboot commands:
+    * fastboot reboot-bootlader: Reboot to fastboot
+    * fastboot oem stay: Stay in fastboot instead of booting normally
+    * fastboot oem reboot-recovery: Reboot to recovery mode
+    * fastboot oem reboot-edl: Currently not working (investigating why)
+    * fastboot oem getmfg: Try to identify the modem from the partition table
+
 * CAF Kernel:
 	* Building: Works
 	* Booting: Works
@@ -45,19 +50,24 @@ Check: https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO
     * Audio: Works for me (tm)
     * Ring In: Works correctly when setting the modem to report RING to all interfaces. You can do this by sending the following command to the modem:
       * AT+QURCCFG:"urcport","all"
+    * GPS: Working
     * Sleep / Power management: The kernel is always running in low power mode now, this should make the Pinephone consume between 1.12%-1.89% battery on suspend, giving a max runtime on a battery charge of 78 hours / 3 days if there's nothing waking it up, in par with factory firmware with ADB disabled.
     * Non persistent data partition (now there's no way of corrupting anything when killing the modem)
 * System images:
-	* Three images available: root_fs, root_fs_full and recovery_fs
-        * root_fs: Default system image. Includes a minimal root filesystem and one application replacing the entire Qualcomm / Quectel stack. Some functions are not yet functional
-        * recovery_fs: Minimal bootable image to be flashed into the recovery MTD partitions to retrieve logs and make changes to the root image
+  * root_fs: Default system image. Includes a minimal root filesystem and one application replacing the entire Qualcomm / Quectel stack. Some functions are not yet functional
+  * recovery_fs: Minimal bootable image to be flashed into the recovery partitions to retrieve logs and make changes to the root image
+* Custom AT Commands:
+  * AT+ADBON / AT+ADBOFF: Enable or disable ADB at runtime (this will reset USB for a second)
+  * AT+RESETUSB: Stop and start USB on the modem
+  * AT+QFASTBOOT: Jump to fastboot mode
+  * AT+REBOOT_REC: Jump to recovery mode
+  * AT+PWRDN: Shut down the modem
+  * AT+QDAI: WIP, set audio configuration on the modem
 
 Next steps:
- 1. Implement the AT commands we actually use (QDAI et al)
- 2. Finish up some special commands to reset USB and disable/enable ADB during runtime
+ 1. Finish and tidy up the AT command handling stuff
  2. Find a way to correctly subscribe to call notifications instead of using ugly hacks
- 3. Fix GPS: The port is not binding to the USB side, so no messages are passed through even if GPS is correctly enabled. More investigation is required
-
+ 3. Running out of pending stuff!
 
 ##### NOTES:
 ###### Proprietary recipes removed
@@ -70,6 +80,7 @@ With the move from Yocto 3.2 to 3.3, I have removed all the proprietary recipes.
      - Initialize I2S settings for call audio
      - Initialize the AT service in the DSP and register all commands
      - Act as a proxy between modem's USB QMI and the kernel smdcntl8 node
+     - Act as a proxy for the GPS port
      - Listen to AT Commands and blindly respond OK to everything not implemented (to make userspace happy)
      - Sniffs on the QMI port to try and detect when there's a CS/VoLTE call and enable/disable audio accordingly
 
