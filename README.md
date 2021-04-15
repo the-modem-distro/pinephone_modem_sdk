@@ -11,17 +11,15 @@ Make sure you have your recoveries ready just in case:
 *[Quectel EG25 firmware repo](https://github.com/Biktorgj/quectel_eg25_recovery)
 *[The Yocto Project](https://yoctoproject.org)
 
-#### Rolling your own
-Check the [Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
+### Rolling your own? [Check the Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
 
-### Flashing
-Check the [Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
+### Want to flash it? [Here's a guide!](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
 
-### Going back to stock
-Check the [Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md)
+### Going back to stock? [There's a Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md) too!
 
 ### Latest release:
 [Yocto 3.3](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.0)
+
 [Yocto 3.3 - debug version](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.0-dbg)
 
 #### Current Status:
