@@ -83,17 +83,4 @@ With the move from Yocto 3.2 to 3.3, I have removed all the proprietary recipes.
      - Sniffs on the QMI port to try and detect when there's a CS/VoLTE call and enable/disable audio accordingly
 
 #### About call audio
-   My detection method is currently shit. It sniffs out whatever is going between ModemManager/oFono in the host side and the modem itself looking for certain magic packets. Everytime there's a call a packet is sent from the modem to the host indicating the call type and the phone number calling, with some other stuff. These typically look like 0x01 [CALLTYPE] 0x00 0x80 0x09 [0x02/0x06] followed by a bunch of other stuff. I'm investigating on how to actually subscribe to call events to do this nicer, but it seems to work on my limited testing capacity.
-
-   If you want to help out, and it doesn't work for you, you can help by sending me logs. Note **you will/may be leaking phone numbers or other PII info so don't post it somewhere public**.
-
-   If you want to see what's going on in the modem, I've setup some logging functionality in OpenQTI that lets you do that. To enable it, you will need to remount the system partition and modify the initialization script for OpenQTI a bit:
-   `adb shell mount -o remount,rw /`
-   `adb shell`
-   `vi /etc/init.d/init_openqti`
-   Add the parameter ` -- -l` at the end of line #14 so it looks like this:
-   `start-stop-daemon -c $USER:$GROUP -S -b -a $DAEMON_PATH$DAEMON -- -l`
-   Save and reboot, and on next boot the log file (/var/log/openqti.log) will be filled with debug messages and the packets being sent and received on each side (usb & modem)
-   You can get that file from the modem by simply running
-   `adb pull /var/log/openqti.log` 
-   on the PinePhone
+If curious, I've left some notes on how audio is setup in this firmware in docs/AUDIO_PKT
