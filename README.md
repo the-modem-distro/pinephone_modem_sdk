@@ -8,6 +8,7 @@ This project depends on the following repositories:
 * [Downstream 3.18.140 Kernel based on CAF](https://github.com/Biktorgj/quectel_eg25_kernel)
 * [Forked meta-qcom repository](https://github.com/Biktorgj/meta-qcom)
 * [The Yocto Project](https://yoctoproject.org)
+
 Make sure you have your recoveries ready just in case:
 * [Quectel EG25 firmware repo](https://github.com/Biktorgj/quectel_eg25_recovery)
 
