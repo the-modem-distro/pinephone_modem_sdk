@@ -27,8 +27,9 @@ From OpenQTI's point of view, we're only interesting on some specific parts of t
 0x01 0x42 0x00 0x80 0x09 0x02 0x04 0x01 0x00 0x2e 0x00 0x36 0x00 0x01 0x08 0x00 0x01 0x01 x 0x0a 0x00 0x02 0x03 0x00 0x00 0x10 0x11 0x00 0x01 0x01 0x00 ....
 
 First part is just a control header so we know what info we're getting:
-Frame  Packet length   Flags   Service  Client  Packet type  Transaction ID   Message ID
-0x01   0x42 0x00        0x80   0x09      0x02    0x04          0x01 0x00       0x2e
+| Frame | Packet length |Flags |  Service | Client | Packet type | Transaction ID |  Message ID |
+|:-----:|:-------------:|:----:|:--------:|:------:|:-----------:|:--------------:|:-----------:|
+| 0x01  |   0x42 0x00   | 0x80 |  0x09    |  0x02  |  0x04       |   0x01 0x00    |   0x2e      |
 
 These all are QMI control headers, and we don't care too much about them, we just need to know that:
 1. They belong to Service 0x09 (The voice service)
@@ -42,27 +43,15 @@ Message length    Constant data ------------->
 Besides the size of the message (which lets you know how to parse parts of the voice numbers, something we don't need) I haven't been able to guess what is the rest of those bytes.
 
 Now comes the interesting part:
-0x0a 0x00 0x02 0x03 0x00 0x00 0x10 0x11 0x00 0x01 0x01 0x00
- |    |     |    |    |    |    |    |    |    |    |    |
- |    |     |    |    This data is always the same for voice
- s    c     d    c
- t    a     i    a
- a    l     r    l
- t    l     e    l
- e          c    i
-      t     t    n
-      y     i    g
-      p     o     
-      e     n    m
-                 e
-                 t
-                 h
-                 o
-                 d
+
+| 0x0a   | 0x00   |0x02   |0x03    |0x00 0x00 0x10 0x11 0x00 0x01 0x01 0x00 |
+|:------:|:------:|:------|:------:|:--------------------------------------:|
+| state  | call type | direction | method |This data is always the same for voice|
+
 
 The first byte indicates the call is being set up (0x0a). It could also be an incoming call ringing (0x02), an outgoing call waiting to pick up (0x01), a call successfuly established and talking (0x04) etc.
 
-The second byte show us the call type, if is the normal voice call (0x00), Voice over IP (for VoLTE or VoWIFI) (0x02), or something else. We don't really need that as the modem only uses two mixer paths for setting up audio, but we'll keep note of this byte in case someone is able to implement HD Voice support in the PinePhone side of the software stack, since the modem supports it
+The second byte show us the call type, if it is a normal voice call (0x00), Voice over IP (for VoLTE or VoWIFI) (0x02), or something else. We don't really need that right now as the modem only uses two mixer paths for setting up audio, but we'll keep note of this byte in case someone is able to implement HD Voice support in the PinePhone side of the software stack, since the modem supports it
 
 The third byte helps us know the direction of the call. While we could mostly getting from the first byte, because it's already telling us that it can be originating from our side or ringing on us, there are some stages where we couldn't know it, for example when it is setup, or when the call is already in progress.
 
