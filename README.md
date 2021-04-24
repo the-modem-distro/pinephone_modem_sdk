@@ -19,9 +19,7 @@ Make sure you have your recoveries ready just in case:
 ### Going back to stock? [There's a Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md) too!
 
 ### Latest release:
-[Yocto 3.3](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.0)
-
-[Yocto 3.3 - debug version](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.0-dbg)
+[Yocto 3.3](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.1)
 
 #### Current Status:
 * LK Bootloader
