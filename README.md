@@ -44,7 +44,7 @@ Make sure you have your recoveries ready just in case:
 	* Booting: Works
 		* USB Peripheral mode: WWAN+ADB are working blobfree, WWAN+GPS+ADB with blobs
 		* Modem (ADSP): Firmware loading, booting, data and calling works.
-    * Audio: Works for me (tm)
+    * Audio: Working, there might be some glitches still in some scenarios
     * Ring In: Works correctly when setting the modem to report RING to all interfaces. You can do this by sending the following command to the modem:
       * AT+QURCCFG:"urcport","all"
     * GPS: Working
@@ -63,7 +63,7 @@ Make sure you have your recoveries ready just in case:
 
 Next steps:
  1. Finish and tidy up the AT command handling stuff
- 2. Find a way to correctly subscribe to call notifications instead of using ugly hacks
+ 2. Someone said HD audio?
  3. Running out of pending stuff!
 
 ##### NOTES:
