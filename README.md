@@ -46,7 +46,7 @@ Make sure you have your recoveries ready just in case:
 		* Modem (ADSP): Firmware loading, booting, data and calling works.
     * Audio: Working, there might be some glitches still in some scenarios
     * Ring In: Works correctly when setting the modem to report RING to all interfaces. You can do this by sending the following command to the modem:
-      * AT+QURCCFG:"urcport","all"
+      * AT+QURCCFG="urcport","all"
     * GPS: Working
     * Sleep / Power management: The kernel is always running in low power mode now, this should make the Pinephone consume between 1.12%-1.89% battery on suspend, giving a max runtime on a battery charge of 78 hours / 3 days if there's nothing waking it up, in par with factory firmware with ADB disabled.
     * Non persistent data partition (now there's no way of corrupting anything when killing the modem)
