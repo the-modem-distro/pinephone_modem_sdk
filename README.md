@@ -60,11 +60,16 @@ Make sure you have your recoveries ready just in case:
   * AT+REBOOT_REC: Jump to recovery mode
   * AT+PWRDN: Shut down the modem
   * AT+QDAI: WIP, set audio configuration on the modem
+  * AT+EN_PCM8K: (default) Set sampling rate to 8KHz
+  * AT+EN_PCM16K: Set sampling rate to 16KHz
+  * AT+EN_PCM48K: Set sampling rate to 48KHz
 
-Next steps:
- 1. Finish and tidy up the AT command handling stuff
- 2. Someone said HD audio?
- 3. Running out of pending stuff!
+
+Pending tasks:
+ 1. Find a fix for issues with latest ModemManager breaking data
+ 2. Find fixes to support dynamic rate settings in the Pinephone
+ 3. Finish and tidy up the AT command handling stuff
+ 4. Test out audio over USB. Can be enabled via USB config, but haven't tested if audio is actually routed through there
 
 ##### NOTES:
 ###### Proprietary recipes removed
