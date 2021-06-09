@@ -1,6 +1,6 @@
 # GOING BACK TO STOCK
 
-If you want to return to stock, I would advise to keep the unlocked bootloader. It will do no harm, and it will give you more recovery functions in case you mess something up or something in the firmware breaks. It is compatible with Quectel's firmware, and the only thing it doesn't do is allowing automatic OTA updates. In case you want to recover the bootloader too, follow the following steps _exactly_
+To recover the modem to stock, follow the following steps _exactly_
   * Grab the recovery image from my [recovery repo](https://github.com/Biktorgj/quectel_eg25_recovery)
   * Extract it to some folder and move to the update/ folder
   * One by one, flash all the image files, *in this order*:
