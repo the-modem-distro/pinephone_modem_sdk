@@ -21,161 +21,183 @@ Implemented can be
 
 | Command | Description | Handled by | Implemented |
 | ------- |:-----------:|:----------:| -----------:|
-| AT$QCRMCALL | AT$QCRMCALL Start or Stop an RmNet Call | DSP  |  Yes |
-| AT&F | AT&F  289 | DSP  |  Yes |
-| AT&V | AT&V View Current Settings in User-defined Profile  | DSP  |  Yes |
-| AT&W | AT&W Store Current Settings to User-defined Profile | DSP  |  Yes |
-| AT+CBC | AT+CBC Battery Charge | DSP  |  Yes |
-| AT+CBST | AT+CBST  125 | DSP  |  Yes |
-| AT+CCFC | AT+CCFC Call Forwarding Number and Conditions Control | DSP  |  Yes |
-| AT+CCHC | AT+CCHC (Chapter | DSP  |  Yes |
-| AT+CCHO | AT+CCHO Open Logical Channel | DSP  |  Yes |
-| AT+CCLK | AT+CCLK Clock | DSP  |  Yes |
-| AT+CCWA | AT+CCWA Call Waiting Control | DSP  |  Yes |
-| AT+CCWA=1,1 | AT+CCWA=1,1 | DSP  |  Yes |
-| AT+CEER | AT+CEER  304 | DSP  |  Yes |
-| AT+CEREG | AT+CEREG | DSP  |  Yes |
-| AT+CFUN | AT+CFUN Set UE Functionality  32 | DSP  |  Yes |
-| AT+CGACT | AT+CGACT | DSP  |  Yes |
-| AT+CGATT | AT+CGATT | DSP  |  Yes |
-| AT+CGCLASS | AT+CGCLASS | DSP  |  Yes |
-| AT+CGCONTRDP | AT+CGCONTRDP PDP Context Read Dynamic Parameters | DSP  |  Yes |
-| AT+CGDATA | AT+CGDATA Enter Data State | DSP  |  Yes |
-| AT+CGDCONT | AT+CGDCONT | DSP  |  Yes |
-| AT+CGEQMIN | AT+CGEQMIN | DSP  |  Yes |
-| AT+CGEQREQ | AT+CGEQREQ UMTS Quality of Service Profile (Requested) | DSP  |  Yes |
-| AT+CGEREP | AT+CGEREP Packet Domain Event Reporting | DSP  |  Yes |
-| AT+CGLA | AT+CGLA UICC Logical Channel Access | DSP  |  Yes |
-| AT+CGMI | AT+CGMI Request Manufacturer Identification | DSP  |  Yes |
-| AT+CGMM | AT+CGMM in Chapter 26 | DSP  |  Yes |
-| AT+CGPADDR | AT+CGPADDR | DSP  |  Yes |
-| AT+CGQMIN | AT+CGQMIN | DSP  |  Yes |
-| AT+CGQREQ | AT+CGQREQ Quality of Service Profile (Requested) | DSP  |  Yes |
-| AT+CGREG | AT+CGREG Network Registration Status | DSP  |  Yes |
-| AT+CGSMS | AT+CGSMS | DSP  |  Yes |
-| AT+CGSN | AT+CGSN (Chapter 29) | DSP  |  Yes |
-| AT+CHLD | AT+CHLD Call Related Supplementary Services | DSP  |  Yes |
-| AT+CHUP | AT+CHUP Hang up Voice Call | DSP  |  Yes |
-| AT+CLCC | AT+CLCC AT+QHUP will terminate the call identified by the given call | DSP  |  Yes |
-| AT+CLCK | AT+CLCK Facility Lock | DSP  |  Yes |
-| AT+CLIP | AT+CLIP Calling Line Identification Presentation | DSP  |  Yes |
-| AT+CLVL | AT+CLVL Loudspeaker Volume Level Selection | DSP  |  Yes |
-| AT+CMEE | AT+CMEE Error Message Format | DSP  |  Yes |
-| AT+CMGF | AT+CMGF=0) | DSP  |  Yes |
-| AT+CMGL | AT+CMGL List Message | DSP  |  Yes |
-| AT+CMGR | AT+CMGR, except that the message to be read is a segment of | DSP  |  Yes |
-| AT+CMGS | AT+CMGS Write Command | DSP  |  Yes |
-| AT+CMGW | AT+CMGW Write Message to Memory | DSP  |  Yes |
-| AT+CMSS | AT+CMSS Send Message from Storage | DSP  |  Yes |
-| AT+CMUT | AT+CMUT Mute Control | DSP  |  Yes |
-| AT+CNMA | AT+CNMA New Message Acknowledgement to UE/TE | DSP  |  Yes |
-| AT+CNMI | AT+CNMI to 0 | DSP  |  Yes |
-| AT+CNMI) | AT+CNMI) | DSP  |  Yes |
-| AT+COLP | AT+COLP Connected Line Identification Presentation | DSP  |  Yes |
-| AT+COPN | AT+COPN Read Operator Names | DSP  |  Yes |
-| AT+COPS) | AT+COPS) | DSP  |  Yes |
-| AT+CPBF | AT+CPBF Find Phonebook Entries | DSP  |  Yes |
-| AT+CPBR | AT+CPBR Read Phonebook Entries | DSP  |  Yes |
-| AT+CPBS | AT+CPBS If <index2> is left out, only location <index1> is | DSP  |  Yes |
-| AT+CPBW | AT+CPBW may not be applicable to this | DSP  |  Yes |
-| AT+CPMS | AT+CPMS) setting, and the value is: | DSP  |  Yes |
-| AT+CPOL | AT+CPOL Preferred Operator List | DSP  |  Yes |
-| AT+CR | AT+CR Service Reporting Control | DSP  |  Yes |
-| AT+CRC | AT+CRC Set Cellular Result Codes for Incoming Call Indication  129 | DSP  |  Yes |
-| AT+CREG | AT+CREG Network Registration Status | DSP  |  Yes |
-| AT+CRLP | AT+CRLP Select Radio Link Protocol Parameter | DSP  |  Yes |
-| AT+CRSM | AT+CRSM Restricted (U)SIM Access | DSP  |  Yes |
-| AT+CSCA | AT+CSCA Service Center Address | DSP  |  Yes |
-| AT+CSCB | AT+CSCB), and the value is: | DSP  |  Yes |
-| AT+CSCS | AT+CSCS Select TE Character Set | DSP  |  Yes |
-| AT+CSMP | AT+CSMP Set SMS Text Mode Parameters | DSP  |  Yes |
-| AT+CSMS | AT+CSMS Select Message Service | DSP  |  Yes |
-| AT+CSQ | AT+CSQ so as to ensure that any network access required for the preceding | DSP  |  Yes |
-| AT+CSSN | AT+CSSN=1 | DSP  |  Yes |
-| AT+CSTA | AT+CSTA Select Type of Address | DSP  |  Yes |
-| AT+CTZR | AT+CTZR Time Zone Reporting | DSP  |  Yes |
-| AT+CTZU | AT+CTZU, AT+QDAI, AT+QEEC, | DSP  |  Yes |
-| AT+CUSD | AT+CUSD Unstructured Supplementary Service Data | DSP  |  Yes |
-| AT+GSN | AT+GSN (Chapter 28) | DSP  |  Yes |
-| AT+ICF | AT+ICF Set TE-TA Control Character Framing | DSP  |  Yes |
-| AT+IPR | AT+IPR Set TE-TA Fixed Local Rate | DSP  |  Yes |
-| AT+QACDBDEL | AT+QACDBDEL Delete ACDB File | DSP  |  Yes |
-| AT+QACDBLOAD | AT+QACDBLOAD | DSP  |  Yes |
-| AT+QACDBREAD | AT+QACDBREAD Read ACDB File | DSP  |  Yes |
-| AT+QADC | AT+QADC Read ADC Value | DSP  |  Yes |
-| AT+QAPRDYIND | AT+QAPRDYIND | DSP  |  Yes |
-| AT+QAUDCFG | AT+QAUDCFG | DSP  |  Yes |
-| AT+QAUDLOOP | AT+QAUDLOOP Enable/Disable Audio Loop Test | DSP  |  Yes |
-| AT+QAUDMOD | AT+QAUDMOD | DSP  |  Yes |
-| AT+QAUDPLAY | AT+QAUDPLAY Play Media File | DSP  |  Yes |
-| AT+QAUDPLAYGAIN | AT+QAUDPLAYGAIN | DSP  |  Yes |
-| AT+QAUDRD | AT+QAUDRD Record Media File | DSP  |  Yes |
-| AT+QAUDRD, | AT+QAUDRD, AT+QPSND, | DSP  |  Yes |
-| AT+QAUDRDGAIN | AT+QAUDRDGAIN | DSP  |  Yes |
-| AT+QAUGDCNT | AT+QAUGDCNT | DSP  |  Yes |
-| AT+QCCID | AT+QCCID | DSP  |  Yes |
-| AT+QCFG | AT+QCFG Please refer to AT+QCFG="urc/ri/ring", | DSP  |  Yes |
-| AT+QCHLDIPMPTY | AT+QCHLDIPMPTY (Chapter 722) | DSP  |  Yes |
-| AT+QCMGR | AT+QCMGR | DSP  |  Yes |
-| AT+QCMGS | AT+QCMGS It is possible that UE receives | DSP  |  Yes |
-| AT+QDAI | AT+QDAI Digital Audio Interface Configuration | DSP  |  Yes |
-| AT+QDIAGPORT | AT+QDIAGPORT (Chapter | DSP  |  Yes |
-| AT+QECCNUM | AT+QECCNUM Configure Emergency Call Numbers | DSP  |  Yes |
-| AT+QEEC | AT+QEEC Set Echo Cancellation Parameters  235 | DSP  |  Yes |
-| AT+QENG | AT+QENG (Chapter 611–617) | DSP  |  Yes |
-| AT+QFPLMNCFG | AT+QFPLMNCFG | DSP  |  Yes |
-| AT+QGDCNT | AT+QGDCNT | DSP  |  Yes |
-| AT+QHUP | AT+QHUP Hang up Call with a Specific Release Cause | DSP  |  Yes |
-| AT+QIIC | AT+QIIC Read and Write Codec via IIC | DSP  |  Yes |
-| AT+QINDCFG | AT+QINDCFG | DSP  |  Yes |
-| AT+QINISTAT | AT+QINISTAT | DSP  |  Yes |
-| AT+QISEND | AT+QISEND | DSP  |  Yes |
-| AT+QLDTMF | AT+QLDTMF | DSP  |  Yes |
-| AT+QLTONE | AT+QLTONE Play a Local Customized Tone | DSP  |  Yes |
-| AT+QMBNCFG | AT+QMBNCFG MBN File Configuration Setting | DSP  |  Yes |
-| AT+QMIC | AT+QMIC Set Uplink Gains of Microphone  237 | DSP  |  Yes |
-| AT+QNETDEVSTATUS | AT+QNETDEVSTATUS | DSP  |  Yes |
-| AT+QNETINFO | AT+QNETINFO Query Network Information of RATs | DSP  |  Yes |
-| AT+QNWINFO | AT+QNWINFO | DSP  |  Yes |
-| AT+QNWLOCK| AT+QNWLOCK="common/lte" | DSP  |  Yes |
-| AT+QOPS | AT+QOPS Band Scan | DSP  |  Yes |
-| AT+QOPSCFG | AT+QOPSCFG="displayrssi" | DSP  |  Yes |
-| AT+QPINC | AT+QPINC Display PIN Remainder Counter | DSP  |  Yes |
-| AT+QPOWD | AT+QPOWD | DSP  |  Yes |
-| AT+QPSND | AT+QPSND | DSP  |  Yes |
-| AT+QRIR | AT+QRIR Restore RI Behavior to Inactive | DSP  |  Yes |
-| AT+QRXGAIN | AT+QRXGAIN Set Downlink Gains of RX | DSP  |  Yes |
-| AT+QSCLK | AT+QSCLK | DSP  |  Yes |
-| AT+QSIDET | AT+QSIDET | DSP  |  Yes |
-| AT+QSIMDET | AT+QSIMDET | DSP  |  Yes |
-| AT+QSIMSTAT | AT+QSIMSTAT (U)SIM Card Insertion Status Report | DSP  |  Yes |
-| AT+QSIMVOL | AT+QSIMVOL Fix (U)SIM Card Supply Voltage | DSP  |  Yes |
-| AT+QSPN | AT+QSPN Display the Name of Registered Network | DSP  |  Yes |
-| AT+QTONEDET | AT+QTONEDET | DSP  |  Yes |
-| AT+QTTS | AT+QTTS Play Text | DSP  |  Yes |
-| AT+QTTSETUP | AT+QTTSETUP Set TTS | DSP  |  Yes |
-| AT+QURCCFG | AT+QURCCFG (Chapter 225) | DSP  |  Yes |
-| AT+QWDTMF | AT+QWDTMF | DSP  |  Yes |
-| AT+QWTTS | AT+QWTTS Play Text or Send Text To Far End | DSP  |  Yes |
-| AT+VTD | AT+VTD Set Tone Duration 231 | DSP  |  Yes |
-| AT+VTS | AT+VTS DTMF and Tone Generation | DSP  |  Yes |
-| AT/+QLTS/+QSPN/ | AT/+QLTS/+QSPN/ | DSP  |  Yes |
-| ATA | ATA Answer an Incoming Call | DSP  |  Yes |
-| ATD | ATD Mobile Originated Call to Dial a Number | DSP  |  Yes |
-| ATFWD | ATFWD READY will be | DSP  |  Yes |
-| ATH | ATH can be used to disconnect the voice call | DSP  |  Yes |
-| ATO | ATO Switch from Command Mode to Data Mode | DSP  |  Yes |
-| ATQ | ATQ Set Result Code Presentation Mode  26 | DSP  |  Yes |
-| ATS10 | ATS10 Set Disconnection Delay after Indicating the Absence of Data Carrier  122 | DSP  |  Yes |
-| ATS3 | ATS3 Set Command Line Termination Character  29 | DSP  |  Yes |
-| ATS4 | ATS4 Set Response Formatting Character  30 | DSP  |  Yes |
-| ATS5 | ATS5 Set Command Line Editing Character  31 | DSP  |  Yes |
-| ATS7 | ATS7 Set Time to Wait for Connection Completion  121 | DSP  |  Yes |
-| ATS8 | ATS8 Set the Time to Wait for Comma Dial Modifier  121 | DSP  |  Yes |
-| ATT | ATT Adds or deletes attachments for an Email | DSP  |  Yes |
-| ATV | ATV MT Response Format  26 | DSP  |  Yes |
-| ATX | ATX Set CONNECT Result Code Format and Monitor Call Progress  31 | DSP  |  Yes |
-| ATZ | ATZ Set all Current Parameters to User-defined Profile  25 | DSP  |  Yes |
+| +++ | Switch from Data Mode to Command Mode | DSP | Yes |
+| A/ | Repeat Previous Command Line | DSP | Yes |
+| AT$QCRMCALL | Start or Stop an RmNet Call | DSP | Yes |
+| AT&C | Set DCD Function Mode | DSP | Yes |
+| AT&D | Set DTR Function Mode | DSP | Yes |
+| AT&F | Reset AT Command Settings to Factory Defaults | DSP | Yes |
+| AT&V | Display Current Configuration | DSP | Yes |
+| AT&W | Store Current Settings to User-defined Profile | DSP | Yes |
+| AT+CBC | Battery Charge | DSP | Yes |
+| AT+CBST | Select Bearer Service Type | DSP | Yes |
+| AT+CCFC | Call Forwarding Number and Conditions Control | DSP | Yes |
+| AT+CCHC | Close Logical Channel | DSP | Yes |
+| AT+CCHO | Open Logical Channel | DSP | Yes |
+| AT+CCLK | Clock | DSP | Yes |
+| AT+CCWA | Call Waiting Control | DSP | Yes |
+| AT+CEER | Extended Error Report | DSP | Yes |
+| AT+CEREG | EPS Network Registration Status | DSP | Yes |
+| AT+CFUN | Set UE Functionality | DSP | Yes |
+| AT+CGACT | Activate or Deactivate PDP Context | DSP | Yes |
+| AT+CGATT | Attachment or Detachment of PS | DSP | Yes |
+| AT+CGCLASS | GPRS Mobile Station Class | DSP | Yes |
+| AT+CGCONTRDP | PDP Context Read Dynamic Parameters | DSP | Yes |
+| AT+CGDATA | Enter Data State | DSP | Yes |
+| AT+CGDCONT | Define PDP Context | DSP | Yes |
+| AT+CGEQMIN | UMTS Quality of Service Profile (Minimum Acceptable) | DSP | Yes |
+| AT+CGEQREQ | UMTS Quality of Service Profile (Requested) | DSP | Yes |
+| AT+CGEREP | Packet Domain Event Reporting | DSP | Yes |
+| AT+CGLA | UICC Logical Channel Access | DSP | Yes |
+| AT+CGMI | Request Manufacturer Identification | DSP | Yes |
+| AT+CGMM | Request MT Model Identification | DSP | Yes |
+| AT+CGMR | Request MT Firmware Revision Identification | DSP | Yes |
+| AT+CGPADDR | Show PDP Address | DSP | Yes |
+| AT+CGQMIN | Quality of Service Profile (Minimum Acceptable) | DSP | Yes |
+| AT+CGQREQ | Quality of Service Profile (Requested) | DSP | Yes |
+| AT+CGREG | Network Registration Status | DSP | Yes |
+| AT+CGSMS | Select Service for MO SMS Messages | DSP | Yes |
+| AT+CGSN | Request International Mobile Equipment Identity (IMEI) | DSP | Yes |
+| AT+CHLD | Call Related Supplementary Services | DSP | Yes |
+| AT+CHUP | Hang up Voice Call | DSP | Yes |
+| AT+CIMI | Request International Mobile Subscriber Identity (IMSI) | DSP | Yes |
+| AT+CIND | Command of Control Instructions | DSP | Yes |
+| AT+CLCC | List Current Calls of ME | DSP | Yes |
+| AT+CLCK | Facility Lock | DSP | Yes |
+| AT+CLIP | Calling Line Identification Presentation | DSP | Yes |
+| AT+CLIR | Calling Line Identification Restriction | DSP | Yes |
+| AT+CLVL | Loudspeaker Volume Level Selection | DSP | Yes |
+| AT+CMEE | Error Message Format | DSP | Yes |
+| AT+CMGD | Delete Message | DSP | Yes |
+| AT+CMGF | Message Format | DSP | Yes |
+| AT+CMGL | List Message | DSP | Yes |
+| AT+CMGR | Read Message | DSP | Yes |
+| AT+CMGS | Send Message | DSP | Yes |
+| AT+CMGW | Write Message to Memory | DSP | Yes |
+| AT+CMMS | More Messages to Send | DSP | Yes |
+| AT+CMSS | Send Message from Storage | DSP | Yes |
+| AT+CMUT | Mute Control | DSP | Yes |
+| AT+CNMA | New Message Acknowledgement to UE/TE | DSP | Yes |
+| AT+CNMI | SMS Event Reporting Configuration | DSP | Yes |
+| AT+CNUM | Subscriber Number | DSP | Yes |
+| AT+COLP | Connected Line Identification Presentation | DSP | Yes |
+| AT+COPN | Read Operator Names | DSP | Yes |
+| AT+COPS | Operator Selection | DSP | Yes |
+| AT+CPAS | Mobile Equipment Activity Status | DSP | Yes |
+| AT+CPBF | Find Phonebook Entries | DSP | Yes |
+| AT+CPBR | Read Phonebook Entries | DSP | Yes |
+| AT+CPBS | Select Phonebook Memory Storage | DSP | Yes |
+| AT+CPBW | Write Phonebook Entry | DSP | Yes |
+| AT+CPIN | Enter PIN | DSP | Yes |
+| AT+CPMS | Preferred Message Storage | DSP | Yes |
+| AT+CPOL | Preferred Operator List | DSP | Yes |
+| AT+CPWD | Change Password | DSP | Yes |
+| AT+CR | Service Reporting Control | DSP | Yes |
+| AT+CRC | Set Cellular Result Codes for Incoming Call Indication | DSP | Yes |
+| AT+CREG | Network Registration Status | DSP | Yes |
+| AT+CRLP | Select Radio Link Protocol Parameter | DSP | Yes |
+| AT+CRSM | Restricted (U)SIM Access | DSP | Yes |
+| AT+CSCA | Service Center Address | DSP | Yes |
+| AT+CSCB | Select Cell Broadcast Message Types | DSP | Yes |
+| AT+CSCS | Select TE Character Set | DSP | Yes |
+| AT+CSDH | Show SMS Text Mode Parameters | DSP | Yes |
+| AT+CSIM | Generic (U)SIM Access | DSP | Yes |
+| AT+CSMP | Set SMS Text Mode Parameters | DSP | Yes |
+| AT+CSMS | Select Message Service | DSP | Yes |
+| AT+CSQ | Signal Quality Report | DSP | Yes |
+| AT+CSSN | Supplementary Service Notifications | DSP | Yes |
+| AT+CSTA | Select Type of Address | DSP | Yes |
+| AT+CTZR | Time Zone Reporting | DSP | Yes |
+| AT+CTZU | Automatic Time Zone Update | DSP | Yes |
+| AT+CUSD | Unstructured Supplementary Service Data | DSP | Yes |
+| AT+CVHU | Voice Hang up Control | DSP | Yes |
+| AT+GMI | Request Manufacturer Identification | DSP | Yes |
+| AT+GMM | Request Model Identification | DSP | Yes |
+| AT+GMR | Request TA Firmware Revision Identification | DSP | Yes |
+| AT+GSN | Request International Mobile Equipment Identity (IMEI) and SN | DSP | Yes |
+| AT+ICF | Set TE-TA Control Character Framing | DSP | Yes |
+| AT+IFC | Set TE-TA Local Data Flow Control | DSP | Yes |
+| AT+IPR | Set TE-TA Fixed Local Rate | DSP | Yes |
+| AT+QACDBDEL | Delete ACDB File | DSP | Yes |
+| AT+QACDBLOAD | Write ACDB File | DSP | Yes |
+| AT+QACDBREAD | Read ACDB File | DSP | Yes |
+| AT+QADC | Read ADC Value | DSP | Yes |
+| AT+QAPRDYIND | Configure to Report Specified URC | DSP | Yes |
+| AT+QAUDCFG | Query and Configure Audio Tuning Process | DSP | Yes |
+| AT+QAUDLOOP | Enable/Disable Audio Loop Test | DSP | Yes |
+| AT+QAUDMOD | Set Audio Mode | DSP | Yes |
+| AT+QAUDPLAY | Play Media File | DSP | Yes |
+| AT+QAUDPLAYGAIN | Set Audio Playing Gain | DSP | Yes |
+| AT+QAUDRD | Record Media File | DSP | Yes |
+| AT+QAUDRDGAIN | Set Audio Recording Gain | DSP | Yes |
+| AT+QAUGDCNT | Auto Save Packet Data Counter | DSP | Yes |
+| AT+QCCID | Show ICCID | DSP | Yes |
+| AT+QCFG | Extended Configuration Settings  | DSP | Yes |
+| AT+QCHLDIPMPTY | Hang Up a Call in the VoLTE Conference | DSP | Yes |
+| AT+QCMGR | Read Concatenated Messages | DSP | Yes |
+| AT+QCMGS | Send Concatenated Messages | DSP | Yes |
+| AT+QDAI | Digital Audio Interface Configuration | DSP | Yes |
+| AT+QDIAGPORT | Debug UART Configuration | DSP | Yes |
+| AT+QECCNUM | Configure Emergency Call Numbers | DSP | Yes |
+| AT+QEEC | Set Echo Cancellation Parameters | DSP | Yes |
+| AT+QENG | Switching on/off Engineering Mode | DSP | Yes |
+| AT+QFPLMNCFG | FPLMN Configuration | DSP | Yes |
+| AT+QGDCNT | Packet Data Counter | DSP | Yes |
+| AT+QHUP | Hang up Call with a Specific Release Cause | DSP | Yes |
+| AT+QIIC | Read and Write Codec via IIC | DSP | Yes |
+| AT+QINDCFG | URC Indication Configuration | DSP | Yes |
+| AT+QINISTAT | Query Initialization Status of (U)SIM Card | DSP | Yes |
+| AT+QLDTMF | Play Local DTMF | DSP | Yes |
+| AT+QLTONE | Play a Local Customized Tone | DSP | Yes |
+| AT+QLTS | Obtain the Latest Time Synchronized Through Network | DSP | Yes |
+| AT+QMBNCFG | MBN File Configuration Setting | DSP | Yes |
+| AT+QMIC | Set Uplink Gains of Microphone | DSP | Yes |
+| AT+QNETDEVSTATUS | Query RmNet Device Status | DSP | Yes |
+| AT+QNETINFO | Query Network Information of RATs | DSP | Yes |
+| AT+QNWINFO | Query Network Information | DSP | Yes |
+| AT+QNWLOCK="common/lte" | Network Locking Configuration | DSP | Yes |
+| AT+QOPS | Band Scan | DSP | Yes |
+| AT+QOPSCFG="displayrssi" | Enable/Disable to Display RSSI in LTE | DSP | Yes |
+| AT+QOPSCFG="scancontrol" | Configure Bands to be Scanned in 2G/3G/4G | DSP | Yes |
+| AT+QPINC | Display PIN Remainder Counter | DSP | Yes |
+| AT+QPOWD | Power off | DSP | Yes |
+| AT+QPSND | Play WAV File | DSP | Yes |
+| AT+QRIR | Restore RI Behavior to Inactive | DSP | Yes |
+| AT+QRXGAIN | Set Downlink Gains of RX | DSP | Yes |
+| AT+QSCLK | Enable/Disable Low Power Mode | DSP | Yes |
+| AT+QSIDET | Set the Side Tone Gain in Current Mode | DSP | Yes |
+| AT+QSIMDET | (U)SIM Card Detection | DSP | Yes |
+| AT+QSIMSTAT | (U)SIM Card Insertion Status Report | DSP | Yes |
+| AT+QSIMVOL | Fix (U)SIM Card Supply Voltage | DSP | Yes |
+| AT+QSPN | Display the Name of Registered Network | DSP | Yes |
+| AT+QTONEDET | Enable/Disable DTMF Detection | DSP | Yes |
+| AT+QTTS | Play Text | DSP | Yes |
+| AT+QTTSETUP | Set TTS | DSP | Yes |
+| AT+QURCCFG | Configure URC Indication Option | DSP | Yes |
+| AT+QWDTMF | Play or Send DTMF Files to Far End | DSP | Yes |
+| AT+QWTTS | Play Text or Send Text To Far End | DSP | Yes |
+| AT+VTD | Set Tone Duration | DSP | Yes |
+| AT+VTS | DTMF and Tone Generation | DSP | Yes |
+| ATA | Answer an Incoming Call | DSP | Yes |
+| ATD | Mobile Originated Call to Dial a Number | DSP | Yes |
+| ATE | Set Command Echo Mode | DSP | Yes |
+| ATH | Disconnect Existing Connection | DSP | Yes |
+| ATI | Display MT Identification Information | DSP | Yes |
+| ATO | Switch from Command Mode to Data Mode | DSP | Yes |
+| ATQ | Set Result Code Presentation Mode | DSP | Yes |
+| ATS0 | Set Number of Rings before Automatical Answering | DSP | Yes |
+| ATS10 | Set Disconnection Delay after Indicating the Absence of Data Carrier | DSP | Yes |
+| ATS12 | Set the Interval for Exiting the Transparent Access Mode Using +++ | DSP | Yes |
+| ATS3 | Set Command Line Termination Character | DSP | Yes |
+| ATS4 | Set Response Formatting Character | DSP | Yes |
+| ATS5 | Set Command Line Editing Character | DSP | Yes |
+| ATS6 | Set Pause before Blind Dialing | DSP | Yes |
+| ATS7 | Set Time to Wait for Connection Completion | DSP | Yes |
+| ATS8 | Set the Time to Wait for Comma Dial Modifier | DSP | Yes |
+| ATV | MT Response Format | DSP | Yes |
+| ATX | Set CONNECT Result Code Format and Monitor Call Progress | DSP | Yes |
+| ATZ | Set all Current Parameters to User-defined Profile | DSP | Yes |
+| AT^DSCI | Call Status Indication | DSP | Yes |
 
 ## Commands implemented in the stock firmware by atfwd_daemon in userspace
 | Command | Description | Handled by | Implemented |
