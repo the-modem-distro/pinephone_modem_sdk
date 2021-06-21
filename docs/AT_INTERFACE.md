@@ -126,17 +126,17 @@ Implemented can be
 | AT+QAUDCFG | Query and Configure Audio Tuning Process | DSP | Yes |
 | AT+QAUDLOOP | Enable/Disable Audio Loop Test | DSP | Yes |
 | AT+QAUDMOD | Set Audio Mode | DSP | Yes |
-| AT+QAUDPLAY | Play Media File | DSP | Yes |
-| AT+QAUDPLAYGAIN | Set Audio Playing Gain | DSP | Yes |
-| AT+QAUDRD | Record Media File | DSP | Yes |
-| AT+QAUDRDGAIN | Set Audio Recording Gain | DSP | Yes |
+| AT+QAUDPLAY | Play Media File | DSP | Dummy |
+| AT+QAUDPLAYGAIN | Set Audio Playing Gain | DSP | Dummy |
+| AT+QAUDRD | Record Media File | DSP | Dummy |
+| AT+QAUDRDGAIN | Set Audio Recording Gain | DSP | Dummy |
 | AT+QAUGDCNT | Auto Save Packet Data Counter | DSP | Yes |
 | AT+QCCID | Show ICCID | DSP | Yes |
 | AT+QCFG | Extended Configuration Settings  | DSP | Yes |
 | AT+QCHLDIPMPTY | Hang Up a Call in the VoLTE Conference | DSP | Yes |
 | AT+QCMGR | Read Concatenated Messages | DSP | Yes |
 | AT+QCMGS | Send Concatenated Messages | DSP | Yes |
-| AT+QDAI | Digital Audio Interface Configuration | DSP | Yes |
+| AT+QDAI | Digital Audio Interface Configuration | DSP | WIP |
 | AT+QDIAGPORT | Debug UART Configuration | DSP | Yes |
 | AT+QECCNUM | Configure Emergency Call Numbers | DSP | Yes |
 | AT+QEEC | Set Echo Cancellation Parameters | DSP | Yes |
@@ -161,7 +161,7 @@ Implemented can be
 | AT+QOPSCFG="scancontrol" | Configure Bands to be Scanned in 2G/3G/4G | DSP | Yes |
 | AT+QPINC | Display PIN Remainder Counter | DSP | Yes |
 | AT+QPOWD | Power off | DSP | Yes |
-| AT+QPSND | Play WAV File | DSP | Yes |
+| AT+QPSND | Play WAV File | DSP | No |
 | AT+QRIR | Restore RI Behavior to Inactive | DSP | Yes |
 | AT+QRXGAIN | Set Downlink Gains of RX | DSP | Yes |
 | AT+QSCLK | Enable/Disable Low Power Mode | DSP | Yes |
@@ -171,11 +171,11 @@ Implemented can be
 | AT+QSIMVOL | Fix (U)SIM Card Supply Voltage | DSP | Yes |
 | AT+QSPN | Display the Name of Registered Network | DSP | Yes |
 | AT+QTONEDET | Enable/Disable DTMF Detection | DSP | Yes |
-| AT+QTTS | Play Text | DSP | Yes |
-| AT+QTTSETUP | Set TTS | DSP | Yes |
+| AT+QTTS | Play Text | DSP | No |
+| AT+QTTSETUP | Set TTS | DSP | No |
 | AT+QURCCFG | Configure URC Indication Option | DSP | Yes |
 | AT+QWDTMF | Play or Send DTMF Files to Far End | DSP | Yes |
-| AT+QWTTS | Play Text or Send Text To Far End | DSP | Yes |
+| AT+QWTTS | Play Text or Send Text To Far End | DSP | No |
 | AT+VTD | Set Tone Duration | DSP | Yes |
 | AT+VTS | DTMF and Tone Generation | DSP | Yes |
 | ATA | Answer an Incoming Call | DSP | Yes |
