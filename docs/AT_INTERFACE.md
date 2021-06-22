@@ -189,11 +189,25 @@ Implemented can be
 | AT+QIIC[3] | Read and Write Codec via IIC | Userspace+DSP | No |
 | AT+QINDCFG | URC Indication Configuration | DSP | Yes |
 | AT+QINISTAT | Query Initialization Status of (U)SIM Card | DSP | Yes |
-| AT+QLDTMF | Play Local DTMF | DSP | Yes |
-| AT+QLTONE | Play a Local Customized Tone | DSP | Yes |
+| AT+QLDTMF | Play Local DTMF | Userspace+DSP | Unknown |
+| AT+QLINUXCPU | +QLINUXCPU | Userspace  |  Dummy |
+| AT+QODM | +QODM | Userspace  |  Dummy |
+| AT+QPCMV | +QPCMV | Userspace  |  Dummy |
+| AT+QPRINT | +QPRINT | Userspace  |  Dummy |
+| AT+QPRTPARA | +QPRTPARA | Userspace  |  Dummy |
+| AT+QPSM | +QPSM | Userspace  |  Dummy |
+| AT+QPSMCFG | +QPSMCFG | Userspace  |  Dummy |
+| AT+QLPING | +QLPING | Userspace  |  Dummy |
+| AT+QLPMCFG | +QLPMCFG | Userspace  |  Dummy |
+| AT+QLTONE | Play a Local Customized Tone | Userspace+DSP | No? |
 | AT+QLTS | Obtain the Latest Time Synchronized Through Network | DSP | Yes |
+| AT+QLWWANCID | +QLWWANCID | Userspace  |  Dummy |
+| AT+QLWWANDOWN | +QLWWANDOWN | Userspace  |  Dummy |
+| AT+QLWWANSTATUS | +QLWWANSTATUS | Userspace  |  Dummy |
+| AT+QLWWANUP | +QLWWANUP | Userspace  |  Dummy |
+| AT+QLWWANURCCFG | +QLWWANURCCFG | Userspace  |  Dummy |
 | AT+QMBNCFG | MBN File Configuration Setting | DSP | Yes |
-| AT+QMIC | Set Uplink Gains of Microphone | DSP | Yes |
+| AT+QMIC | Set Uplink Gains of Microphone | Userspace+DSP | Yes(DSP only) |
 | AT+QNAND | +QNAND | Userspace+DSP |  Yes(DSP only, read) |
 | AT+QNETDEVSTATUS | Query RmNet Device Status | DSP | Yes |
 | AT+QNETINFO | Query Network Information of RATs | DSP | Yes |
@@ -203,23 +217,52 @@ Implemented can be
 | AT+QOPSCFG="displayrssi" | Enable/Disable to Display RSSI in LTE | DSP | Yes |
 | AT+QOPSCFG="scancontrol" | Configure Bands to be Scanned in 2G/3G/4G | DSP | Yes |
 | AT+QPINC | Display PIN Remainder Counter | DSP | Yes |
-| AT+QPOWD | Power off | DSP | Yes |
-| AT+QPSND | Play WAV File | DSP | No |
+| AT+QPOWD | Power off | Userspace+DSP | Yes |
+| AT+QPSND | Play WAV File | Userspace+DSP | No |
 | AT+QRIR | Restore RI Behavior to Inactive | DSP | Yes |
-| AT+QRXGAIN | Set Downlink Gains of RX | DSP | Yes |
-| AT+QSCLK | Enable/Disable Low Power Mode | DSP | Yes |
-| AT+QSIDET | Set the Side Tone Gain in Current Mode | DSP | Yes |
+| AT+QRXGAIN | Set Downlink Gains of RX | Userspace+DSP | Yes(DSP only) |
+| AT+QRXIIR | +QRXIIR | Userspace  |  Dummy |
+| AT+QSCLK[5] | Enable/Disable Low Power Mode | Userspace+DSP | Yes(DSP only) |
+| AT+QSDMOUNT | +QSDMOUNT | Userspace  |  Dummy |
+| AT+QSGMIICFG | +QSGMIICFG | Userspace  |  Dummy |
+| AT+QSIDET | Set the Side Tone Gain in Current Mode | Userspace+DSP | Yes(DSP only) |
 | AT+QSIMDET | (U)SIM Card Detection | DSP | Yes |
 | AT+QSIMSTAT | (U)SIM Card Insertion Status Report | DSP | Yes |
 | AT+QSIMVOL | Fix (U)SIM Card Supply Voltage | DSP | Yes |
 | AT+QSPN | Display the Name of Registered Network | DSP | Yes |
-| AT+QTONEDET | Enable/Disable DTMF Detection | DSP | Yes |
+| AT+QSUBSYSVER | +QSUBSYSVER | Userspace  |  Dummy |
+| AT+QTEMP | +QTEMP | Userspace  |  Dummy |
+| AT+QTEMPDBG | +QTEMPDBG | Userspace  |  Dummy |
+| AT+QTEMPDBGLVL | +QTEMPDBGLVL | Userspace  |  Dummy |
+| AT+QTONEDET | Enable/Disable DTMF Detection | Userspace+DSP | Yes(DSP only) |
 | AT+QTTS | +QTTS | Userspace  |  Dummy |
 | AT+QTTSETUP | +QTTSETUP | Userspace  |  Dummy |
 | AT+QTTSETUP | Set TTS | DSP | No |
+| AT+QTXIIR | +QTXIIR | Userspace  |  Dummy |
 | AT+QURCCFG | Configure URC Indication Option | DSP | Yes |
+| AT+QVERSION | +QVERSION | Userspace  |  Dummy |
+| AT+QWAUTH | +QWAUTH | Userspace  |  Dummy |
+| AT+QWBCAST | +QWBCAST | Userspace  |  Dummy |
+| AT+QWCLICNT | +QWCLICNT | Userspace  |  Dummy |
+| AT+QWCLILST | +QWCLILST | Userspace  |  Dummy |
+| AT+QWCLIP | +QWCLIP | Userspace  |  Dummy |
+| AT+QWCLIRM | +QWCLIRM | Userspace  |  Dummy |
 | AT+QWDTMF | Play or Send DTMF Files to Far End | DSP | Yes |
-| AT+QWTTS | Play Text or Send Text To Far End | DSP | No |
+| AT+QWIFI | +QWIFI | Userspace  |  Dummy |
+| AT+QWIFICFG | +QWIFICFG | Userspace  |  Dummy |
+| AT+QWISO | +QWISO | Userspace  |  Dummy |
+| AT+QWMOCH | +QWMOCH | Userspace  |  Dummy |
+| AT+QWPARAM | +QWPARAM | Userspace  |  Dummy |
+| AT+QWRSTD | +QWRSTD | Userspace  |  Dummy |
+| AT+QWSERVER | +QWSERVER | Userspace  |  Dummy |
+| AT+QWSETMAC | +QWSETMAC | Userspace  |  Dummy |
+| AT+QWSSID | +QWSSID | Userspace  |  Dummy |
+| AT+QWSSIDHEX | +QWSSIDHEX | Userspace  |  Dummy |
+| AT+QWSTAINFO | +QWSTAINFO | Userspace  |  Dummy |
+| AT+QWTTS | Play Text or Send Text To Far End | Userspace+DSP | No |
+| AT+QWTOCLI | +QWTOCLI | Userspace  |  Dummy |
+| AT+QWTOCLIEN | +QWTOCLIEN | Userspace  |  Dummy |
+| AT+QWWAN | +QWWAN | Userspace  |  Dummy |
 | AT+VTD | Set Tone Duration | DSP | Yes |
 | AT+VTS | DTMF and Tone Generation | DSP | Yes |
 | ATA | Answer an Incoming Call | DSP | Yes |
@@ -247,63 +290,7 @@ Implemented can be
 [2]: FOTA functionality is completely removed in this firmware
 [3]: i2c is disabled for the most part in the kernel and userspace support is removed by default. Handling i2c from AT command interface is not supported
 [4]: Qualcomm IZAT is removed from userspace. GPS, GNSS and A-GPS work but the modem will be unable to do standalone A-GPS tracking without cooperation from the PinePhone
-
-## Commands implemented in the stock firmware by atfwd_daemon in userspace
-| Command | Description | Handled by | Implemented |
-| ------- |:-----------:|:----------:| -----------:|
-| AT+QLDTMF | +QLDTMF | Userspace  |  Dummy |
-| AT+QLINUXCPU | +QLINUXCPU | Userspace  |  Dummy |
-| AT+QLPING | +QLPING | Userspace  |  Dummy |
-| AT+QLPMCFG | +QLPMCFG | Userspace  |  Dummy |
-| AT+QLTONE | +QLTONE | Userspace  |  Dummy |
-| AT+QLWWANCID | +QLWWANCID | Userspace  |  Dummy |
-| AT+QLWWANDOWN | +QLWWANDOWN | Userspace  |  Dummy |
-| AT+QLWWANSTATUS | +QLWWANSTATUS | Userspace  |  Dummy |
-| AT+QLWWANUP | +QLWWANUP | Userspace  |  Dummy |
-| AT+QLWWANURCCFG | +QLWWANURCCFG | Userspace  |  Dummy |
-| AT+QMIC | +QMIC | Userspace  |  Dummy |
-| AT+QODM | +QODM | Userspace  |  Dummy |
-| AT+QPCMV | +QPCMV | Userspace  |  Dummy |
-| AT+QPOWD | +QPOWD | Userspace  |  Dummy |
-| AT+QPRINT | +QPRINT | Userspace  |  Dummy |
-| AT+QPRTPARA | +QPRTPARA | Userspace  |  Dummy |
-| AT+QPSM | +QPSM | Userspace  |  Dummy |
-| AT+QPSMCFG | +QPSMCFG | Userspace  |  Dummy |
-| AT+QPSND | +QPSND | Userspace  |  Dummy |
-| AT+QRXGAIN | +QRXGAIN | Userspace  |  Dummy |
-| AT+QRXIIR | +QRXIIR | Userspace  |  Dummy |
-| AT+QSCLK | +QSCLK | Userspace  |  Dummy |
-| AT+QSDMOUNT | +QSDMOUNT | Userspace  |  Dummy |
-| AT+QSGMIICFG | +QSGMIICFG | Userspace  |  Dummy |
-| AT+QSIDET | +QSIDET | Userspace  |  Dummy |
-| AT+QSUBSYSVER | +QSUBSYSVER | Userspace  |  Dummy |
-| AT+QTEMP | +QTEMP | Userspace  |  Dummy |
-| AT+QTEMPDBG | +QTEMPDBG | Userspace  |  Dummy |
-| AT+QTEMPDBGLVL | +QTEMPDBGLVL | Userspace  |  Dummy |
-| AT+QTONEDET | +QTONEDET | Userspace  |  Dummy |
-| AT+QTXIIR | +QTXIIR | Userspace  |  Dummy |
-| AT+QVERSION | +QVERSION | Userspace  |  Dummy |
-| AT+QWAUTH | +QWAUTH | Userspace  |  Dummy |
-| AT+QWBCAST | +QWBCAST | Userspace  |  Dummy |
-| AT+QWCLICNT | +QWCLICNT | Userspace  |  Dummy |
-| AT+QWCLILST | +QWCLILST | Userspace  |  Dummy |
-| AT+QWCLIP | +QWCLIP | Userspace  |  Dummy |
-| AT+QWCLIRM | +QWCLIRM | Userspace  |  Dummy |
-| AT+QWIFI | +QWIFI | Userspace  |  Dummy |
-| AT+QWIFICFG | +QWIFICFG | Userspace  |  Dummy |
-| AT+QWISO | +QWISO | Userspace  |  Dummy |
-| AT+QWMOCH | +QWMOCH | Userspace  |  Dummy |
-| AT+QWPARAM | +QWPARAM | Userspace  |  Dummy |
-| AT+QWRSTD | +QWRSTD | Userspace  |  Dummy |
-| AT+QWSERVER | +QWSERVER | Userspace  |  Dummy |
-| AT+QWSETMAC | +QWSETMAC | Userspace  |  Dummy |
-| AT+QWSSID | +QWSSID | Userspace  |  Dummy |
-| AT+QWSSIDHEX | +QWSSIDHEX | Userspace  |  Dummy |
-| AT+QWSTAINFO | +QWSTAINFO | Userspace  |  Dummy |
-| AT+QWTOCLI | +QWTOCLI | Userspace  |  Dummy |
-| AT+QWTOCLIEN | +QWTOCLIEN | Userspace  |  Dummy |
-| AT+QWTTS | +QWTTS | Userspace  |  Dummy |
-| AT+QWWAN | +QWWAN | Userspace  |  Dummy |
+[5]: Userspace ignores QSCLK config.
 
 ## Custom commands in this firmware
 
