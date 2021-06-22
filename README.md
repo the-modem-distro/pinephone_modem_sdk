@@ -19,7 +19,7 @@ Make sure you have your recoveries ready just in case:
 ### Going back to stock? [There's a Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md) too!
 
 ### Latest release:
-[Yocto 3.3](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.1)
+[Yocto 3.3.1](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.3)
 
 #### Current Status:
 * LK Bootloader
@@ -63,6 +63,8 @@ Make sure you have your recoveries ready just in case:
   * AT+EN_PCM8K: (default) Set sampling rate to 8KHz
   * AT+EN_PCM16K: Set sampling rate to 16KHz
   * AT+EN_PCM48K: Set sampling rate to 48KHz
+  * AT+EN_USBAUDIO: Enable USB audio function in the gadget driver
+  * AT+DIS_USBAUDIO: Disable it
 
 
 Pending tasks:
@@ -86,5 +88,5 @@ With the move from Yocto 3.2 to 3.3, I have removed all the proprietary recipes.
      - Listen to AT Commands and blindly respond OK to everything not implemented (to make userspace happy)
      - Sniffs on the QMI port to try and detect when there's a CS/VoLTE call and enable/disable audio accordingly
 
-#### About call audio
-If curious, I've left some notes on how audio is setup in this firmware in docs/AUDIO_PKT
+#### Documentation
+I'm really bad at documentation, but you have some docs [here](https://github.com/Biktorgj/pinephone_modem_sdk/tree/hardknott/docs), thanks @Zapeth for your help!

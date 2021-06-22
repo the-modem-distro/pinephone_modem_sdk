@@ -23,7 +23,7 @@ then
     echo "Cloning Yocto repository from the Yocto Project"
     git clone git://git.yoctoproject.org/poky yocto && \
     cd yocto && \
-    git checkout tags/yocto-3.3 -b my-yocto-3.3
+    git checkout tags/yocto-3.3.1 -b my-yocto-3.3.1
     cd $BASE_PATH
 else
     echo "Yocto is already there"
