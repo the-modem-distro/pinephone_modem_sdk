@@ -286,12 +286,6 @@ Implemented can be
 | ATZ | Set all Current Parameters to User-defined Profile | DSP | Yes |
 | AT^DSCI | Call Status Indication | DSP | Yes |
 
-[1]: Diag port is hardwired from LK to the userspace by the firmware. If GPIOs are available in your platform it'll just work(tm), disabling it will probably not work though
-[2]: FOTA functionality is completely removed in this firmware
-[3]: i2c is disabled for the most part in the kernel and userspace support is removed by default. Handling i2c from AT command interface is not supported
-[4]: Qualcomm IZAT is removed from userspace. GPS, GNSS and A-GPS work but the modem will be unable to do standalone A-GPS tracking without cooperation from the PinePhone
-[5]: Userspace ignores QSCLK config.
-
 ## Custom commands in this firmware
 
 | Command | Description | Handled by | Implemented |
@@ -304,3 +298,17 @@ Implemented can be
 | AT+EN_PCM8K | (default) Set sampling rate to 8KHz | Userspace | Yes |
 | AT+EN_PCM16K | Set sampling rate to 16KHz | Userspace | Yes |
 | AT+EN_PCM48K | Set sampling rate to 48KHz | Userspace | Yes |
+| AT+EN_USBAUDIO[6] | USB Gadget driver: enable USB audio | Userspace | Yes |
+| AT+DIS_USBAUDIO[6] | USB Gadget driver: disable USB audio | Userspace | Yes |
+
+[1]: Diag port is hardwired from LK to the userspace by the firmware. If GPIOs are available in your platform it'll just work(tm), disabling it will probably not work though
+
+[2]: FOTA functionality is completely removed in this firmware
+
+[3]: i2c is disabled for the most part in the kernel and userspace support is removed by default. Handling i2c from AT command interface is not supported
+
+[4]: Qualcomm IZAT is removed from userspace. GPS, GNSS and A-GPS work but the modem will be unable to do standalone A-GPS tracking without cooperation from the PinePhone
+
+[5]: Userspace ignores QSCLK config.
+
+[6]: For this to correctly work you'll still have to go through Quectel's USB configuration guide, and it's unknown if it fully works or not. Help would be appreciated
