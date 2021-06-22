@@ -1,7 +1,7 @@
 # QUECTEL EG25-G AT COMMANDS
 
 
-## This is currently just a placeholder, I need to check all commands one by one and fix all the descriptions, and there might be missing commands (there are quite a lot of them)
+## This is *incomplete* and a work in progress. Some info here might not be correct
 
 These are all the base commands that appear in Quectel's AT Command Manual (Version 2.0). The specific GNSS/GPS and Application control commands *are not* included here, though they will be added when this list is ready.
 
@@ -12,12 +12,13 @@ These are all the base commands that appear in Quectel's AT Command Manual (Vers
 Handled by can be
  * DSP: Handled by the ADSP firmware with no interaction from the userspace
  * Userspace: Handled only by the userspace
- * Both: Handled by the ADSP first, then notified to the userspace via IPC
+ * Userspace+DSP: Handled by the ADSP first, then notified to the userspace via IPC
 
 Implemented can be
  * Yes: The command is implemented and should be working
  * No: The command is not implemented
  * Dummy: The command blindly responds OK to whatever value you send, but won't do anything
+ * WIP: Work in progress
 
 | Command | Description | Handled by | Implemented |
 | ------- |:-----------:|:----------:| -----------:|
@@ -38,7 +39,7 @@ Implemented can be
 | AT+CCWA | Call Waiting Control | DSP | Yes |
 | AT+CEER | Extended Error Report | DSP | Yes |
 | AT+CEREG | EPS Network Registration Status | DSP | Yes |
-| AT+CFUN | Set UE Functionality | DSP | Yes |
+| AT+CFUN | Set UE Functionality |  Userspace+DSP  | Yes (DSP only) |
 | AT+CGACT | Activate or Deactivate PDP Context | DSP | Yes |
 | AT+CGATT | Attachment or Detachment of PS | DSP | Yes |
 | AT+CGCLASS | GPRS Mobile Station Class | DSP | Yes |
@@ -77,6 +78,7 @@ Implemented can be
 | AT+CMMS | More Messages to Send | DSP | Yes |
 | AT+CMSS | Send Message from Storage | DSP | Yes |
 | AT+CMUT | Mute Control | DSP | Yes |
+| AT+CMUX | +CMUX | Userspace  |  Dummy |
 | AT+CNMA | New Message Acknowledgement to UE/TE | DSP | Yes |
 | AT+CNMI | SMS Event Reporting Configuration | DSP | Yes |
 | AT+CNUM | Subscriber Number | DSP | Yes |
@@ -117,104 +119,23 @@ Implemented can be
 | AT+GSN | Request International Mobile Equipment Identity (IMEI) and SN | DSP | Yes |
 | AT+ICF | Set TE-TA Control Character Framing | DSP | Yes |
 | AT+IFC | Set TE-TA Local Data Flow Control | DSP | Yes |
-| AT+IPR | Set TE-TA Fixed Local Rate | DSP | Yes |
+| AT+IPR | Set TE-TA Fixed Local Rate | Userspace+DSP | Yes (DSP only) |
 | AT+QACDBDEL | Delete ACDB File | DSP | Yes |
 | AT+QACDBLOAD | Write ACDB File | DSP | Yes |
 | AT+QACDBREAD | Read ACDB File | DSP | Yes |
-| AT+QADC | Read ADC Value | DSP | Yes |
-| AT+QAPRDYIND | Configure to Report Specified URC | DSP | Yes |
-| AT+QAUDCFG | Query and Configure Audio Tuning Process | DSP | Yes |
-| AT+QAUDLOOP | Enable/Disable Audio Loop Test | DSP | Yes |
-| AT+QAUDMOD | Set Audio Mode | DSP | Yes |
-| AT+QAUDPLAY | Play Media File | DSP | Dummy |
-| AT+QAUDPLAYGAIN | Set Audio Playing Gain | DSP | Dummy |
-| AT+QAUDRD | Record Media File | DSP | Dummy |
-| AT+QAUDRDGAIN | Set Audio Recording Gain | DSP | Dummy |
-| AT+QAUGDCNT | Auto Save Packet Data Counter | DSP | Yes |
-| AT+QCCID | Show ICCID | DSP | Yes |
-| AT+QCFG | Extended Configuration Settings  | DSP | Yes |
-| AT+QCHLDIPMPTY | Hang Up a Call in the VoLTE Conference | DSP | Yes |
-| AT+QCMGR | Read Concatenated Messages | DSP | Yes |
-| AT+QCMGS | Send Concatenated Messages | DSP | Yes |
-| AT+QDAI | Digital Audio Interface Configuration | DSP | WIP |
-| AT+QDIAGPORT | Debug UART Configuration | DSP | Yes |
-| AT+QECCNUM | Configure Emergency Call Numbers | DSP | Yes |
-| AT+QEEC | Set Echo Cancellation Parameters | DSP | Yes |
-| AT+QENG | Switching on/off Engineering Mode | DSP | Yes |
-| AT+QFPLMNCFG | FPLMN Configuration | DSP | Yes |
-| AT+QGDCNT | Packet Data Counter | DSP | Yes |
-| AT+QHUP | Hang up Call with a Specific Release Cause | DSP | Yes |
-| AT+QIIC | Read and Write Codec via IIC | DSP | Yes |
-| AT+QINDCFG | URC Indication Configuration | DSP | Yes |
-| AT+QINISTAT | Query Initialization Status of (U)SIM Card | DSP | Yes |
-| AT+QLDTMF | Play Local DTMF | DSP | Yes |
-| AT+QLTONE | Play a Local Customized Tone | DSP | Yes |
-| AT+QLTS | Obtain the Latest Time Synchronized Through Network | DSP | Yes |
-| AT+QMBNCFG | MBN File Configuration Setting | DSP | Yes |
-| AT+QMIC | Set Uplink Gains of Microphone | DSP | Yes |
-| AT+QNETDEVSTATUS | Query RmNet Device Status | DSP | Yes |
-| AT+QNETINFO | Query Network Information of RATs | DSP | Yes |
-| AT+QNWINFO | Query Network Information | DSP | Yes |
-| AT+QNWLOCK="common/lte" | Network Locking Configuration | DSP | Yes |
-| AT+QOPS | Band Scan | DSP | Yes |
-| AT+QOPSCFG="displayrssi" | Enable/Disable to Display RSSI in LTE | DSP | Yes |
-| AT+QOPSCFG="scancontrol" | Configure Bands to be Scanned in 2G/3G/4G | DSP | Yes |
-| AT+QPINC | Display PIN Remainder Counter | DSP | Yes |
-| AT+QPOWD | Power off | DSP | Yes |
-| AT+QPSND | Play WAV File | DSP | No |
-| AT+QRIR | Restore RI Behavior to Inactive | DSP | Yes |
-| AT+QRXGAIN | Set Downlink Gains of RX | DSP | Yes |
-| AT+QSCLK | Enable/Disable Low Power Mode | DSP | Yes |
-| AT+QSIDET | Set the Side Tone Gain in Current Mode | DSP | Yes |
-| AT+QSIMDET | (U)SIM Card Detection | DSP | Yes |
-| AT+QSIMSTAT | (U)SIM Card Insertion Status Report | DSP | Yes |
-| AT+QSIMVOL | Fix (U)SIM Card Supply Voltage | DSP | Yes |
-| AT+QSPN | Display the Name of Registered Network | DSP | Yes |
-| AT+QTONEDET | Enable/Disable DTMF Detection | DSP | Yes |
-| AT+QTTS | Play Text | DSP | No |
-| AT+QTTSETUP | Set TTS | DSP | No |
-| AT+QURCCFG | Configure URC Indication Option | DSP | Yes |
-| AT+QWDTMF | Play or Send DTMF Files to Far End | DSP | Yes |
-| AT+QWTTS | Play Text or Send Text To Far End | DSP | No |
-| AT+VTD | Set Tone Duration | DSP | Yes |
-| AT+VTS | DTMF and Tone Generation | DSP | Yes |
-| ATA | Answer an Incoming Call | DSP | Yes |
-| ATD | Mobile Originated Call to Dial a Number | DSP | Yes |
-| ATE | Set Command Echo Mode | DSP | Yes |
-| ATH | Disconnect Existing Connection | DSP | Yes |
-| ATI | Display MT Identification Information | DSP | Yes |
-| ATO | Switch from Command Mode to Data Mode | DSP | Yes |
-| ATQ | Set Result Code Presentation Mode | DSP | Yes |
-| ATS0 | Set Number of Rings before Automatical Answering | DSP | Yes |
-| ATS10 | Set Disconnection Delay after Indicating the Absence of Data Carrier | DSP | Yes |
-| ATS12 | Set the Interval for Exiting the Transparent Access Mode Using +++ | DSP | Yes |
-| ATS3 | Set Command Line Termination Character | DSP | Yes |
-| ATS4 | Set Response Formatting Character | DSP | Yes |
-| ATS5 | Set Command Line Editing Character | DSP | Yes |
-| ATS6 | Set Pause before Blind Dialing | DSP | Yes |
-| ATS7 | Set Time to Wait for Connection Completion | DSP | Yes |
-| ATS8 | Set the Time to Wait for Comma Dial Modifier | DSP | Yes |
-| ATV | MT Response Format | DSP | Yes |
-| ATX | Set CONNECT Result Code Format and Monitor Call Progress | DSP | Yes |
-| ATZ | Set all Current Parameters to User-defined Profile | DSP | Yes |
-| AT^DSCI | Call Status Indication | DSP | Yes |
-
-## Commands implemented in the stock firmware by atfwd_daemon in userspace
-| Command | Description | Handled by | Implemented |
-| ------- |:-----------:|:----------:| -----------:|
-| AT+CFUN | +CFUN | Userspace+DSP  |  Yes (DSP only) |
-| AT+CMUX | +CMUX | Userspace  |  Dummy |
-| AT+IPR | +IPR | Userspace  |  Dummy |
 | AT+QADBKEY | +QADBKEY | Userspace  |  Dummy |
-| AT+QADC | +QADC | Userspace  |  Dummy |
+| AT+QADC | Read ADC Value | Userspace+DSP | Unknown |
 | AT+QADCTEMP | +QADCTEMP | Userspace  |  Dummy |
-| AT+QAPRDYIND | +QAPRDYIND | Userspace  |  Dummy |
-| AT+QAUDCFG | +QAUDCFG | Userspace  |  Dummy |
-| AT+QAUDLOOP | +QAUDLOOP | Userspace  |  Dummy |
-| AT+QAUDMOD | +QAUDMOD | Userspace  |  Dummy |
-| AT+QAUDPLAY | +QAUDPLAY | Userspace  |  Dummy |
-| AT+QAUDRD | +QAUDRD | Userspace  |  Dummy |
+| AT+QAPRDYIND | Configure to Report Specified URC | Userspace+DSP | Yes(DSP only) |
+| AT+QAUDCFG | Query and Configure Audio Tuning Process | Userspace+DSP | Yes(DSP only) |
+| AT+QAUDLOOP | Enable/Disable Audio Loop Test | Userspace+DSP | Yes(DSP only) |
+| AT+QAUDMOD | Set Audio Mode | Userspace+DSP | Unknown |
+| AT+QAUDPLAY | Play Media File | Userspace+DSP | Dummy |
+| AT+QAUDPLAYGAIN | Set Audio Playing Gain | DSP | Dummy |
+| AT+QAUDRD | Record Media File | Userspace+DSP | Dummy |
+| AT+QAUDRDGAIN | Set Audio Recording Gain | DSP | Dummy |
 | AT+QAUDSTOP | +QAUDSTOP | Userspace  |  Dummy |
+| AT+QAUGDCNT | Auto Save Packet Data Counter | DSP | Yes |
 | AT+QBTAVACT | +QBTAVACT | Userspace  |  Dummy |
 | AT+QBTAVCON | +QBTAVCON | Userspace  |  Dummy |
 | AT+QBTAVREG | +QBTAVREG | Userspace  |  Dummy |
@@ -242,21 +163,94 @@ Implemented can be
 | AT+QBTSPPACT | +QBTSPPACT | Userspace  |  Dummy |
 | AT+QBTSPPDIC | +QBTSPPDIC | Userspace  |  Dummy |
 | AT+QBTSPPWRS | +QBTSPPWRS | Userspace  |  Dummy |
-| AT+QCFG | +QCFG | Userspace+ADSP  |  Yes (DSP only) |
-| AT+QDAI | +QDAI | Userspace  |  WIP |
+| AT+QCCID | Show ICCID | DSP | Yes |
+| AT+QCFG | Extended Configuration Settings  | Userspace+DSP | Yes(DSP only) |
+| AT+QCHLDIPMPTY | Hang Up a Call in the VoLTE Conference | DSP | Yes |
+| AT+QCMGR | Read Concatenated Messages | DSP | Yes |
+| AT+QCMGS | Send Concatenated Messages | DSP | Yes |
+| AT+QDAI | Digital Audio Interface Configuration | Userspace+DSP | WIP |
 | AT+QDATAFWD | +QDATAFWD | Userspace  |  Dummy |
-| AT+QDIAGPORT | +QDIAGPORT | Userspace  |  Dummy |
-| AT+QEEC | +QEEC | Userspace+DSP  |  Yes(DSP) |
+| AT+QDIAGPORT[1] | Debug UART Configuration | Userspace+DSP | Unknown |
+| AT+QECCNUM | Configure Emergency Call Numbers | DSP | Yes |
+| AT+QEEC | Set Echo Cancellation Parameters | Userspace+DSP | Yes(DSP only) |
+| AT+QENG | Switching on/off Engineering Mode | DSP | Yes |
 | AT+QFASTBOOT | +QFASTBOOT | Userspace  |  Yes |
 | AT+QFCT | +QFCT | Userspace  |  Dummy |
 | AT+QFCTRX | +QFCTRX | Userspace  |  Dummy |
 | AT+QFCTTX | +QFCTTX | Userspace  |  Dummy |
-| AT+QFOTADL | +QFOTADL | Userspace  |  Dummy |
+| AT+QFOTADL[2] | FOTA Download | Userspace  |  Dummy |
+| AT+QFPLMNCFG | FPLMN Configuration | DSP | Yes |
 | AT+QFTCMD | +QFTCMD | Userspace  |  Dummy |
 | AT+QFUMO | +QFUMO | Userspace  |  Dummy |
 | AT+QFUMOCFG | +QFUMOCFG | Userspace  |  Dummy |
-| AT+QGPSCFG | +QGPSCFG | Userspace  |  Dummy |
-| AT+QIIC | +QIIC | Userspace  |  Dummy |
+| AT+QGDCNT | Packet Data Counter | DSP | Yes |
+| AT+QGPSCFG[4] | +QGPSCFG | Userspace  |  Dummy |
+| AT+QHUP | Hang up Call with a Specific Release Cause | DSP | Yes |
+| AT+QIIC[3] | Read and Write Codec via IIC | Userspace+DSP | No |
+| AT+QINDCFG | URC Indication Configuration | DSP | Yes |
+| AT+QINISTAT | Query Initialization Status of (U)SIM Card | DSP | Yes |
+| AT+QLDTMF | Play Local DTMF | DSP | Yes |
+| AT+QLTONE | Play a Local Customized Tone | DSP | Yes |
+| AT+QLTS | Obtain the Latest Time Synchronized Through Network | DSP | Yes |
+| AT+QMBNCFG | MBN File Configuration Setting | DSP | Yes |
+| AT+QMIC | Set Uplink Gains of Microphone | DSP | Yes |
+| AT+QNAND | +QNAND | Userspace+DSP |  Yes(DSP only, read) |
+| AT+QNETDEVSTATUS | Query RmNet Device Status | DSP | Yes |
+| AT+QNETINFO | Query Network Information of RATs | DSP | Yes |
+| AT+QNWINFO | Query Network Information | DSP | Yes |
+| AT+QNWLOCK="common/lte" | Network Locking Configuration | DSP | Yes |
+| AT+QOPS | Band Scan | DSP | Yes |
+| AT+QOPSCFG="displayrssi" | Enable/Disable to Display RSSI in LTE | DSP | Yes |
+| AT+QOPSCFG="scancontrol" | Configure Bands to be Scanned in 2G/3G/4G | DSP | Yes |
+| AT+QPINC | Display PIN Remainder Counter | DSP | Yes |
+| AT+QPOWD | Power off | DSP | Yes |
+| AT+QPSND | Play WAV File | DSP | No |
+| AT+QRIR | Restore RI Behavior to Inactive | DSP | Yes |
+| AT+QRXGAIN | Set Downlink Gains of RX | DSP | Yes |
+| AT+QSCLK | Enable/Disable Low Power Mode | DSP | Yes |
+| AT+QSIDET | Set the Side Tone Gain in Current Mode | DSP | Yes |
+| AT+QSIMDET | (U)SIM Card Detection | DSP | Yes |
+| AT+QSIMSTAT | (U)SIM Card Insertion Status Report | DSP | Yes |
+| AT+QSIMVOL | Fix (U)SIM Card Supply Voltage | DSP | Yes |
+| AT+QSPN | Display the Name of Registered Network | DSP | Yes |
+| AT+QTONEDET | Enable/Disable DTMF Detection | DSP | Yes |
+| AT+QTTS | +QTTS | Userspace  |  Dummy |
+| AT+QTTSETUP | +QTTSETUP | Userspace  |  Dummy |
+| AT+QTTSETUP | Set TTS | DSP | No |
+| AT+QURCCFG | Configure URC Indication Option | DSP | Yes |
+| AT+QWDTMF | Play or Send DTMF Files to Far End | DSP | Yes |
+| AT+QWTTS | Play Text or Send Text To Far End | DSP | No |
+| AT+VTD | Set Tone Duration | DSP | Yes |
+| AT+VTS | DTMF and Tone Generation | DSP | Yes |
+| ATA | Answer an Incoming Call | DSP | Yes |
+| ATD | Mobile Originated Call to Dial a Number | DSP | Yes |
+| ATE | Set Command Echo Mode | DSP | Yes |
+| ATH | Disconnect Existing Connection | DSP | Yes |
+| ATI | Display MT Identification Information | DSP | Yes |
+| ATO | Switch from Command Mode to Data Mode | DSP | Yes |
+| ATQ | Set Result Code Presentation Mode | DSP | Yes |
+| ATS0 | Set Number of Rings before Automatical Answering | DSP | Yes |
+| ATS10 | Set Disconnection Delay after Indicating the Absence of Data Carrier | DSP | Yes |
+| ATS12 | Set the Interval for Exiting the Transparent Access Mode Using +++ | DSP | Yes |
+| ATS3 | Set Command Line Termination Character | DSP | Yes |
+| ATS4 | Set Response Formatting Character | DSP | Yes |
+| ATS5 | Set Command Line Editing Character | DSP | Yes |
+| ATS6 | Set Pause before Blind Dialing | DSP | Yes |
+| ATS7 | Set Time to Wait for Connection Completion | DSP | Yes |
+| ATS8 | Set the Time to Wait for Comma Dial Modifier | DSP | Yes |
+| ATV | MT Response Format | DSP | Yes |
+| ATX | Set CONNECT Result Code Format and Monitor Call Progress | DSP | Yes |
+| ATZ | Set all Current Parameters to User-defined Profile | DSP | Yes |
+| AT^DSCI | Call Status Indication | DSP | Yes |
+
+[1]: Diag port is hardwired from LK to the userspace by the firmware. If GPIOs are available in your platform it'll just work(tm), disabling it will probably not work though
+[2]: FOTA functionality is completely removed in this firmware
+[3]: i2c is disabled for the most part in the kernel and userspace support is removed by default. Handling i2c from AT command interface is not supported
+[4]: Qualcomm IZAT is removed from userspace. GPS, GNSS and A-GPS work but the modem will be unable to do standalone A-GPS tracking without cooperation from the PinePhone
+
+## Commands implemented in the stock firmware by atfwd_daemon in userspace
+| Command | Description | Handled by | Implemented |
+| ------- |:-----------:|:----------:| -----------:|
 | AT+QLDTMF | +QLDTMF | Userspace  |  Dummy |
 | AT+QLINUXCPU | +QLINUXCPU | Userspace  |  Dummy |
 | AT+QLPING | +QLPING | Userspace  |  Dummy |
@@ -268,7 +262,6 @@ Implemented can be
 | AT+QLWWANUP | +QLWWANUP | Userspace  |  Dummy |
 | AT+QLWWANURCCFG | +QLWWANURCCFG | Userspace  |  Dummy |
 | AT+QMIC | +QMIC | Userspace  |  Dummy |
-| AT+QNAND | +QNAND | Userspace  |  Dummy |
 | AT+QODM | +QODM | Userspace  |  Dummy |
 | AT+QPCMV | +QPCMV | Userspace  |  Dummy |
 | AT+QPOWD | +QPOWD | Userspace  |  Dummy |
@@ -288,8 +281,6 @@ Implemented can be
 | AT+QTEMPDBG | +QTEMPDBG | Userspace  |  Dummy |
 | AT+QTEMPDBGLVL | +QTEMPDBGLVL | Userspace  |  Dummy |
 | AT+QTONEDET | +QTONEDET | Userspace  |  Dummy |
-| AT+QTTS | +QTTS | Userspace  |  Dummy |
-| AT+QTTSETUP | +QTTSETUP | Userspace  |  Dummy |
 | AT+QTXIIR | +QTXIIR | Userspace  |  Dummy |
 | AT+QVERSION | +QVERSION | Userspace  |  Dummy |
 | AT+QWAUTH | +QWAUTH | Userspace  |  Dummy |
