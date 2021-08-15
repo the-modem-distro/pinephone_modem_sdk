@@ -1,8 +1,10 @@
 #!/bin/sh
-# Just so you dont have to write.
+# Just so you don't have to write.
 # Reboot the modem into fastboot mode
+# use adb if available, otherwise use AT interpreter
+# using adb avoids having to run fastboot reboot twice
 # flash kernel + rootfs and reboot
-sudo sh -c 'echo -ne "AT+QFASTBOOT\r" > /dev/ttyUSB2'
+adb shell reboot || sudo sh -c 'echo -ne "AT+QFASTBOOT\r" > /dev/ttyUSB2'
 fastboot oem stay
 fastboot flash aboot appsboot.mbn
 fastboot reboot-bootloader
@@ -11,5 +13,4 @@ fastboot flash:raw boot boot-mdm9607.img
 fastboot flash:raw recovery recovery.img
 fastboot flash system rootfs-mdm9607.ubi
 fastboot flash recoveryfs recoveryfs.ubi
-echo "Finished, if everything went well, run fastboot reboot to restart the modem"
-
+echo "Finished, if everything went well, run fastboot reboot to restart the modem. You may have to do this twice."
