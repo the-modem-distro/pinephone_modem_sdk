@@ -19,7 +19,7 @@ Make sure you have your recoveries ready just in case:
 ### Going back to stock? [There's a Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md) too!
 
 ### Latest release:
-[Yocto 3.3.1](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.2.3)
+[Yocto 3.3.1](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.3.0)
 
 #### Current Status:
 * LK Bootloader
@@ -44,9 +44,9 @@ Make sure you have your recoveries ready just in case:
 	* Booting: Works
 		* USB Peripheral mode: WWAN+ADB are working blobfree, WWAN+GPS+ADB with blobs
 		* Modem (ADSP): Firmware loading, booting, data and calling works.
-    * Audio: Working, there might be some glitches still in some scenarios
+    * Audio: Working, needs fine tunning (1-5 seconds of silence on call start)
     * Ring In: Works correctly when setting the modem to report RING to all interfaces. You can do this by sending the following command to the modem:
-      * AT+QURCCFG="urcport","all"
+      * AT+QURCCFG="urcport","all". Most distros have this setting already enabled
     * GPS: Working
     * Sleep / Power management: The kernel is always running in low power mode now, this should make the Pinephone consume between 1.12%-1.89% battery on suspend, giving a max runtime on a battery charge of 78 hours / 3 days if there's nothing waking it up, in par with factory firmware with ADB disabled.
     * Non persistent data partition (now there's no way of corrupting anything when killing the modem)
@@ -68,25 +68,9 @@ Make sure you have your recoveries ready just in case:
 
 
 Pending tasks:
- 1. Find a fix for issues with latest ModemManager breaking data
- 2. Find fixes to support dynamic rate settings in the Pinephone
- 3. Finish and tidy up the AT command handling stuff
- 4. Test out audio over USB. Can be enabled via USB config, but haven't tested if audio is actually routed through there
-
-##### NOTES:
-###### Proprietary recipes removed
-With the move from Yocto 3.2 to 3.3, I have removed all the proprietary recipes. You can still check them out in the `meta-qcom` repository's *main* branch if you're looking for something specific, but I won't be checking if it builds and boots with it as I don't think they're necessary anymore
-
-###### Opensource recipes:
-  * meta-qcom/recipes-modem/openqti: I've reimplemented everything I had separated in three different utilities into OpenQTI. This takes care of the folllowing at this point:
-     - Initialize Kernel's IPC Security settings
-     - Initialize DPM to start the required devices for QMI to pass through USB
-     - Initialize I2S settings for call audio
-     - Initialize the AT service in the DSP and register all commands
-     - Act as a proxy between modem's USB QMI and the kernel smdcntl8 node
-     - Act as a proxy for the GPS port
-     - Listen to AT Commands and blindly respond OK to everything not implemented (to make userspace happy)
-     - Sniffs on the QMI port to try and detect when there's a CS/VoLTE call and enable/disable audio accordingly
+ 1. Find fixes to support dynamic rate settings in the Pinephone
+ 2. Finish and tidy up the AT command handling stuff
+ 3. Implement USB audio: thanks to @gregvish we have a patchset that can be incorporated, it needs more testing for some issues that need to be ironed out (audio code is hacky right now and needs a good cleanup) 
 
 #### Documentation
 I'm really bad at documentation, but you have some docs [here](https://github.com/Biktorgj/pinephone_modem_sdk/tree/hardknott/docs), thanks @Zapeth for your help!
