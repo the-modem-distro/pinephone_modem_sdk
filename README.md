@@ -47,6 +47,10 @@ Make sure you have your recoveries ready just in case:
     * Audio: Working, needs fine tunning (1-5 seconds of silence on call start)
     * Ring In: Works correctly when setting the modem to report RING to all interfaces. You can do this by sending the following command to the modem:
       * AT+QURCCFG="urcport","all". Most distros have this setting already enabled
+    * Call volume: May need some tweaking to the ALSA UCM configuration file. You can do this by editing `/usr/share/alsa/ucm2/PinePhone/VoiceCall.conf`. These values seem to work well:
+      * `cset "name='AIF1 DA0 Playback Volume' 90%"`
+      * `cset "name='AIF2 DAC Playback Volume' 90%"`
+      * A reboot is required after changing this configuration file.
     * GPS: Working
     * Sleep / Power management: The kernel is always running in low power mode now, this should make the Pinephone consume between 1.12%-1.89% battery on suspend, giving a max runtime on a battery charge of 78 hours / 3 days if there's nothing waking it up, in par with factory firmware with ADB disabled.
     * Non persistent data partition (now there's no way of corrupting anything when killing the modem)
