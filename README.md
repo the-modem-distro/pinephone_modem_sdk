@@ -19,7 +19,7 @@ Make sure you have your recoveries ready just in case:
 ### Going back to stock? [There's a Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md) too!
 
 ### Latest release:
-[Yocto 3.3.1](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.3.0)
+[Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.3.1)
 
 #### Current Status:
 * LK Bootloader
@@ -63,7 +63,6 @@ Make sure you have your recoveries ready just in case:
   * AT+QFASTBOOT: Jump to fastboot mode
   * AT+REBOOT_REC: Jump to recovery mode
   * AT+PWRDN: Shut down the modem
-  * AT+QDAI: WIP, set audio configuration on the modem
   * AT+EN_PCM8K: (default) Set sampling rate to 8KHz
   * AT+EN_PCM16K: Set sampling rate to 16KHz
   * AT+EN_PCM48K: Set sampling rate to 48KHz
@@ -74,7 +73,7 @@ Make sure you have your recoveries ready just in case:
 Pending tasks:
  1. Find fixes to support dynamic rate settings in the Pinephone
  2. Finish and tidy up the AT command handling stuff
- 3. Implement USB audio: thanks to @gregvish we have a patchset that can be incorporated, it needs more testing for some issues that need to be ironed out (audio code is hacky right now and needs a good cleanup) 
+ 3. Implement (or try to) Quectel's LPM notifications to smd8/DATA3 (currently testing) so it stops "speaking" while USB is suspended
 
 #### Documentation
 I'm really bad at documentation, but you have some docs [here](https://github.com/Biktorgj/pinephone_modem_sdk/tree/hardknott/docs), thanks @Zapeth for your help!
