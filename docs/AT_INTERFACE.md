@@ -298,8 +298,8 @@ Implemented can be
 | AT+EN_PCM8K | (default) Set sampling rate to 8KHz | Userspace | Yes |
 | AT+EN_PCM16K | Set sampling rate to 16KHz | Userspace | Yes |
 | AT+EN_PCM48K | Set sampling rate to 48KHz | Userspace | Yes |
-| AT+EN_USBAUDIO[6] | USB Gadget driver: enable USB audio | Userspace | Yes |
-| AT+DIS_USBAUDIO[6] | USB Gadget driver: disable USB audio | Userspace | Yes |
+| AT+EN_USBAUD[6] | USB Gadget driver: enable USB audio | Userspace | Yes |
+| AT+DIS_USBAUD[6] | USB Gadget driver: disable USB audio | Userspace | Yes |
 
 [1]: Diag port is hardwired from LK to the userspace by the firmware. If GPIOs are available in your platform it'll just work(tm), disabling it will probably not work though
 
