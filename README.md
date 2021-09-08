@@ -18,8 +18,9 @@ Make sure you have your recoveries ready just in case:
 
 ### Going back to stock? [There's a Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md) too!
 
-### Latest release:
-[Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.3.5)
+### Latest release: [Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.3.5)
+
+### Having issues? [Check out if the issue is already documented or create a new one](https://github.com/Biktorgj/pinephone_modem_sdk/issues)
 
 #### Current Status:
 * LK Bootloader
@@ -30,8 +31,7 @@ Make sure you have your recoveries ready just in case:
     * Debugging: Via debug UART
     * Signals and custom boot modes via GPIO pins: OK
       * Check tools/helpers for scripts to force boot into fastboot or out of it
-      * Fastboot auto entering: OK
-	* On reset, the bootloader enters into fastboot mode automatically for 2 seconds, and boots normally unless instructed to stay (leave the command `fastboot oem stay` running while rebooting the modemto make it stop at fastboot).
+    	* On reset, the bootloader enters into fastboot mode automatically for 2 seconds, and boots normally unless instructed to stay (leave the command `fastboot oem stay` running while rebooting the modem to make it stop at fastboot).
   * Custom fastboot commands:
     * fastboot reboot-bootlader: Reboot to fastboot
     * fastboot oem stay: Stay in fastboot instead of booting normally
@@ -64,7 +64,9 @@ TODO
  2. Finish and tidy up the AT command handling stuff
  3. Allow bootloader PIN lock to prevent accidental flashing
  4. Implement opensource ACDB loader?
-
+ 5. Fix fastboot reboot to EDL if possible
+ 6. Companion app to update the firmware / manage modem settings / retrieve logs
+ 
  Contribution is always welcome! Feel free to share any issue or something that you think may be interesting to have!
 
 #### Documentation
