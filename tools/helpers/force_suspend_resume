@@ -1,0 +1,9 @@
+#!/bin/bash
+SLEEPSECS=10
+for i in {1..300}
+do
+        echo "Sleeping for $SLEEPSECS seconds for the $i time"
+        rtcwake -s $SLEEPSECS -m mem
+        sleep $((0 + $RANDOM % 10))
+        lsusb |grep Quect
+done
