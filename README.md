@@ -19,7 +19,7 @@ Make sure you have your recoveries ready just in case:
 ### Going back to stock? [There's a Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md) too!
 
 ### Latest release:
-[Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.3.1)
+[Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.3.5)
 
 #### Current Status:
 * LK Bootloader
@@ -57,23 +57,15 @@ Make sure you have your recoveries ready just in case:
 * System images:
   * root_fs: Default system image. Includes a minimal root filesystem and one application replacing the entire Qualcomm / Quectel stack. Some functions are not yet functional
   * recovery_fs: Minimal bootable image to be flashed into the recovery partitions to retrieve logs and make changes to the root image
-* Custom AT Commands:
-  * AT+ADBON / AT+ADBOFF: Enable or disable ADB at runtime (this will reset USB for a second)
-  * AT+RESETUSB: Stop and start USB on the modem
-  * AT+QFASTBOOT: Jump to fastboot mode
-  * AT+REBOOT_REC: Jump to recovery mode
-  * AT+PWRDN: Shut down the modem
-  * AT+EN_PCM8K: (default) Set sampling rate to 8KHz
-  * AT+EN_PCM16K: Set sampling rate to 16KHz
-  * AT+EN_PCM48K: Set sampling rate to 48KHz
-  * AT+EN_USBAUDIO: Enable USB audio function in the gadget driver
-  * AT+DIS_USBAUDIO: Disable it
+* Custom AT Commands: Please see this [document](https://github.com/Biktorgj/pinephone_modem_sdk/blob/0.3.5/docs/AT_INTERFACE.md#custom-commands-in-this-firmware)
 
-
-Pending tasks:
+TODO
  1. Find fixes to support dynamic rate settings in the Pinephone
  2. Finish and tidy up the AT command handling stuff
- 3. Implement (or try to) Quectel's LPM notifications to smd8/DATA3 (currently testing) so it stops "speaking" while USB is suspended
+ 3. Allow bootloader PIN lock to prevent accidental flashing
+ 4. Implement opensource ACDB loader?
+
+ Contribution is always welcome! Feel free to share any issue or something that you think may be interesting to have!
 
 #### Documentation
 I'm really bad at documentation, but you have some docs [here](https://github.com/Biktorgj/pinephone_modem_sdk/tree/hardknott/docs), thanks @Zapeth for your help!
