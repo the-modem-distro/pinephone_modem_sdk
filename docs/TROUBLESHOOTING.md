@@ -7,7 +7,8 @@ Type in `lsusb` at your terminal and see if the following line appears and disap
 `Bus 002 Device 004: ID 18d1:d00d Google Inc. Xiaomi Mi/Redmi 2 (fastboot)`
 
 ## I'm using your firmware and don't know how to enter fastboot modem
-If you have adb on, just run (as root): `adb shell reboot; fastboot oem stay`
+If you have ADB on, just run (as root): `adb shell reboot; fastboot oem stay`
+If you have ADB off, just run (as root): `sudo sh -c 'echo -ne "AT+QFASTBOOT\r" > /dev/ttyUSB2'`
 
 ## My modem won't boot anymore
 If your modem doesn't boot at all, you can try these to get into fastboot and flash it again
