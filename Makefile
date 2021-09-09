@@ -13,7 +13,7 @@ $(shell mkdir -p target)
 export ARCH=arm
 
 all: help
-everything: aboot root_fs recovery_fs package
+everything: target_clean aboot root_fs recovery_fs package
 
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
@@ -65,8 +65,9 @@ recovery_fs:
 package: 
 	cp $(CURRENT_PATH)/tools/helpers/flashall $(CURRENT_PATH)/target && \
 	cd $(CURRENT_PATH)/target && \
+	sha512sum * > shasums.txt && \
 	chmod +x flashall && \
-	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi flashall
+	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi flashall shasums.txt
 
 target_extract:
 	rm -rf $(CURRENT_PATH)/target/dump ; \
@@ -79,7 +80,7 @@ clean: aboot_clean target_clean yocto_clean yocto_cleancache
 clean_all: aboot_clean target_clean yocto_clean yocto_cleancache yocto_cleandownloads
 
 target_clean:
-	rm -rf $(CURRENT_PATH)/target && mkdir -p $(CURRENT_PATH)/target/dump
+	rm -rf $(CURRENT_PATH)/target && mkdir -p $(CURRENT_PATH)/target
 
 aboot_clean:
 	rm -rf $(APPSBOOT_PATH)/build-mdm9607
