@@ -4,7 +4,7 @@
 
 This repository contains all the tools you need use to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.3.6 based on Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.3.6)
+### Latest release: [Version 0.3.7 based on Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.3.7)
 
 - Rolling your own? [Check the Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
 - Want to flash it? [Here's a guide!](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
