@@ -2,13 +2,18 @@
 # Just so you don't have to write.
 # reboot the modem into fastboot mode
 # flash kernel + rootfs and reboot
+echo "Sending AT+QFASTBOOT..."
 sudo sh -c 'echo -ne "AT+QFASTBOOT\r" > /dev/ttyUSB2'
 fastboot oem stay
-fastboot flash aboot appsboot.mbn
+fastboot flash aboot appsboot.mbn || exit "Failed to flash the bootloader"
+fastboot reboot 
+fastboot oem stay || exit "Failed to stay in fastboot"
+fastboot flash:raw boot boot-mdm9607.img || exit "Failed to flash main kernel"
+fastboot flash:raw recovery recovery.img || exit "Failed to flash recovery kernel"
+fastboot flash system rootfs-mdm9607.ubi || exit "Failed to flash the system partition"
+fastboot flash recoveryfs recoveryfs.ubi || exit "Failed to flash the recovery partition"
 fastboot reboot
-fastboot oem stay
-fastboot flash:raw boot boot-mdm9607.img
-fastboot flash:raw recovery recovery.img
-fastboot flash system rootfs-mdm9607.ubi
-fastboot flash recoveryfs recoveryfs.ubi
-echo "Finished, if everything went well, run fastboot reboot to restart the modem"
+sleep 3
+# Just in case...
+fastboot reboot 
+echo "Done!"
