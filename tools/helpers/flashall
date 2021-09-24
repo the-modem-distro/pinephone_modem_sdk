@@ -13,7 +13,4 @@ fastboot flash:raw recovery recovery.img || exit "Failed to flash recovery kerne
 fastboot flash system rootfs-mdm9607.ubi || exit "Failed to flash the system partition"
 fastboot flash recoveryfs recoveryfs.ubi || exit "Failed to flash the recovery partition"
 fastboot reboot
-sleep 3
-# Just in case...
-fastboot reboot 
 echo "Done!"
