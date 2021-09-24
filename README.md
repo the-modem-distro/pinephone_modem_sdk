@@ -4,7 +4,7 @@
 
 This repository contains all the tools you need use to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.4.0 based on Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.0)
+### Latest release: [Version 0.4.1 based on Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.1)
 
 - Rolling your own? [Check the Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
 - Want to flash it? [Here's a guide!](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
@@ -25,9 +25,10 @@ This repository contains all the tools you need use to make your own Modem users
 * CAF Kernel: Working
 * Audio: Working, needs fine tunning (1-5 seconds of silence on call start)
 * Call volume: May need some tweaking to the ALSA UCM configuration file. You can do this by editing `/usr/share/alsa/ucm2/PinePhone/VoiceCall.conf`. These values seem to work well:
-      * `cset "name='AIF1 DA0 Playback Volume' 90%"`
       * `cset "name='AIF2 DAC Playback Volume' 90%"`
+      * `cset "name='AIF2 ADC Capture Volume' 90%"`
       * A reboot is required after changing this configuration file.
+      * Feel free to play around with the values, default value is '160' for both items (without '%' sign). Mine sounds loud enough at both extremes with 90% and 80% respectively
 * GPS: Working
 * Sleep / Power management: Working (New current measurement and profiling required after latest changes)
 * System images:
