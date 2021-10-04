@@ -4,7 +4,7 @@
 
 This repository contains all the tools you need use to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.4.1 based on Yocto 3.3.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.1)
+### Latest release: [Version 0.4.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.2)
 
 - Rolling your own? [Check the Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
 - Want to flash it? [Here's a guide!](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
@@ -43,12 +43,13 @@ This repository contains all the tools you need use to make your own Modem users
  * Different sampling rates available at runtime without requiring a reboot (missing companion app in the pinephone to make use of them)
  * 0 binary blobs in the userspace. Only closed source running on the modem are TZ Kernel and ADSP firmware
 #### TODO
- 1. Find fixes to support dynamic rate settings in the Pinephone
- 2. Finish and tidy up the AT command handling stuff
- 3. Allow bootloader PIN lock to prevent accidental flashing
- 4. Implement opensource ACDB loader?
- 5. Fix fastboot reboot to EDL if possible
- 6. Companion app to update the firmware / manage modem settings / retrieve logs
+ 1. Find and fix the last remaining USB port reset cause 
+ 2. Find fixes to support dynamic rate settings in the Pinephone
+ 3. Finish and tidy up the AT command handling stuff
+ 4. Allow bootloader PIN lock to prevent accidental flashing
+ 5. Implement opensource ACDB loader?
+ 6. Fix fastboot reboot to EDL if possible
+ 7. Companion app to update the firmware / manage modem settings / retrieve logs
  
  Contribution is always welcome! Feel free to share any issue or something that you think may be interesting to have!
 
