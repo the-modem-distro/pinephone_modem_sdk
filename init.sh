@@ -1,7 +1,7 @@
 #!/bin/bash
 BASE_PATH=`pwd`
 
-YOCTOBRANCH="hardknott"
+YOCTOBRANCH="honister"
 
 mkdir -p target
 
@@ -23,7 +23,7 @@ then
     echo "Cloning Yocto repository from the Yocto Project"
     git clone git://git.yoctoproject.org/poky yocto && \
     cd yocto && \
-    git checkout tags/yocto-3.3.1 -b my-yocto-3.3.1
+    git checkout tags/yocto-3.4 -b my-yocto-3.4
     cd $BASE_PATH
 else
     echo "Yocto is already there"
