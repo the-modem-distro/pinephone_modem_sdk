@@ -1,5 +1,5 @@
-| Carrier | FW version | ADSP version | Remarks |
-| ------- |:-----------:|:----------:| -----------:|
-| Verizon US ( Postpaid ) | 0.4.5-2 | 01.003 | does take a real long time connecting, sometimes does not detect sim card |
-| Verizon US ( Postpaid ) | 0.4.5-2 | 01.002 | seems to be working fine |
-
+| Country | Carrier | Recommended ADSP version | Remarks |
+| ------- |:-----------:|:----------:|:-----------:|
+| Spain | Vodafone ES (Postpaid) | 01.003 | Version 01.002 sometimes doesn't reconnect correctly to data |
+| US | Verizon US ( Postpaid ) | 01.002 | Version 01.003 does take a real long time connecting, sometimes does not detect sim card |
+| US | Mint Mobile | 01.003 | |
