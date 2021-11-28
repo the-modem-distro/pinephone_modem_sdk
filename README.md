@@ -4,7 +4,8 @@
 
 This repository contains all the tools you need use to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.4.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.2)
+### Latest release: [Version 0.4.5](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.5-2)
+#### Latest (testing): [Version 0.4.7](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.7)
 
 - Rolling your own? [Check the Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
 - Want to flash it? [Here's a guide!](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
@@ -19,11 +20,10 @@ This repository contains all the tools you need use to make your own Modem users
     * fastboot reboot-bootlader: Reboot to fastboot
     * fastboot oem stay: Stay in fastboot instead of booting normally
     * fastboot oem reboot-recovery: Reboot to recovery mode
-    * fastboot oem reboot-edl: Currently not working (investigating why)
     * fastboot oem getmfg: Try to identify the modem from the partition table
 
 * CAF Kernel: Working
-* Audio: Working, needs fine tunning (1-5 seconds of silence on call start)
+* Audio: Working, needs fine tunning (No internal ring indication on outgoing calls for carriers who don't send it themselves)
 * Call volume: May need some tweaking to the ALSA UCM configuration file. You can do this by editing `/usr/share/alsa/ucm2/PinePhone/VoiceCall.conf`. These values seem to work well:
       * `cset "name='AIF2 DAC Playback Volume' 90%"`
       * `cset "name='AIF2 ADC Capture Volume' 90%"`
@@ -42,15 +42,16 @@ This repository contains all the tools you need use to make your own Modem users
  * Minimum clock frequency is set to 100Mhz, either awake or sleeping (stock is 800MHz awake and 400Mhz sleep), making the modem run cooler
  * Different sampling rates available at runtime without requiring a reboot (missing companion app in the pinephone to make use of them)
  * 0 binary blobs in the userspace. Only closed source running on the modem are TZ Kernel and ADSP firmware
+
 #### TODO
- 1. Find and fix the last remaining USB port reset cause 
+ 1. [Testing] Find and fix the last remaining USB port reset cause(s)
  2. Find fixes to support dynamic rate settings in the Pinephone
  3. Finish and tidy up the AT command handling stuff
  4. Allow bootloader PIN lock to prevent accidental flashing
- 5. Implement opensource ACDB loader?
- 6. Fix fastboot reboot to EDL if possible
- 7. Companion app to update the firmware / manage modem settings / retrieve logs
- 
+ 5. Companion app to update the firmware / manage modem settings / retrieve logs
+ 6. Add support for the PinePhone Pro
+ 7. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
+  
  Contribution is always welcome! Feel free to share any issue or something that you think may be interesting to have!
 
 #### Related Repositories
@@ -64,4 +65,4 @@ Make sure you have your recoveries ready just in case:
 * [Quectel EG25 firmware repo](https://github.com/Biktorgj/quectel_eg25_recovery)
 
 #### Documentation
-I'm really bad at documentation, but you have some docs [here](https://github.com/Biktorgj/pinephone_modem_sdk/tree/hardknott/docs), thanks @Zapeth for your help!
+I'm really bad at documentation, but you have some docs [here](https://github.com/Biktorgj/pinephone_modem_sdk/tree/hardknott/docs)
