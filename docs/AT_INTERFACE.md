@@ -185,6 +185,7 @@ Implemented can be
 | AT+QFUMOCFG | +QFUMOCFG | Userspace  |  Dummy |
 | AT+QGDCNT | Packet Data Counter | DSP | Yes |
 | AT+QGPSCFG[4] | +QGPSCFG | Userspace  |  Dummy |
+| AT+QGMR | Get ADSP firmware version | DSP | Yes |
 | AT+QHUP | Hang up Call with a Specific Release Cause | DSP | Yes |
 | AT+QIIC[3] | Read and Write Codec via IIC | Userspace+DSP | No |
 | AT+QINDCFG | URC Indication Configuration | DSP | Yes |
