@@ -4,8 +4,7 @@
 
 This repository contains all the tools you need use to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.4.5](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.5-2)
-#### Latest (testing): [Version 0.4.7](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.7)
+### Latest release: [Version 0.4.9](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.9)
 
 - Rolling your own? [Check the Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
 - Want to flash it? [Here's a guide!](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
@@ -17,7 +16,7 @@ This repository contains all the tools you need use to make your own Modem users
 * LK Bootloader: Working
   * On reset, the bootloader enters into fastboot mode automatically for 2 seconds, and boots normally unless instructed to stay (leave the command `fastboot oem stay` running while rebooting the modem to make it stop at fastboot).
    * Custom fastboot commands:
-    * fastboot reboot-bootlader: Reboot to fastboot
+    * fastboot reboot-bootloader: Reboot to fastboot
     * fastboot oem stay: Stay in fastboot instead of booting normally
     * fastboot oem reboot-recovery: Reboot to recovery mode
     * fastboot oem getmfg: Try to identify the modem from the partition table
