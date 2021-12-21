@@ -6,6 +6,11 @@ This repository contains all the tools you need use to make your own Modem users
 
 ### Latest release: [Version 0.4.9](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.9)
 
+### Supported devices:
+* Pinephone
+* Pinephone Pro
+* EG25-G connected via USB audio
+
 - Rolling your own? [Check the Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
 - Want to flash it? [Here's a guide!](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
 - Going back to stock? [There's a Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md) too!
