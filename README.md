@@ -69,4 +69,4 @@ Make sure you have your recoveries ready just in case:
 * [Quectel EG25 firmware repo](https://github.com/Biktorgj/quectel_eg25_recovery)
 
 #### Documentation
-I'm really bad at documentation, but you have some docs [here](https://github.com/Biktorgj/pinephone_modem_sdk/tree/hardknott/docs)
+I'm really bad at documentation, but you have some docs [here](./docs)
