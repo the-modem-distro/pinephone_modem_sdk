@@ -53,8 +53,7 @@ This repository contains all the tools you need use to make your own Modem users
  3. Finish and tidy up the AT command handling stuff
  4. Allow bootloader PIN lock to prevent accidental flashing
  5. Companion app to update the firmware / manage modem settings / retrieve logs
- 6. Add support for the PinePhone Pro
- 7. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
+ 6. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
   
  Contribution is always welcome! Feel free to share any issue or something that you think may be interesting to have!
 
