@@ -38,7 +38,7 @@ This repository contains all the tools you need use to make your own Modem users
 * System images:
   * root_fs: Default system image. Includes a minimal root filesystem and one application replacing the entire Qualcomm / Quectel stack. Some functions are not yet functional
   * recovery_fs: Minimal bootable image to be flashed into the recovery partitions to retrieve logs and make changes to the root image
-* Custom AT Commands: Please see this [document](https://github.com/Biktorgj/pinephone_modem_sdk/blob/0.3.5/docs/AT_INTERFACE.md#custom-commands-in-this-firmware)
+* Custom AT Commands: Please see this [document](./docs/AT_INTERFACE.md#custom-commands-in-this-firmware)
 
 #### Features not available on stock firmware:
  * Non persistent storage: There's no way of corrupting your modem firmware from a bad shutdown
