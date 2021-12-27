@@ -301,6 +301,9 @@ Implemented can be
 | AT+EN_PCM48K | Set sampling rate to 48KHz | Userspace | Yes |
 | AT+EN_USBAUD[6] | USB Gadget driver: enable USB audio | Userspace | Yes |
 | AT+DIS_USBAUD[6] | USB Gadget driver: disable USB audio | Userspace | Yes |
+| AT+EN_CAT | Enable Custom Alert Tone (local dialing indication generation) | Userspace | Yes |
+| AT+DIS_CAT | Disable Custom Alert Tone | Userspace | Yes |
+| AT+GETSWREV | Report OpenQTI version | Userspace | Yes |
 
 [1]: Diag port is hardwired from LK to the userspace by the firmware. If GPIOs are available in your platform it'll just work(tm), disabling it will probably not work though
 

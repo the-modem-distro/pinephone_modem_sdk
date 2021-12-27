@@ -2,20 +2,21 @@
 
 ### (nearly) Free custom firmware for your Pinephone's modem!
 
-This repository contains all the tools you need use to make your own Modem userspace for your Pinephone.
+This repository contains everything you need to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.4.9](https://github.com/Biktorgj/pinephone_modem_sdk/releases/tag/0.4.9)
+### Latest release: [Version 0.5.0](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
 
 ### Supported devices:
 * Pinephone
 * Pinephone Pro
 * EG25-G connected via USB audio
 
-- Rolling your own? [Check the Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/HOWTO.md)
-- Want to flash it? [Here's a guide!](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/FLASHING.md)
-- Going back to stock? [There's a Howto](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/docs/RECOVERY.md) too!
+- [Building your own firmware](./docs/HOWTO.md)
+- [Flashing guide](./docs/FLASHING.md)
+- [Returning back to stock](./docs/RECOVERY.md) too!
 - Having issues? [Check out if the issue is already documented or create a new one](https://github.com/Biktorgj/pinephone_modem_sdk/issues)
-  - There's also a [Matrix room now!](https://matrix.to/#/#pinephone_modem_sdk-issue-9:matrix.org)
+- [We also have a Matrix room!](https://matrix.to/#/#pinephone_modem_sdk-issue-9:matrix.org)
+
 
 #### Current Status:
 * LK Bootloader: Working
@@ -25,14 +26,13 @@ This repository contains all the tools you need use to make your own Modem users
     * fastboot oem stay: Stay in fastboot instead of booting normally
     * fastboot oem reboot-recovery: Reboot to recovery mode
     * fastboot oem getmfg: Try to identify the modem from the partition table
-
 * CAF Kernel: Working
 * Audio: Working, needs fine tunning (No internal ring indication on outgoing calls for carriers who don't send it themselves)
 * Call volume: May need some tweaking to the ALSA UCM configuration file. You can do this by editing `/usr/share/alsa/ucm2/PinePhone/VoiceCall.conf`. These values seem to work well:
-      * `cset "name='AIF2 DAC Playback Volume' 90%"`
-      * `cset "name='AIF2 ADC Capture Volume' 90%"`
-      * A reboot is required after changing this configuration file.
-      * Feel free to play around with the values, default value is '160' for both items (without '%' sign). Mine sounds loud enough at both extremes with 90% and 80% respectively
+  * `cset "name='AIF2 DAC Playback Volume' 90%"`
+  * `cset "name='AIF2 ADC Capture Volume' 90%"`
+  * A reboot is required after changing this configuration file.
+  * Feel free to play around with the values, default value is '160' for both items (without '%' sign). Mine sounds loud enough at both extremes with 90% and 80% respectively
 * GPS: Working
 * Sleep / Power management: Working (New current measurement and profiling required after latest changes)
 * System images:
@@ -63,8 +63,6 @@ This project depends on the following repositories:
 * [Downstream 3.18.140 Kernel based on CAF](https://github.com/Biktorgj/quectel_eg25_kernel)
 * [Forked meta-qcom repository](https://github.com/Biktorgj/meta-qcom)
 * [The Yocto Project](https://yoctoproject.org)
-
-Make sure you have your recoveries ready just in case:
 * [Quectel EG25 firmware repo](https://github.com/Biktorgj/quectel_eg25_recovery)
 
 #### Documentation
