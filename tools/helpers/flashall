@@ -7,7 +7,9 @@ sudo sh -c 'echo -ne "AT+QFASTBOOT\r" > /dev/ttyUSB2'
 fastboot oem stay
 fastboot flash aboot appsboot.mbn || exit "Failed to flash the bootloader"
 fastboot reboot 
+sleep 1 # Wait for device to disappear
 fastboot oem stay || exit "Failed to stay in fastboot"
+sleep 1
 fastboot flash:raw boot boot-mdm9607.img || exit "Failed to flash main kernel"
 fastboot flash:raw recovery recovery.img || exit "Failed to flash recovery kernel"
 fastboot flash system rootfs-mdm9607.ubi || exit "Failed to flash the system partition"
