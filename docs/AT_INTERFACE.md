@@ -304,6 +304,8 @@ Implemented can be
 | AT+EN_CAT | Enable Custom Alert Tone (local dialing indication generation) | Userspace | Yes |
 | AT+DIS_CAT | Disable Custom Alert Tone | Userspace | Yes |
 | AT+GETSWREV | Report OpenQTI version | Userspace | Yes |
+| AT+DMESG | Dump kernel log via serial | Userspace | Yes |
+| AT+OQLOG | Dump OpenQTI log via serial | Userspace | Yes |
 
 [1]: Diag port is hardwired from LK to the userspace by the firmware. If GPIOs are available in your platform it'll just work(tm), disabling it will probably not work though
 
