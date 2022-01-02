@@ -4,7 +4,7 @@
 
 This repository contains everything you need to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.5.0](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
+### Latest release: [Version 0.5.1](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
 
 ### Supported devices:
 * Pinephone
@@ -47,14 +47,13 @@ This repository contains everything you need to make your own Modem userspace fo
  * Different sampling rates available at runtime without requiring a reboot (missing companion app in the pinephone to make use of them)
  * 0 binary blobs in the userspace. Only closed source running on the modem are TZ Kernel and ADSP firmware
 
-#### TODO
+#### TODO (in no particular order)
  1. [Testing] Find and fix the last remaining USB port reset cause(s)
  2. Find fixes to support dynamic rate settings in the Pinephone
- 3. Finish and tidy up the AT command handling stuff
- 4. Allow bootloader PIN lock to prevent accidental flashing
- 5. Companion app to update the firmware / manage modem settings / retrieve logs
- 6. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
-  
+ 3. Allow bootloader PIN lock to prevent accidental flashing
+ 4. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
+ 5. Investigate SMS functionality
+
  Contribution is always welcome! Feel free to share any issue or something that you think may be interesting to have!
 
 #### Related Repositories
