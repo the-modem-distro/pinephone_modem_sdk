@@ -5,7 +5,9 @@ If you ever flashed an Android phone, this will be pretty easy. In essence, the 
 
 ## Manually flashing
 1. Get required tools: you need adb and fastboot installed in your pinephone
- - Debian/Ubuntu based distros: `apt install android-tools-adb android-tools-fastboot`
+ - Debian/Ubuntu based distros: 
+  - `apt install android-tools-adb android-tools-fastboot`
+  - OR `apt install adb fastboot`
  - postmarketOS / Alpine: `apk add android-tools`
  - Arch/Manjaro: `pacman -S android-tools`
 2. Grab a copy of the firmware, and, optionally, a recovery firmware (https://github.com/Biktorgj/quectel_eg25_recovery)
