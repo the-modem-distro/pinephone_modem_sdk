@@ -9,12 +9,12 @@ NUM_THREADS?=12
 # Cross compile
 CROSS_COMPILE:=$(CURRENT_PATH)/tools/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-
 $(shell mkdir -p target)
-
+VERSION?="0.0.0"
 export ARCH=arm
 
 all: help
 everything: target_clean aboot root_fs recovery_fs package
-
+cabinet_package: meta_log zip_file cab_file
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
 	@echo "------------------------------------"
@@ -41,15 +41,15 @@ kernel:
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target || exit 1
 
 root_fs:
-	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
-	rm -rf $(YOCTO_PATH)/build/tmp
-	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
+	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf  && \
+	rm -rf $(YOCTO_PATH)/build/tmp && \
+	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf && \
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
-	rm $(YOCTO_PATH)/build/conf/local.conf
-	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf 
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target && \
+	rm $(YOCTO_PATH)/build/conf/local.conf && \
+	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf
 
 recovery_fs:
 	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
@@ -68,6 +68,19 @@ package:
 	sha512sum * > shasums.txt && \
 	chmod +x flashall && \
 	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi flashall shasums.txt
+
+meta_log:
+	$(CURRENT_PATH)/tools/fwupd/get_commit_history.sh
+
+zip_file: 
+	cp $(CURRENT_PATH)/tools/fwupd/partition_nand.xml $(CURRENT_PATH)/target && \
+	cd $(CURRENT_PATH)/target && \
+	zip package_$(VERSION).zip appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi partition_nand.xml
+
+cab_file: 
+	php $(CURRENT_PATH)/tools/fwupd/buildxml.php $(VERSION) $(CURRENT_PATH)/target/changelog.log $(CURRENT_PATH)/tools/fwupd/prototype.xml $(CURRENT_PATH)/target/package_$(VERSION).zip $(CURRENT_PATH)/target && \
+	cd $(CURRENT_PATH)/target && \
+	gcab --create package_$(VERSION).cab package_$(VERSION).zip package_$(VERSION).metainfo.xml
 
 target_extract:
 	rm -rf $(CURRENT_PATH)/target/dump ; \

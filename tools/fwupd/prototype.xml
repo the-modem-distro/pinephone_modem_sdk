@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2021 Dylan Van Assche <me@dylanvanassche.be> -->
+<component type="firmware">
+  <id>%%FWID%%</id>
+  <name>%%FWNAME%%</name>
+  <branch>%%FWBRANCH%%</branch>
+  <summary>%%FWSUMMARY%%</summary>
+  <description>
+    <p>
+      %%FWDESCRIPTION%%
+    </p>
+  </description>
+  <categories>
+    %%CATEGORIES%%
+  </categories>
+  <provides>
+   %%SUBDEVS%%
+  </provides>
+  <url type="homepage">%%URL%%</url>
+  <metadata_license>%%LICENSE%%</metadata_license>
+  <project_license>%%LICENSE%%</project_license>
+  <releases>
+    <release urgency="high" version="%%RELNAME%%" date="%%DATE%%" install_duration="1800">
+      <checksum type="sha1" filename="%%RELFILE%%" target="content">%%SHA1SUM%%</checksum>
+      <checksum type="sha256" filename="%%RELFILE%%" target="content">%%SHA256SUM%%</checksum>
+      <description>
+        <p>Latest commits:</p>
+        <ul>
+            %%CHANGELOG%%
+        </ul>
+      </description>
+      <issues>
+      </issues>
+    </release>
+  </releases>
+  <!-- Required versions of fwupd, firmware, etc. -->
+  <requires>
+    <id compare="ge" version="1.7.4">org.freedesktop.fwupd</id>
+  </requires>
+  <!-- Custom firmware flashing methods and quirks -->
+  <custom>
+    <value key="LVFS::UpdateProtocol">com.google.fastboot</value>
+  </custom>
+  <!-- Search keywords -->
+  <keywords>
+   %%KEYWORDS%%
+  </keywords>
+</component>
