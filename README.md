@@ -52,7 +52,10 @@ This repository contains everything you need to make your own Modem userspace fo
  2. Find fixes to support dynamic rate settings in the Pinephone
  3. Allow bootloader PIN lock to prevent accidental flashing
  4. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
- 5. Investigate SMS functionality
+ 5. Investigate SMS functionality:
+  - Prototype to create messages from the modem working
+  - Intercepting messages before getting to the ADSP in progress
+6. GPS crashes when left on and the Pinephone leaves the USB port suspended for long time
 
  Contribution is always welcome! Feel free to share any issue or something that you think may be interesting to have!
 
