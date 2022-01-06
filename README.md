@@ -33,6 +33,7 @@ This repository contains everything you need to make your own Modem userspace fo
   * `cset "name='AIF2 ADC Capture Volume' 90%"`
   * A reboot is required after changing this configuration file.
   * Feel free to play around with the values, default value is '160' for both items (without '%' sign). Mine sounds loud enough at both extremes with 90% and 80% respectively
+    * Some folks calling a Pinephone have complained of an echo if the volume is set at `90%`. Turning down the earpiece volume in call fixes it, and a volume of `80%` for both items should fix the issue permanently.
 * GPS: Working
 * Sleep / Power management: Working (New current measurement and profiling required after latest changes)
 * System images:
