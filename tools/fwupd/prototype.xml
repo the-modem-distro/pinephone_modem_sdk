@@ -17,7 +17,7 @@
    %%SUBDEVS%%
   </provides>
   <url type="homepage">%%URL%%</url>
-  <metadata_license>%%LICENSE%%</metadata_license>
+  <metadata_license>CC0-1.0</metadata_license>
   <project_license>%%LICENSE%%</project_license>
   <releases>
     <release urgency="high" version="%%RELNAME%%" date="%%DATE%%" install_duration="1800">

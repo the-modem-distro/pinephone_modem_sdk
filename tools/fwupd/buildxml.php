@@ -25,16 +25,17 @@ if ($version == "0.0.0") {
 
 $outputxml = $outputdir."/package_".$version.".metainfo.xml";
 $fwdata  = array(
-    'id' => 'org.postmarketos.pinephone.eg25.firmware',
-    'name' => 'PinePhone Modem SDK firmware',
-    'branch' => 'FOSS-002',
+    'id' => 'org.pine64.naoi-os',
+    'name' => 'PinePhone Modem Firmware',
+    'branch' => 'community',
     'summary' => 'Biktorgj\'s firmware for the Quectel EG25-G modem in the Pine64 PinePhone and Pine64 PinePhone Pro',
-    'description' => 'Custom firmware for Quectel\'s EG25-G Modem',
+    'description' => 'Custom firmware for PP and PPP Modem',
     'url' => 'https://github.com/Biktorgj/pinephone_modem_sdk',
     'license' => 'MIT',
 );
 
 $subdevs = array(
+    'db379a33-254f-5140-b37e-d36ae7e5c039', //missing?
     'c33a4560-8681-55b6-bbb6-85258f2de149',
     '1a2996cb-f86e-5583-a464-e1b96e1c6ae9',
     '587bf468-6859-5522-93a7-6cce552a0aa3',
@@ -82,7 +83,7 @@ if (empty($sha256sum)) {
     exit(1);
 }
 
-$output = str_replace("%%ID%%", $fwdata['id'], $template);
+$output = str_replace("%%FWID%%", $fwdata['id'], $template);
 $output = str_replace("%%FWNAME%%", $fwdata['name'], $output);
 $output = str_replace("%%FWBRANCH%%", $fwdata['branch'], $output);
 $output = str_replace("%%FWSUMMARY%%", $fwdata['summary'], $output);
