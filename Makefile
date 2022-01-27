@@ -14,7 +14,7 @@ export ARCH=arm
 
 all: help
 everything: target_clean aboot root_fs recovery_fs package
-cabinet_package: meta_log zip_file cab_file
+cabinet_package: aboot root_fs recovery_fs meta_log zip_file cab_file
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
 	@echo "------------------------------------"
@@ -30,47 +30,44 @@ help:
 	@echo "    make clean : Removes all the built images and temporary directories from bootloader and yocto"
 
 aboot:
-	cd $(APPSBOOT_PATH) ; make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=1 || exit ; \
+	@cd $(APPSBOOT_PATH) && \
+	make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=1 || exit ; \
 	cp build-mdm9607/appsboot.mbn $(CURRENT_PATH)/target
 
 kernel:
-	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
+	@mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
 	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
-	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
+	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake virtual/kernel && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target || exit 1
 
 root_fs:
-	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf  && \
-	rm -rf $(YOCTO_PATH)/build/tmp && \
+	@rm -rf $(YOCTO_PATH)/build/tmp && \
 	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf && \
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target && \
-	rm $(YOCTO_PATH)/build/conf/local.conf && \
-	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf
-
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
+	
 recovery_fs:
-	mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
-	rm -rf $(YOCTO_PATH)/build/tmp
+	@rm -rf $(YOCTO_PATH)/build/tmp
 	cp $(CURRENT_PATH)/tools/config/poky/recovery.conf $(YOCTO_PATH)/build/conf/local.conf
-	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
+	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/recoveryfs.ubi && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target/recovery.img
-	rm $(YOCTO_PATH)/build/conf/local.conf
-	mv $(YOCTO_PATH)/build/conf/backup.conf $(YOCTO_PATH)/build/conf/local.conf 
-
+	
 package: 
 	cp $(CURRENT_PATH)/tools/helpers/flashall $(CURRENT_PATH)/target && \
 	cd $(CURRENT_PATH)/target && \
 	sha512sum * > shasums.txt && \
 	chmod +x flashall && \
-	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi flashall shasums.txt
+	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi flashall shasums.txt && \
+	sha512sum $(CURRENT_PATH)/target/package.tar.gz
 
 meta_log:
-	$(CURRENT_PATH)/tools/fwupd/get_commit_history.sh
+	nano $(CURRENT_PATH)/target/changelog.log 
+	#$(CURRENT_PATH)/tools/fwupd/get_commit_history.sh
 
 zip_file: 
 	cp $(CURRENT_PATH)/tools/fwupd/partition_nand.xml $(CURRENT_PATH)/target && \
@@ -78,9 +75,9 @@ zip_file:
 	zip package_$(VERSION).zip appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi partition_nand.xml
 
 cab_file: 
-	php $(CURRENT_PATH)/tools/fwupd/buildxml.php $(VERSION) $(CURRENT_PATH)/target/changelog.log $(CURRENT_PATH)/tools/fwupd/prototype.xml $(CURRENT_PATH)/target/package_$(VERSION).zip $(CURRENT_PATH)/target && \
+	@php $(CURRENT_PATH)/tools/fwupd/buildxml.php $(VERSION) $(CURRENT_PATH)/target/changelog.log $(CURRENT_PATH)/tools/fwupd/prototype.xml $(CURRENT_PATH)/target/package_$(VERSION).zip $(CURRENT_PATH)/target && \
 	cd $(CURRENT_PATH)/target && \
-	gcab --create package_$(VERSION).cab package_$(VERSION).zip package_$(VERSION).metainfo.xml
+	gcab --create package_$(VERSION).cab package_$(VERSION).zip package_$(VERSION).metainfo.xml # package_$(VERSION).zip.jcat
 
 target_extract:
 	rm -rf $(CURRENT_PATH)/target/dump ; \
@@ -88,7 +85,7 @@ target_extract:
 	mkdir -p $(CURRENT_PATH)/target/dump/recoveryfs ; \
 	python3 $(CURRENT_PATH)/tools/ubidump/ubidump.py $(CURRENT_PATH)/target/rootfs-mdm9607.ubi --savedir $(CURRENT_PATH)/target/dump/rootfs
 	python3 $(CURRENT_PATH)/tools/ubidump/ubidump.py $(CURRENT_PATH)/target/recoveryfs.ubi --savedir $(CURRENT_PATH)/target/dump/recoveryfs
-	
+
 clean: aboot_clean target_clean yocto_clean yocto_cleancache
 clean_all: aboot_clean target_clean yocto_clean yocto_cleancache yocto_cleandownloads
 
