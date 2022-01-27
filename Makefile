@@ -14,7 +14,7 @@ export ARCH=arm
 
 all: help
 everything: target_clean aboot root_fs recovery_fs package
-cabinet_package: aboot root_fs recovery_fs meta_log zip_file cab_file
+cabinet_package: meta_log aboot root_fs recovery_fs zip_file cab_file
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
 	@echo "------------------------------------"

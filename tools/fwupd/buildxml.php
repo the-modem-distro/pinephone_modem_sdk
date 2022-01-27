@@ -35,11 +35,7 @@ $fwdata  = array(
 );
 
 $subdevs = array(
-    'db379a33-254f-5140-b37e-d36ae7e5c039', //missing?
-    'c33a4560-8681-55b6-bbb6-85258f2de149',
-    '1a2996cb-f86e-5583-a464-e1b96e1c6ae9',
-    '587bf468-6859-5522-93a7-6cce552a0aa3',
-    '22ae45db-f68e-5c55-9c02-4557dca238ec',
+    'db379a33-254f-5140-b37e-d36ae7e5c039',
 );
 
 $keywords = array(

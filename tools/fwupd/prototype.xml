@@ -24,11 +24,15 @@
       <checksum type="sha1" filename="%%RELFILE%%" target="content">%%SHA1SUM%%</checksum>
       <checksum type="sha256" filename="%%RELFILE%%" target="content">%%SHA256SUM%%</checksum>
       <description>
-        <p>Latest commits:</p>
+        <p>This release also brings the following fixes and improvements:</p>
         <ul>
             %%CHANGELOG%%
         </ul>
       </description>
+      <url type="source">https://github.com/Biktorgj/pinephone_modem_sdk/tree/honister/licenses</url>
+      <issues>
+        <issue type="cve">CVE-2021-31698</issue>
+      </issues>
     </release>
   </releases>
   <requires>

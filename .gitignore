@@ -57,6 +57,7 @@ yocto
 build
 tools/gcc-arm-none-eabi-7-2017-q4-major/
 tools/sectools
+tools/.fwupd-private
 target
 tools/x86_64-oesdk-linux
 proprietary
