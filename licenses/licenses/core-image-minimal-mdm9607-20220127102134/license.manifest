@@ -1,0 +1,285 @@
+PACKAGE NAME: android-tools-adb
+PACKAGE VERSION: 5.1.1.r37
+RECIPE NAME: android-tools-adb
+LICENSE: Apache-2.0 & GPL-2.0 & BSD-2-Clause & BSD-3-Clause
+
+PACKAGE NAME: base-files
+PACKAGE VERSION: 3.0.14
+RECIPE NAME: base-files
+LICENSE: GPLv2
+
+PACKAGE NAME: base-passwd
+PACKAGE VERSION: 3.5.29
+RECIPE NAME: base-passwd
+LICENSE: GPLv2
+
+PACKAGE NAME: bash
+PACKAGE VERSION: 5.1.8
+RECIPE NAME: bash
+LICENSE: GPLv3+
+
+PACKAGE NAME: busybox
+PACKAGE VERSION: 1.34.1
+RECIPE NAME: busybox
+LICENSE: GPLv2 & bzip2-1.0.4
+
+PACKAGE NAME: busybox-hwclock
+PACKAGE VERSION: 1.34.1
+RECIPE NAME: busybox
+LICENSE: GPLv2 & bzip2-1.0.4
+
+PACKAGE NAME: busybox-syslog
+PACKAGE VERSION: 1.34.1
+RECIPE NAME: busybox
+LICENSE: GPLv2 & bzip2-1.0.4
+
+PACKAGE NAME: busybox-udhcpc
+PACKAGE VERSION: 1.34.1
+RECIPE NAME: busybox
+LICENSE: GPLv2 & bzip2-1.0.4
+
+PACKAGE NAME: glibc
+PACKAGE VERSION: 2.34
+RECIPE NAME: glibc
+LICENSE: GPLv2 & LGPLv2.1
+
+PACKAGE NAME: init-ifupdown
+PACKAGE VERSION: 1.0
+RECIPE NAME: init-ifupdown
+LICENSE: GPLv2
+
+PACKAGE NAME: init-system-helpers-service
+PACKAGE VERSION: 1.60
+RECIPE NAME: init-system-helpers
+LICENSE: BSD-3-Clause & GPLv2
+
+PACKAGE NAME: initscripts
+PACKAGE VERSION: 1.0
+RECIPE NAME: initscripts
+LICENSE: GPLv2
+
+PACKAGE NAME: initscripts-functions
+PACKAGE VERSION: 1.0
+RECIPE NAME: initscripts
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-base
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-image
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-image-zimage
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-module-ansi-cprng-3.18.140
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-module-gpio-axis-3.18.140
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-module-gpio-event-3.18.140
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-module-gpio-input-3.18.140
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-module-gpio-matrix-3.18.140
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-module-gpio-output-3.18.140
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-module-spidev-3.18.140
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-module-test-iosched-3.18.140
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: kernel-modules
+PACKAGE VERSION: 1.0+gitAUTOINC+db7c3b9315
+RECIPE NAME: linuxmdm
+LICENSE: GPLv2
+
+PACKAGE NAME: ldconfig
+PACKAGE VERSION: 2.34
+RECIPE NAME: glibc
+LICENSE: GPLv2 & LGPLv2.1
+
+PACKAGE NAME: libbsd
+PACKAGE VERSION: 0.11.3
+RECIPE NAME: libbsd
+LICENSE: BSD-3-Clause & ISC & PD
+
+PACKAGE NAME: libcrypto
+PACKAGE VERSION: 1.1.1l
+RECIPE NAME: openssl
+LICENSE: openssl
+
+PACKAGE NAME: libgcc
+PACKAGE VERSION: 11.2.0
+RECIPE NAME: libgcc
+LICENSE: GPL-3.0-with-GCC-exception
+
+PACKAGE NAME: libmd
+PACKAGE VERSION: 1.0.3
+RECIPE NAME: libmd
+LICENSE: BSD-3-Clause & BSD-2-Clause
+
+PACKAGE NAME: libstdc++
+PACKAGE VERSION: 11.2.0
+RECIPE NAME: gcc-runtime
+LICENSE: GPL-3.0-with-GCC-exception
+
+PACKAGE NAME: lzo
+PACKAGE VERSION: 2.10
+RECIPE NAME: lzo
+LICENSE: GPLv2+
+
+PACKAGE NAME: modutils-initscripts
+PACKAGE VERSION: 1.0
+RECIPE NAME: modutils-initscripts
+LICENSE: PD
+
+PACKAGE NAME: mtd-utils
+PACKAGE VERSION: 2.1.3
+RECIPE NAME: mtd-utils
+LICENSE: GPLv2+
+
+PACKAGE NAME: mtd-utils-ubifs
+PACKAGE VERSION: 2.1.3
+RECIPE NAME: mtd-utils
+LICENSE: GPLv2+
+
+PACKAGE NAME: ncurses-libtinfo
+PACKAGE VERSION: 6.2
+RECIPE NAME: ncurses
+LICENSE: MIT
+
+PACKAGE NAME: ncurses-terminfo-base
+PACKAGE VERSION: 6.2
+RECIPE NAME: ncurses
+LICENSE: MIT
+
+PACKAGE NAME: netbase
+PACKAGE VERSION: 6.3
+RECIPE NAME: netbase
+LICENSE: GPLv2
+
+PACKAGE NAME: openssl-conf
+PACKAGE VERSION: 1.1.1l
+RECIPE NAME: openssl
+LICENSE: openssl
+
+PACKAGE NAME: packagegroup-core-boot
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-core-boot
+LICENSE: MIT
+
+PACKAGE NAME: patchelf
+PACKAGE VERSION: 0.13
+RECIPE NAME: patchelf
+LICENSE: GPLv3
+
+PACKAGE NAME: recovery-scripts
+PACKAGE VERSION: 1.0
+RECIPE NAME: recovery-scripts
+LICENSE: Apache-2.0
+
+PACKAGE NAME: run-postinsts
+PACKAGE VERSION: 1.0
+RECIPE NAME: run-postinsts
+LICENSE: MIT
+
+PACKAGE NAME: shared-scripts
+PACKAGE VERSION: 1.0
+RECIPE NAME: shared-scripts
+LICENSE: Apache-2.0
+
+PACKAGE NAME: strace
+PACKAGE VERSION: 5.14
+RECIPE NAME: strace
+LICENSE: LGPL-2.1+ & GPL-2+
+
+PACKAGE NAME: sysvinit
+PACKAGE VERSION: 2.99
+RECIPE NAME: sysvinit
+LICENSE: GPLv2+
+
+PACKAGE NAME: sysvinit-inittab
+PACKAGE VERSION: 2.88dsf
+RECIPE NAME: sysvinit-inittab
+LICENSE: GPLv2
+
+PACKAGE NAME: sysvinit-pidof
+PACKAGE VERSION: 2.99
+RECIPE NAME: sysvinit
+LICENSE: GPLv2+
+
+PACKAGE NAME: update-alternatives-opkg
+PACKAGE VERSION: 0.4.5
+RECIPE NAME: opkg-utils
+LICENSE: GPLv2+
+
+PACKAGE NAME: update-rc.d
+PACKAGE VERSION: 0.8
+RECIPE NAME: update-rc.d
+LICENSE: GPLv2+
+
+PACKAGE NAME: usb-recoveryboot
+PACKAGE VERSION: 1.0
+RECIPE NAME: usb-recoveryboot
+LICENSE: Apache-2.0
+
+PACKAGE NAME: util-linux-libblkid
+PACKAGE VERSION: 2.37.2
+RECIPE NAME: util-linux
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: util-linux-libmount
+PACKAGE VERSION: 2.37.2
+RECIPE NAME: util-linux
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: util-linux-libuuid
+PACKAGE VERSION: 2.37.2
+RECIPE NAME: util-linux-libuuid
+LICENSE: BSD-3-Clause
+
+PACKAGE NAME: util-linux-mount
+PACKAGE VERSION: 2.37.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: util-linux-umount
+PACKAGE VERSION: 2.37.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: zlib
+PACKAGE VERSION: 1.2.11
+RECIPE NAME: zlib
+LICENSE: Zlib
+
