@@ -307,7 +307,7 @@ Implemented can be
 | AT+GETFWBRANCH | Get firmware bramch (fwupd) | Userspace | Yes |
 | AT+DMESG | Dump kernel log via serial | Userspace | Yes |
 | AT+OQLOG | Dump OpenQTI log via serial | Userspace | Yes |
-
+| AT+GETADSPVER | Show ADSP firmware version | Userspace | Yes |
 [1]: Diag port is hardwired from LK to the userspace by the firmware. If GPIOs are available in your platform it'll just work(tm), disabling it will probably not work though
 
 [2]: FOTA functionality is completely removed in this firmware
