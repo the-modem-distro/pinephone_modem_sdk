@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2021 Dylan Van Assche <me@dylanvanassche.be> -->
 <component type="firmware">
   <id>%%FWID%%</id>
-  <name>%%FWNAME%%</name>
   <branch>%%FWBRANCH%%</branch>
+  <name>%%FWNAME%%</name>
   <summary>%%FWSUMMARY%%</summary>
   <description>
-    <p>
-      %%FWDESCRIPTION%%
-    </p>
+    <p>%%FWDESCRIPTION%%</p>
   </description>
-  <categories>
-    %%CATEGORIES%%
-  </categories>
   <provides>
-   %%SUBDEVS%%
-  </provides>
+   %%SUBDEVS%%</provides>
   <url type="homepage">%%URL%%</url>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>%%LICENSE%%</project_license>
+  <categories>
+  %%CATEGORIES%%</categories>
+<custom>
+    <value key="LVFS::Distributor">community</value>
+    <value key="LVFS::VersionFormat">triplet</value>
+    <value key="LVFS::UpdateProtocol">com.google.fastboot</value>
+</custom>
   <releases>
     <release urgency="high" version="%%RELNAME%%" date="%%DATE%%" install_duration="1800">
       <checksum type="sha1" filename="%%RELFILE%%" target="content">%%SHA1SUM%%</checksum>
@@ -29,19 +29,12 @@
             %%CHANGELOG%%
         </ul>
       </description>
-      <issues>
-      </issues>
     </release>
   </releases>
-  <!-- Required versions of fwupd, firmware, etc. -->
   <requires>
-    <id compare="ge" version="1.7.4">org.freedesktop.fwupd</id>
+    <id compare="ge" version="1.7.5">org.freedesktop.fwupd</id>
+    <hardware>adad873f-33d3-5477-bd5e-0870eca37444</hardware>
   </requires>
-  <!-- Custom firmware flashing methods and quirks -->
-  <custom>
-    <value key="LVFS::UpdateProtocol">com.google.fastboot</value>
-  </custom>
-  <!-- Search keywords -->
   <keywords>
    %%KEYWORDS%%
   </keywords>

@@ -25,8 +25,8 @@ if ($version == "0.0.0") {
 
 $outputxml = $outputdir."/package_".$version.".metainfo.xml";
 $fwdata  = array(
-    'id' => 'org.pine64.naoi-os',
-    'name' => 'PinePhone Modem Firmware',
+    'id' => 'org.pine64.naoi-os.firmware',
+    'name' => 'Modem',
     'branch' => 'community',
     'summary' => 'Biktorgj\'s firmware for the Quectel EG25-G modem in the Pine64 PinePhone and Pine64 PinePhone Pro',
     'description' => 'Custom firmware for PP and PPP Modem',
@@ -53,11 +53,10 @@ $keywords = array(
 $categories = array(
     'X-NetworkInterface',
     'X-Device',
-    'X-System',
 );
 
 $relfile = "package_".$version.".zip";
-$relname = "PACKAGE_".$version;
+$relname = $version;
 $sha1sum =  hash("sha1", file_get_contents($pkgfile));
 $sha256sum =  hash("sha256", file_get_contents($pkgfile));
 $changelog = file_get_contents($changelogfile);
