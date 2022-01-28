@@ -14,7 +14,7 @@ export ARCH=arm
 
 all: help
 everything: target_clean aboot root_fs recovery_fs package
-cabinet_package: meta_log aboot root_fs recovery_fs zip_file cab_file
+cabinet_package: meta_log aboot zip_file cab_file
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
 	@echo "------------------------------------"
@@ -63,7 +63,9 @@ package:
 	sha512sum * > shasums.txt && \
 	chmod +x flashall && \
 	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi flashall shasums.txt && \
-	sha512sum $(CURRENT_PATH)/target/package.tar.gz
+	sha512sum $(CURRENT_PATH)/target/package.tar.gz && \
+	rm -rf $(CURRENT_PATH)/licenses/licenses && \
+	cp -rf $(CURRENT_PATH)/yocto/build/tmp/deploy/licenses $(CURRENT_PATH)/licenses/
 
 meta_log:
 	nano $(CURRENT_PATH)/target/changelog.log 
@@ -77,7 +79,9 @@ zip_file:
 cab_file: 
 	@php $(CURRENT_PATH)/tools/fwupd/buildxml.php $(VERSION) $(CURRENT_PATH)/target/changelog.log $(CURRENT_PATH)/tools/fwupd/prototype.xml $(CURRENT_PATH)/target/package_$(VERSION).zip $(CURRENT_PATH)/target && \
 	cd $(CURRENT_PATH)/target && \
-	gcab --create package_$(VERSION).cab package_$(VERSION).zip package_$(VERSION).metainfo.xml # package_$(VERSION).zip.jcat
+	gcab --create package_$(VERSION).cab package_$(VERSION).zip package_$(VERSION).metainfo.xml && \
+	rm -rf $(CURRENT_PATH)/licenses/licenses && \
+	cp -rf $(CURRENT_PATH)/yocto/build/tmp/deploy/licenses $(CURRENT_PATH)/licenses/
 
 target_extract:
 	rm -rf $(CURRENT_PATH)/target/dump ; \
