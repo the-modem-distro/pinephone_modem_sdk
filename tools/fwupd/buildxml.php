@@ -26,12 +26,13 @@ if ($version == "0.0.0") {
 $outputxml = $outputdir."/package_".$version.".metainfo.xml";
 $fwdata  = array(
     'id' => 'org.pine64.naoi-os.firmware',
-    'name' => 'Modem',
+    'name' => 'PinePhone',
+    'suffix' => 'Modem',
     'branch' => 'community',
     'summary' => 'Biktorgj\'s firmware for the Quectel EG25-G modem in the Pine64 PinePhone and Pine64 PinePhone Pro',
     'description' => 'Custom firmware for PP and PPP Modem',
     'url' => 'https://github.com/Biktorgj/pinephone_modem_sdk',
-    'license' => 'MIT',
+    'license' => 'GPL-3.0',
 );
 
 $subdevs = array(
@@ -39,7 +40,6 @@ $subdevs = array(
 );
 
 $keywords = array(
-    'quectel',
     'eg25-g',
     'pine64',
     'pinephone',
@@ -80,6 +80,7 @@ if (empty($sha256sum)) {
 
 $output = str_replace("%%FWID%%", $fwdata['id'], $template);
 $output = str_replace("%%FWNAME%%", $fwdata['name'], $output);
+$output = str_replace("%%FWSUFFIX%%", $fwdata['suffix'], $output);
 $output = str_replace("%%FWBRANCH%%", $fwdata['branch'], $output);
 $output = str_replace("%%FWSUMMARY%%", $fwdata['summary'], $output);
 $output = str_replace("%%FWDESCRIPTION%%", $fwdata['description'], $output);

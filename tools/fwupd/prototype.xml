@@ -3,6 +3,7 @@
   <id>%%FWID%%</id>
   <branch>%%FWBRANCH%%</branch>
   <name>%%FWNAME%%</name>
+  <name_variant_suffix>%%FWSUFFIX%%</name_variant_suffix>
   <summary>%%FWSUMMARY%%</summary>
   <description>
     <p>%%FWDESCRIPTION%%</p>
@@ -24,10 +25,9 @@
       <checksum type="sha1" filename="%%RELFILE%%" target="content">%%SHA1SUM%%</checksum>
       <checksum type="sha256" filename="%%RELFILE%%" target="content">%%SHA256SUM%%</checksum>
       <description>
-        <p>This release also brings the following fixes and improvements:</p>
+        <p>This release brings the following fixes and improvements:</p>
         <ul>
-            %%CHANGELOG%%
-        </ul>
+            %%CHANGELOG%%</ul>
       </description>
       <url type="source">https://github.com/Biktorgj/pinephone_modem_sdk/tree/honister/licenses</url>
       <issues>
@@ -40,6 +40,5 @@
     <hardware>adad873f-33d3-5477-bd5e-0870eca37444</hardware>
   </requires>
   <keywords>
-   %%KEYWORDS%%
-  </keywords>
+   %%KEYWORDS%%</keywords>
 </component>
