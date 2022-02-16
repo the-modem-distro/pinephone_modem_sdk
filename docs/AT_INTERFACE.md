@@ -8,6 +8,8 @@ These are all the base commands that appear in Quectel's AT Command Manual (Vers
 - AT+<cmd>=? Checks if the command exists
 - AT+<cmd>? Prints the values for a specific command
 
+To connect to the serial terminal with local echo and automatic LF trimming, you can use `sudo picocom --echo --omap ignlf /dev/ttyUSB2`.
+
 ### Notes:
 Handled by can be
  * DSP: Handled by the ADSP firmware with no interaction from the userspace
