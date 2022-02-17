@@ -25,3 +25,4 @@ Here's an (almost empty) table with results from different providers. Feel free 
 | Spain | Pepephone (Roaming on Orange| 01.003 | No issues found with either version |
 | US | Verizon US ( Postpaid ) | 01.002 | Version 01.003 does take a real long time connecting, sometimes does not detect sim card |
 | US | Mint Mobile | 01.003 | |
+| US | T-Mobile | 01.003 | |
