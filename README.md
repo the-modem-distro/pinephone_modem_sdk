@@ -4,7 +4,7 @@
 
 This repository contains everything you need to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.5.5](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
+### Latest release: [Version 0.5.9](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
 
 ### Supported devices:
 * Pinephone
@@ -49,14 +49,18 @@ This repository contains everything you need to make your own Modem userspace fo
  * 0 binary blobs in the userspace. Only closed source running on the modem are TZ Kernel and ADSP firmware
 
 #### TODO (in no particular order)
- 1. [Testing] Find and fix the last remaining USB port reset cause(s)
- 2. Find fixes to support dynamic rate settings in the Pinephone
- 3. Allow bootloader PIN lock to prevent accidental flashing
- 4. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
- 5. Investigate SMS functionality:
-  - Prototype to create messages from the modem working
-  - Intercepting messages before getting to the ADSP in progress
-6. GPS crashes when left on and the Pinephone leaves the USB port suspended for long time
+1. [WIP] Find and fix the last remaining USB port reset cause(s)
+2. [Abandoned] Find fixes to support dynamic rate settings in the Pinephone (would make bluetooth calling fail)
+3. [Abandoned] Allow bootloader PIN lock to prevent accidental flashing (would make fwupd support fail)
+4. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
+5. [WIP] Internal SMS functionality (only working with ModemManager):
+  - Can send and receive messages to/from the modem
+  - Modem will answer to the number: +01 555 019 99 99
+  - Send "help" for a list of commands
+6. [Fixed] GPS crashes when left on and the Pinephone leaves the USB port suspended for long time
+7. [WIP] Internal call ability (only working with ModemManager):
+  - Can accept outgoing calls or automatically call you when requested from the chat (send "call me" or "call me in X" -seconds- to make it call you)
+  - Will play a predefined message in a loop until an external comes cuts it off or you hang up
 
  Contribution is always welcome! Feel free to share any issue or something that you think may be interesting to have!
 
