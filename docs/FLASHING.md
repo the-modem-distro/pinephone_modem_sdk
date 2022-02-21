@@ -2,7 +2,7 @@
 
 ## Using the provided script
 If you ever flashed an Android phone, this should be even easier:
-1. Get latest release from Github
+1. [Get latest release from Github](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
 2. Unpack the `package.tar.gz` file in some directory: `tar xzvf package.tar.gz`
 3. Execute the script included in the file: `./flashall`
 3b. If the modem doesn't disappear when the script starts, try running the flashall script as root
