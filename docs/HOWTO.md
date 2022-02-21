@@ -5,7 +5,7 @@
 2. Make sure you have at least 50Gb of available space
 3. Do at least a quick read of Yocto's Project Quick build doc: http://docs.yoctoproject.org/brief-yoctoprojectqs/index.html
 4.	Clone this repository in your computer
-5.	Go to the folder where you downloaded your copy and run ./init.sh
+5.	Go to the folder where you downloaded your copy and run `./init.sh`
  * The init script should do the following things for you
    - Get the modem's bootloader source
    - Get the ARM toolchain to build the bootloader
@@ -13,7 +13,7 @@
    - Get the specific layers and dependencies to build it all
    - Initialize yocto and add the bitbake layers to the env
  
-6.	Run make, without arguments, to see what you can build:
+6.	Run `make`, without arguments, to see what you can build:
   - `everything`: Build Bootloader, System and Recovery and pack it
   - `aboot`: build the LK bootloader
   - `kernel`: Build the kernel and place a bootable image in target/
