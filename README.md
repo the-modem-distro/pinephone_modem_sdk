@@ -11,9 +11,10 @@ This repository contains everything you need to make your own Modem userspace fo
 * Pinephone Pro
 * EG25-G connected via USB audio
 
-- [Building your own firmware](./docs/HOWTO.md)
 - [Flashing guide](./docs/FLASHING.md)
-- [Returning back to stock](./docs/RECOVERY.md) too!
+- [Recommended settings for this firmware](./docs/SETTINGS.md)
+- [Build your own](./docs/HOWTO.md)
+- [Returning back to stock](./docs/RECOVERY.md)
 - Having issues? [Check out if the issue is already documented or create a new one](https://github.com/Biktorgj/pinephone_modem_sdk/issues)
 - [We also have a Matrix room!](https://matrix.to/#/#pinephone_modem_sdk-issue-9:matrix.org)
 
@@ -25,15 +26,8 @@ This repository contains everything you need to make your own Modem userspace fo
     * fastboot reboot-bootloader: Reboot to fastboot
     * fastboot oem stay: Stay in fastboot instead of booting normally
     * fastboot oem reboot-recovery: Reboot to recovery mode
-    * fastboot oem getmfg: Try to identify the modem from the partition table
 * CAF Kernel: Working
-* Audio: Working, needs fine tunning (No internal ring indication on outgoing calls for carriers who don't send it themselves)
-* Call volume: May need some tweaking to the ALSA UCM configuration file. You can do this by editing `/usr/share/alsa/ucm2/PinePhone/VoiceCall.conf`. These values seem to work well:
-  * `cset "name='AIF2 DAC Playback Volume' 90%"`
-  * `cset "name='AIF2 ADC Capture Volume' 90%"`
-  * A reboot is required after changing this configuration file.
-  * Feel free to play around with the values, default value is '160' for both items (without '%' sign). Mine sounds loud enough at both extremes with 90% and 80% respectively
-    * Some folks calling a Pinephone have complained of an echo if the volume is set at `90%`. Turning down the earpiece volume in call fixes it, and a volume of `80%` for both items should fix the issue permanently.
+* Audio: Working [Check out recommended settings for your phone](./docs/SETTINGS.md)
 * GPS: Working
 * Sleep / Power management: Working (New current measurement and profiling required after latest changes)
 * System images:

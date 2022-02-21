@@ -1,9 +1,15 @@
 # FLASHING THIS FIRMWARE
 
-## Using the sample script
-If you ever flashed an Android phone, this will be pretty easy. In essence, the only thing you need to do is reboot the modem into fastboot mode and flash everything. You have a [sample script you can use here](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/tools/helpers/flashall). Install fastboot and adb,  place the script in the same folder as the unpacked firmware and run it as root. If the modem was booted, it will reboot it and flash the entire firmware. This script doesn't check for errors though, so keep an eye on the screen in case something fails.
+## Using the provided script
+If you ever flashed an Android phone, this should be even easier:
+1. Get latest release from Github
+2. Unpack the `package.tar.gz` file in some directory: `tar xzvf package.tar.gz`
+3. Execute the script included in the file: `./flashall`
+3b. If the modem doesn't disappear when the script starts, try running the flashall script as root
+4. Wait for the modem to come back
 
-## Manually flashing
+
+## Flashing manually
 1. Get required tools: you need adb and fastboot installed in your pinephone
  - Debian/Ubuntu based distros: 
   - `apt install android-tools-adb android-tools-fastboot`
