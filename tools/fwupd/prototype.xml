@@ -36,7 +36,7 @@
     </release>
   </releases>
   <requires>
-    <id compare="ge" version="1.7.5">org.freedesktop.fwupd</id>
+    <id compare="ge" version="1.7.6">org.freedesktop.fwupd</id>
     <hardware>adad873f-33d3-5477-bd5e-0870eca37444</hardware>
   </requires>
   <keywords>
