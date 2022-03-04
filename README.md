@@ -30,6 +30,7 @@ This repository contains everything you need to make your own Modem userspace fo
 * Audio: Working [Check out recommended settings for your phone](./docs/SETTINGS.md)
 * GPS: Working
 * Sleep / Power management: Working (New current measurement and profiling required after latest changes)
+* SMS: Working
 * System images:
   * root_fs: Default system image. Includes a minimal root filesystem and one application replacing the entire Qualcomm / Quectel stack. Some functions are not yet functional
   * recovery_fs: Minimal bootable image to be flashed into the recovery partitions to retrieve logs and make changes to the root image
