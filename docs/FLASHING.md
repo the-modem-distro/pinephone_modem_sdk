@@ -8,6 +8,16 @@ If you ever flashed an Android phone, this should be even easier:
 3b. If the modem doesn't disappear when the script starts, try running the flashall script as root
 4. Wait for the modem to come back
 
+## ADSP Versions
+If your Pinephone / Pro came with a really old stock firmware, you might need to update it
+
+* [ADSP Version 01.002.01.002](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_01.002.01.002/update/NON-HLOS.ubi)
+* [ADSP Version 01.003.01.003](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_01.003.01.003/update/NON-HLOS.ubi) 
+* [ADSP Version 30.004.30.004](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_30.004.30.004/update/NON-HLOS.ubi)
+#### Flashing it:
+1. Open a root terminal and run: `echo -ne "AT+QFASTBOOT\r" > /dev/ttyUSB2` to enter fastboot mode
+2. Run `fastboot flash modem NON-HLOS.ubi && fastboot reboot`
+
 
 ## Flashing manually
 1. Get required tools: you need adb and fastboot installed in your pinephone
