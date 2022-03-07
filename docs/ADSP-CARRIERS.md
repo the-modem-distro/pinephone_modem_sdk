@@ -21,9 +21,15 @@ Here's an (almost empty) table with results from different providers. Feel free 
 
 | Country | Carrier | Recommended ADSP version | Remarks |
 | ------- |:-----------:|:----------:|:-----------:|
+| Austria | Bob | ? | Network doesn't provide any correct date & time [1] |
 | Spain | Vodafone ES (Postpaid) | 01.003 | Version 01.002 sometimes doesn't reconnect correctly to data |
 | Spain | Pepephone (Roaming on Orange| 01.003 | No issues found with either version |
 | US | Verizon US ( Postpaid ) | 01.002 | Version 01.003 does take a real long time connecting, sometimes does not detect sim card |
 | US | Mint Mobile | 01.003 | Data doesn't seem to work on 30.004 |
 | US | T-Mobile | 01.003 | |
 | US | Ting (T-Mobile) | 01.003 | Data is IPv6 only on 30.004 |
+
+
+[1] If you use *Bob* in Austria, you might run into an issue where the time never syncs from the network, as the network never sends correct date and time to the Modem. This is a problem, because AGPS won't be valid if the modem thinks it's in 1980. A fallback method is implemented into the modem userspace where it will first try to sync the time from network. If that fails, it will try to sync from the baseband RTC instead. It will keep trying until a somewhat-correct date is detected. 
+
+User @karl implemented a script and a systemd unit that reads the correct date from the Pinephone and sends it via mmcli to the Modem, you can get instructions to set this up [in his blog](https://karl.kashofer.org/pinephone/114)
