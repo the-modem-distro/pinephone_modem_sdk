@@ -8,6 +8,7 @@ For my use case, I use the latest version, 01.003.01.003. This works perfectly f
 
 ## Where do I get them?
 Here:
+* [ADSP Version 30.004.30.004](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_30.004.30.004/update/NON-HLOS.ubi)
 * [ADSP Version 01.003.01.003](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_01.003.01.003/update/NON-HLOS.ubi). 
 * [ADSP Version 01.002.01.002](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_01.002.01.002/update/NON-HLOS.ubi)
 
