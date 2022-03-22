@@ -3,6 +3,7 @@ SHELL := /bin/bash
 # both the ARM toolchain and the source code repositories
 CURRENT_PATH:=$(shell pwd)
 APPSBOOT_PATH:=$(CURRENT_PATH)/quectel_lk
+LK2ND_PATH:=$(CURRENT_PATH)/lk2nd
 YOCTO_PATH:=$(CURRENT_PATH)/yocto
 # Number of threads to use when compiling LK
 NUM_THREADS?=12
@@ -13,8 +14,8 @@ VERSION?="0.0.0"
 export ARCH=arm
 
 all: help
-everything: target_clean aboot root_fs recovery_fs package
-cabinet_package: meta_log aboot root_fs recovery_fs zip_file cab_file
+everything: target_clean aboot root_fs recovery_fs package meta_log zip_file cab_file
+cabinet_package: meta_log aboot zip_file cab_file
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
 	@echo "------------------------------------"
@@ -29,9 +30,20 @@ help:
 	@echo "    ---- "
 	@echo "    make clean : Removes all the built images and temporary directories from bootloader and yocto"
 
+experimental_aboot:
+	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
+	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
+	bitbake virtual/bootloader && \
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/appsboot.mbn $(CURRENT_PATH)/target || exit 1
+
 aboot:
 	@cd $(APPSBOOT_PATH) && \
-	make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=1 || exit ; \
+	make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=0 || exit ; \
+	cp build-mdm9607/appsboot.mbn $(CURRENT_PATH)/target
+
+secondlk:
+	@cd $(LK2ND_PATH) && \
+	make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=0 || exit ; \
 	cp build-mdm9607/appsboot.mbn $(CURRENT_PATH)/target
 
 kernel:
