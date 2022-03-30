@@ -23,6 +23,7 @@ Here's an (almost empty) table with results from different providers. Feel free 
 | Country | Carrier | Recommended ADSP version | Remarks |
 | ------- |:-----------:|:----------:|:-----------:|
 | Austria | Bob | ? | Network doesn't provide any correct date & time [1] |
+| Germany | 1&1 (using Telefonica network) | 01.003, 30.004 | No issues |
 | Spain | Vodafone ES (Postpaid) | 01.003 | Version 01.002 sometimes doesn't reconnect correctly to data |
 | Spain | Pepephone (Roaming on Orange| 01.003 | No issues found with either version |
 | US | Verizon US ( Postpaid ) | 01.002 | Version 01.003 does take a real long time connecting, sometimes does not detect sim card |
