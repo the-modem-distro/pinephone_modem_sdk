@@ -44,7 +44,9 @@ function scrubNetworkManager {
 
   unset ipv6s
   declare -a ipv6s
-  readarray -t ipv6s <<< $(grep -Eo '([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}(/[1-9][0-9]?)?' "${scrubFiles[2]}" | while read line; do   unset valid; numCols=$(echo "$line" | awk -F":" '{print NF-1}'); if [ $numCols -eq 7 ]; then valid=1; elif [ $numCols -lt 7 ] && [ $numCols -ge 2 ]; then if echo "${line}" | grep -q '::'; then valid=1; fi; fi; if [ "$valid" ]; then echo "$line"; fi; done | sort | uniq); redacts=( "${netIds[@]}" "${macs[@]}" "${ipv4s[@]}" "${ipv6s[@]}")
+  readarray -t ipv6s <<< $(grep -Eo '([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}(/[1-9][0-9]?)?' "${scrubFiles[2]}" | while read line; do   unset valid; numCols=$(echo "$line" | awk -F":" '{print NF-1}'); if [ $numCols -eq 7 ]; then valid=1; elif [ $numCols -lt 7 ] && [ $numCols -ge 2 ]; then if echo "${line}" | grep -q '::'; then valid=1; fi; fi; if [ "$valid" ]; then echo "$line"; fi; done | sort | uniq)
+
+  redacts=( "${netIds[@]}" "${macs[@]}" "${ipv4s[@]}" "${ipv6s[@]}")
 
   sedExpr=""
   for val in "${redacts[@]}"; do
