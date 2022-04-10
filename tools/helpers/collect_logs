@@ -11,4 +11,7 @@ journalctl -u eg25-manager.service -e > eg25-manager.log
 journalctl -u ModemManager.service -e > modemmanager.log
 journalctl -u NetworkManager.service -e > networkmanager.log
 
+SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+/usr/bin/bash ${SCRIPT_DIR}/scrub_logs
+
 exit 0
