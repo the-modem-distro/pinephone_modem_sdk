@@ -1,0 +1,75 @@
+#!/bin/bash
+
+declare -a scrubFiles=( "dmesg-pinephone.txt" "modemmanager.log" "networkmanager.log" "openqti.log" )
+subText="<redacted>"
+modemNum="015550199999"
+
+function now {
+  ts=$(date +%Y%m%d%H%M%S)
+  echo "Backup files using timestamp ${ts}"
+}
+
+function backupFiles {
+  echo "Backing up files"
+  for logFile in "${scrubFiles[@]}"; do
+    cp -p "${logFile}" "${logFile}-${ts}"
+  done
+}
+
+function scrubDmesgPp {
+  echo "Scrubbing ${scrubFiles[0]}"
+  sed -i 's/\([a-f0-9]\{2\}:\)\{5\}[a-f0-9]\{2\}/'${subText}'/' "${scrubFiles[0]}"
+}
+
+function scrubModemManager {
+  echo "Scrubbing ${scrubFiles[1]}"
+  sed -i -e 's/address: .*/address: '${subText}'/' -e 's/gateway: .*/gateway: '${subText}'/' -e 's/DNS #\([1-9]\): .*/DNS #\1: '${subText}'/' "${scrubFiles[1]}"
+}
+
+function scrubNetworkManager {
+  echo "Scrubbing ${scrubFiles[2]}"
+  unset redacts
+  declare -a redacts
+
+  unset netIds
+  declare -a netIds
+  readarray -t netIds <<< $(grep 'starting connection' "${scrubFiles[2]}" | awk $'{ match($0,/\'[a-zA-Z0-9 ]+\'/,netname); gsub(/\'/, "", netname[0]); match($0,/\([a-z0-9-]+\)$/,netid); gsub(/[()]/, "", netid[0]); printf "%s\\n%s\\n", netname[0], netid[0] }' | sort | uniq)
+
+  unset macs; declare -a macs
+  readarray -t macs <<<$(grep -Eo '([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}' "${scrubFiles[2]}" | sort | uniq)
+
+  unset ipv4s
+  declare -a ipv4s
+  readarray -t ipv4s <<< $(grep -Eo '([1-9][0-9]{0,2}\.){3}[1-9][0-9]{0,2}(/[1-9][0-9]?)?' "${scrubFiles[2]}" | sort | uniq)
+
+  unset ipv6s
+  declare -a ipv6s
+  readarray -t ipv6s <<< $(grep -Eo '([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}(/[1-9][0-9]?)?' "${scrubFiles[2]}" | while read line; do   unset valid; numCols=$(echo "$line" | awk -F":" '{print NF-1}'); if [ $numCols -eq 7 ]; then valid=1; elif [ $numCols -lt 7 ] && [ $numCols -ge 2 ]; then if echo "${line}" | grep -q '::'; then valid=1; fi; fi; if [ "$valid" ]; then echo "$line"; fi; done | sort | uniq); redacts=( "${netIds[@]}" "${macs[@]}" "${ipv4s[@]}" "${ipv6s[@]}")
+
+  sedExpr=""
+  for val in "${redacts[@]}"; do
+    sedExpr+="-e 's,${val},${subText},g' "
+  done
+  eval sed -i $sedExpr "${scrubFiles[2]}"
+}
+
+function scrubOpenQti {
+  echo "Scrubbing ${scrubFiles[3]}"
+  unset phNums
+  declare -a phNums
+  readarray -t phNums <<< $(grep -E 'Call request .*[0-9]+$|Call status.*[0-9]+$' "${scrubFiles[3]}" | grep -v ${modemNum} | grep -Eo '[0-9]+$' | sort | uniq)
+  sedExpr=""
+  for phNum in "${phNums[@]}"; do
+    sedExpr+="-e 's/${phNum}/${subText}/g' "
+  done
+  eval sed -i $sedExpr "${scrubFiles[3]}"
+}
+
+now
+backupFiles
+scrubDmesgPp
+scrubModemManager
+scrubNetworkManager
+scrubOpenQti
+
+exit 0
