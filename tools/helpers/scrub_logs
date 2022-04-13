@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 declare -a scrubFiles=( "dmesg-pinephone.txt" "modemmanager.log" "networkmanager.log" "openqti.log" )
 subText="<redacted>"
@@ -50,9 +50,11 @@ function scrubNetworkManager {
 
   sedExpr=""
   for val in "${redacts[@]}"; do
+    # Make sure the value isn't blank
+    [ -z "${val}" ] && continue
     sedExpr+="-e 's,${val},${subText},g' "
   done
-  eval sed -i $sedExpr "${scrubFiles[2]}"
+  [ "${sedExpr}" ] && eval sed -i $sedExpr "${scrubFiles[2]}"
 }
 
 function scrubOpenQti {
@@ -62,9 +64,11 @@ function scrubOpenQti {
   readarray -t phNums <<< $(grep -E 'Call request .*[0-9]+$|Call status.*[0-9]+$' "${scrubFiles[3]}" | grep -v ${modemNum} | grep -Eo '[0-9]+$' | sort | uniq)
   sedExpr=""
   for phNum in "${phNums[@]}"; do
+    # Make sure the value isn't blank
+    [ -z "${phNum}" ] && continue
     sedExpr+="-e 's/${phNum}/${subText}/g' "
   done
-  eval sed -i $sedExpr "${scrubFiles[3]}"
+  [ "${sedExpr}" ] &&  eval sed -i $sedExpr "${scrubFiles[3]}"
 }
 
 now
