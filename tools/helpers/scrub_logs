@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 declare -a scrubFiles=( "dmesg-pinephone.txt" "modemmanager.log" "networkmanager.log" "openqti.log" )
 subText="<redacted>"
