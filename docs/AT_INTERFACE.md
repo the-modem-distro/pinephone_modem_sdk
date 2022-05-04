@@ -322,6 +322,6 @@ Implemented can be
 
 [5]: Userspace ignores QSCLK config.
 
-[6]: For this to correctly work you'll still have to go through Quectel's USB configuration guide, and it's unknown if it fully works or not. Help would be appreciated
+[6]: USB audio functionality will need changes in your ALSA config, make sure you check out @marcin's guide [here](https://etherpad.gnome.org/p/hHCbgC0w4P4ZrSDiaoGB) to make it work
 
 [7]: QGMR has been replaced in this firmware to report the firmware version instead of the ADSP version, so fwupd doesn't need to query different commands depending if you're running stock or this one
