@@ -34,7 +34,7 @@ The best way to debug a problem is having all the available logs to be able to p
 
 If you're running a distro using Systemd, you can use [@kkeijzer's script](https://github.com/Biktorgj/pinephone_modem_sdk/blob/hardknott/tools/helpers/collect_logs) to grab them all in one go
 
-Make sure you have ADB enabled (`sudo sh -c 'echo -ne "AT+ADBON\r" > /dev/ttyUSB2`) or the script won't work!
+Make sure you have ADB enabled (`sudo sh -c 'echo -ne "AT+ADBON\r" > /dev/ttyUSB2'`) or the script won't work!
 
 If you want to only get some specific log:
 - Pinephone's kernel log: `dmesg > dmesg-pinephone.log`
