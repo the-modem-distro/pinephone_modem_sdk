@@ -2,11 +2,19 @@
 
 ## Using the provided script
 If you ever flashed an Android phone, this should be even easier:
-1. [Get latest release from Github](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
-2. Unpack the `package.tar.gz` file in some directory: `tar xzvf package.tar.gz`
-3. Execute the script included in the file: `./flashall`
-3b. If the modem doesn't disappear when the script starts, try running the flashall script as root
-4. Wait for the modem to come back
+
+1. Get required tools: you need fastboot installed in your pinephone
+ - Debian/Ubuntu based distros: 
+  - `apt install android-tools-fastboot`
+  - OR `apt install fastboot`
+ - postmarketOS / Alpine: `apk add android-tools`
+ - Arch/Manjaro: `pacman -S android-tools`
+
+2. [Get latest release from Github](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
+3. Unpack the `package.tar.gz` file in some directory: `tar xzvf package.tar.gz`
+4. Execute the script included in the file: `./flashall`
+4b. If the modem doesn't disappear when the script starts, try running the flashall script as root
+5. Wait for the modem to come back
 
 ## ADSP Versions
 If your Pinephone / Pro came with a really old stock firmware, you might need to update it
