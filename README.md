@@ -39,9 +39,9 @@ This repository contains everything you need to make your own Modem userspace fo
 #### Features not available on stock firmware:
  * Cell broadcast relay to the host as SMS
  * Internal call and SMS support
-  * Functionality is added on every release, feel free to check out the [document for available commands](./docs/SMS_INTERFACE.md)
+   * Functionality is added on every release, feel free to check out the [document for available commands](./docs/SMS_INTERFACE.md)
  * Optional persistent storage: By default an unexpected shutdown can't mess your modem
-  * If you want to keep logs after reboot, you can enable persistent storage
+   * If you want to keep logs after reboot, you can enable persistent storage
  * SMS logging capability: It can log every message you send or receive
  * Automatic time synchronization from the carrier into the userspace
  * Minimum clock frequency is set to 100Mhz, either awake or sleeping (stock is 800MHz awake and 400Mhz sleep), making the modem run cooler
@@ -53,12 +53,12 @@ This repository contains everything you need to make your own Modem userspace fo
 2. [Abandoned] Find fixes to support dynamic rate settings in the Pinephone (would make bluetooth calling fail)
 3. [Abandoned] Allow bootloader PIN lock to prevent accidental flashing (would make fwupd support fail)
 4. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
-5. [WIP] Internal SMS functionality (only working with ModemManager):
+5. [WIP] Internal SMS functionality (Working reliably with ModemManager and in testing with oFono):
   - Can send and receive messages to/from the modem
   - Modem will answer to the number: +01 555 019 99 99
   - Send "help" for a list of commands
 6. [Fixed] GPS crashes when left on and the Pinephone leaves the USB port suspended for long time
-7. [WIP] Internal call ability (only working with ModemManager):
+7. [WIP] Internal call ability (Working with ModemManager / testing with oFono):
   - Can accept outgoing calls or automatically call you when requested from the chat (send "call me" or "call me in X" -seconds- to make it call you)
   - TTS support: While in call, send an SMS to the modem and it will speak the response back
 
@@ -74,3 +74,6 @@ This project depends on the following repositories:
 
 #### Documentation
 I'm really bad at documentation, but you have some docs [here](./docs)
+
+#### Donations
+If you want, you can [buy me a coffee](https://ko-fi.com/biktorgj)
