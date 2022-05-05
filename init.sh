@@ -23,7 +23,7 @@ then
     echo "Cloning Yocto repository from the Yocto Project"
     git clone git://git.yoctoproject.org/poky yocto && \
     cd yocto && \
-    git checkout tags/yocto-3.4.1 -b my-yocto-3.4.1
+    git checkout tags/yocto-3.4.4
     cd $BASE_PATH
 else
     echo "Yocto is already there"
@@ -41,14 +41,7 @@ else
     cd $BASE_PATH
 fi
 
-echo "Fetching meta-python2 from OpenEmbedded"
-if [ ! -d "yocto/meta-python2" ]
-then
-    echo "Adding meta-python2"
-    git clone -b $YOCTOBRANCH git://git.openembedded.org/meta-python2 yocto/meta-python2
-fi
-
-echo "Fetching meta-openembedded (to provide support to meta-python2)"
+echo "Fetching meta-openembedded (to provide support to meta-python)"
 if [ ! -d "yocto/meta-openembedded" ]
 then
     echo "Adding meta-oe"
@@ -75,7 +68,6 @@ then
     bitbake-layers add-layer ../meta-openembedded/meta-oe && \
     bitbake-layers add-layer ../meta-openembedded/meta-python && \
     bitbake-layers add-layer ../meta-openembedded/meta-networking && \
-    bitbake-layers add-layer ../meta-python2
 fi
 cd $BASE_PATH
 mkdir -p yocto/build/conf

@@ -15,7 +15,7 @@ export ARCH=arm
 
 all: help
 everything: target_clean aboot root_fs recovery_fs package meta_log zip_file cab_file
-cabinet_package: meta_log aboot zip_file cab_file
+cabinet_package: meta_log zip_file cab_file
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
 	@echo "------------------------------------"
@@ -26,7 +26,7 @@ help:
 	@echo "    make kernel : Will build the kernel and place it in /target"
 	@echo "    make root_fs : Will build you a rootfs from Yocto"
 	@echo "    make recovery_fs : Will build you a minimal recovery image from Yocto"
-	@echo "    make everything : Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script "
+	@echo "    make everything [VERSION="X.Y.Z"]: Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script and a LVFS compatible cab file"
 	@echo "    ---- "
 	@echo "    make clean : Removes all the built images and temporary directories from bootloader and yocto"
 
