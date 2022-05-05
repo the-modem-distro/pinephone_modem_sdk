@@ -254,27 +254,27 @@ RECIPE NAME: usb-recoveryboot
 LICENSE: Apache-2.0
 
 PACKAGE NAME: util-linux-libblkid
-PACKAGE VERSION: 2.37.2
+PACKAGE VERSION: 2.37.4
 RECIPE NAME: util-linux
 LICENSE: LGPLv2.1+
 
 PACKAGE NAME: util-linux-libmount
-PACKAGE VERSION: 2.37.2
+PACKAGE VERSION: 2.37.4
 RECIPE NAME: util-linux
 LICENSE: LGPLv2.1+
 
 PACKAGE NAME: util-linux-libuuid
-PACKAGE VERSION: 2.37.2
+PACKAGE VERSION: 2.37.4
 RECIPE NAME: util-linux-libuuid
 LICENSE: BSD-3-Clause
 
 PACKAGE NAME: util-linux-mount
-PACKAGE VERSION: 2.37.2
+PACKAGE VERSION: 2.37.4
 RECIPE NAME: util-linux
 LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
 
 PACKAGE NAME: util-linux-umount
-PACKAGE VERSION: 2.37.2
+PACKAGE VERSION: 2.37.4
 RECIPE NAME: util-linux
 LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
 
