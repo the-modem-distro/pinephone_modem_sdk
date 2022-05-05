@@ -4,7 +4,7 @@
 
 This repository contains everything you need to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.6.1](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
+### Latest release: [Version 0.6.4](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
 
 ### Supported devices:
 * Pinephone
@@ -39,7 +39,10 @@ This repository contains everything you need to make your own Modem userspace fo
 #### Features not available on stock firmware:
  * Cell broadcast relay to the host as SMS
  * Internal call and SMS support
- * Non persistent storage: There's no way of corrupting your modem firmware from a bad shutdown
+  * Functionality is added on every release, feel free to check out the [document for available commands](./docs/SMS_INTERFACE.md)
+ * Optional persistent storage: By default an unexpected shutdown can't mess your modem
+  * If you want to keep logs after reboot, you can enable persistent storage
+ * SMS logging capability: It can log every message you send or receive
  * Automatic time synchronization from the carrier into the userspace
  * Minimum clock frequency is set to 100Mhz, either awake or sleeping (stock is 800MHz awake and 400Mhz sleep), making the modem run cooler
  * Different sampling rates available at runtime without requiring a reboot (missing companion app in the pinephone to make use of them)
