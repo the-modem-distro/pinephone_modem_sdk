@@ -67,7 +67,7 @@ then
     bitbake-layers add-layer ../meta-qcom  && \
     bitbake-layers add-layer ../meta-openembedded/meta-oe && \
     bitbake-layers add-layer ../meta-openembedded/meta-python && \
-    bitbake-layers add-layer ../meta-openembedded/meta-networking && \
+    bitbake-layers add-layer ../meta-openembedded/meta-networking
 fi
 cd $BASE_PATH
 mkdir -p yocto/build/conf
