@@ -1,30 +1,15 @@
 #!/bin/bash
 BASE_PATH=`pwd`
 
-YOCTOBRANCH="honister"
+YOCTOBRANCH="kirkstone"
 
 mkdir -p target
-
-echo "Get the source for the bootloader"
-if [ ! -d "quectel_lk" ]
-then
-    echo "Cloning LK repository"
-    git clone https://github.com/Biktorgj/quectel_lk.git
-else
-    echo "Pulling latest changes from LK"
-    cd quectel_lk && \
-    git pull && \
-    cd $BASE_PATH
-fi
 
 echo "Fetching Yocto"
 if [ ! -d "yocto" ]
 then
     echo "Cloning Yocto repository from the Yocto Project"
-    git clone git://git.yoctoproject.org/poky yocto && \
-    cd yocto && \
-    git checkout tags/yocto-3.4.4
-    cd $BASE_PATH
+    git clone -b $YOCTOBRANCH git://git.yoctoproject.org/poky yocto
 else
     echo "Yocto is already there"
 fi
@@ -35,7 +20,7 @@ then
     echo "Cloning meta-qcom repository"
     git clone -b $YOCTOBRANCH https://github.com/Biktorgj/meta-qcom.git yocto/meta-qcom
 else
-    echo "Pulling latest changes from the kernel"
+    echo "Pulling latest changes from meta-qcom"
     cd yocto/meta-qcom && \
     git pull && \
     cd $BASE_PATH
@@ -46,15 +31,6 @@ if [ ! -d "yocto/meta-openembedded" ]
 then
     echo "Adding meta-oe"
    git clone -b $YOCTOBRANCH https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
-fi
-
-echo "Getting the ARM toolchain to be able to compile LK"
-if [ ! -d "tools/gcc-arm-none-eabi-7-2017-q4-major/" ]
-then
-    wget "https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2" && \
-    mkdir -p tools ; \
-    tar xjvf gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2 -C tools/ && \
-    rm gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2
 fi
 
 echo "Setting up yocto initial configuration. Build path will be "$BASE_PATH/yocto/build

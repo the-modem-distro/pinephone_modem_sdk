@@ -1,17 +1,12 @@
 SHELL := /bin/bash
-# Paths - Remember to first run the script "initialize_repositories.sh" to download
-# both the ARM toolchain and the source code repositories
+# Paths - Remember to first run the script "init.sh" to download
 CURRENT_PATH:=$(shell pwd)
-APPSBOOT_PATH:=$(CURRENT_PATH)/quectel_lk
-LK2ND_PATH:=$(CURRENT_PATH)/lk2nd
 YOCTO_PATH:=$(CURRENT_PATH)/yocto
 # Number of threads to use when compiling LK
 NUM_THREADS?=12
 # Cross compile
-CROSS_COMPILE:=$(CURRENT_PATH)/tools/gcc-arm-none-eabi-7-2017-q4-major/bin/arm-none-eabi-
 $(shell mkdir -p target)
 VERSION?="0.0.0"
-export ARCH=arm
 
 all: help
 everything: target_clean aboot root_fs recovery_fs package meta_log zip_file cab_file
@@ -30,21 +25,11 @@ help:
 	@echo "    ---- "
 	@echo "    make clean : Removes all the built images and temporary directories from bootloader and yocto"
 
-experimental_aboot:
+aboot:
 	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
 	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake virtual/bootloader && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/appsboot.mbn $(CURRENT_PATH)/target || exit 1
-
-aboot:
-	@cd $(APPSBOOT_PATH) && \
-	make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=0 || exit ; \
-	cp build-mdm9607/appsboot.mbn $(CURRENT_PATH)/target
-
-secondlk:
-	@cd $(LK2ND_PATH) && \
-	make -j $(NUM_THREADS) mdm9607 TOOLCHAIN_PREFIX=$(CROSS_COMPILE) SIGNED_KERNEL=0 DEBUG=1 ENABLE_DISPLAY=0 WITH_DEBUG_UART=1 BOARD=9607 SMD_SUPPORT=1 MMC_SDHCI_SUPPORT=0 || exit ; \
-	cp build-mdm9607/appsboot.mbn $(CURRENT_PATH)/target
 
 kernel:
 	@mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
@@ -109,7 +94,6 @@ target_clean:
 	rm -rf $(CURRENT_PATH)/target && mkdir -p $(CURRENT_PATH)/target
 
 aboot_clean:
-	rm -rf $(APPSBOOT_PATH)/build-mdm9607
 	rm -rf target/appsboot.mbn
 
 yocto_clean:
