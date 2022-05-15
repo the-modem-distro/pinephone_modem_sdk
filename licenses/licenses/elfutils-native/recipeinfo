@@ -1,3 +1,3 @@
-LICENSE: GPLv2 & GPLv2+ & LGPLv3+ & GPLv3+
-PR: r1
-PV: 0.185
+LICENSE: GPL-2.0-only & GPL-2.0-or-later & LGPL-3.0-or-later & GPL-3.0-or-later
+PR: r0
+PV: 0.186
