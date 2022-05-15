@@ -4,7 +4,7 @@
 
 This repository contains everything you need to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.6.4](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
+### Latest release: [Version 0.6.5](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
 
 ### Supported devices:
 * Pinephone
@@ -32,7 +32,7 @@ This repository contains everything you need to make your own Modem userspace fo
 * GPS: Working
 * Sleep / Power management: Working (New current measurement and profiling required after latest changes)
 * System images:
-  * root_fs: Default system image. Includes a minimal root filesystem and one application replacing the entire Qualcomm / Quectel stack. Some functions are not yet functional
+  * root_fs: Default system image. Includes a minimal root filesystem and one application replacing the entire Qualcomm / Quectel stack. Some functions may not yet functional
   * recovery_fs: Minimal bootable image to be flashed into the recovery partitions to retrieve logs and make changes to the root image
 * Custom AT Commands: Please see this [document](./docs/AT_INTERFACE.md#custom-commands-in-this-firmware)
 
@@ -50,15 +50,12 @@ This repository contains everything you need to make your own Modem userspace fo
 
 #### TODO (in no particular order)
 1. [WIP] Find and fix the last remaining USB port reset cause(s)
-2. [Abandoned] Find fixes to support dynamic rate settings in the Pinephone (would make bluetooth calling fail)
-3. [Abandoned] Allow bootloader PIN lock to prevent accidental flashing (would make fwupd support fail)
-4. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
-5. [WIP] Internal SMS functionality (Working reliably with ModemManager and in testing with oFono):
+2. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
+3. [WIP] Internal SMS functionality (Working reliably with ModemManager and in testing with oFono):
   - Can send and receive messages to/from the modem
   - Modem will answer to the number: +01 555 019 99 99
-  - Send "help" for a list of commands
-6. [Fixed] GPS crashes when left on and the Pinephone leaves the USB port suspended for long time
-7. [WIP] Internal call ability (Working with ModemManager / testing with oFono):
+  - Send "help" for a list of commands or check the [docs](./docs/SMS_INTERFACE.md)
+4. [WIP] Internal call ability (Working with ModemManager / testing with oFono):
   - Can accept outgoing calls or automatically call you when requested from the chat (send "call me" or "call me in X" -seconds- to make it call you)
   - TTS support: While in call, send an SMS to the modem and it will speak the response back
 
