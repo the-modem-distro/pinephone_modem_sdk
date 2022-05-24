@@ -22,8 +22,9 @@ Here's an (almost empty) table with results from different providers. Feel free 
 
 | Country | Carrier | Recommended ADSP version | Remarks |
 | ------- |:-----------:|:----------:|:-----------:|
-| Austria | Bob | ? | Network doesn't provide any correct date & time [1] |
+| Austria | Bob | ? | Network doesn't provide any correct date & time [1](#1) |
 | Germany | 1&1 (using Telefonica network) | 01.003, 30.004 | No issues |
+| Poland | Orange | 01.003, 30.004 | Data reconnect issues / Dual IPv4/6 issues [2](#2) |
 | Spain | Vodafone ES (Postpaid) | 01.003 | Version 01.002 sometimes doesn't reconnect correctly to data |
 | Spain | Pepephone (Roaming on Orange| 01.003 | No issues found with either version |
 | US | Verizon US ( Postpaid ) | 01.002 | Version 01.003 does take a real long time connecting, sometimes does not detect sim card |
@@ -32,6 +33,8 @@ Here's an (almost empty) table with results from different providers. Feel free 
 | US | Ting (T-Mobile) | 01.003 | Data is IPv6 only on 30.004 |
 
 
-[1] If you use *Bob* in Austria, you might run into an issue where the time never syncs from the network, as the network never sends correct date and time to the Modem. This is a problem, because AGPS won't be valid if the modem thinks it's in 1980. A fallback method is implemented into the modem userspace where it will first try to sync the time from network. If that fails, it will try to sync from the baseband RTC instead. It will keep trying until a somewhat-correct date is detected. 
+#1 If you use *Bob* in Austria, you might run into an issue where the time never syncs from the network, as the network never sends correct date and time to the Modem. This is a problem, because AGPS won't be valid if the modem thinks it's in 1980. A fallback method is implemented into the modem userspace where it will first try to sync the time from network. If that fails, it will try to sync from the baseband RTC instead. It will keep trying until a somewhat-correct date is detected. 
 
 User @karl implemented a script and a systemd unit that reads the correct date from the Pinephone and sends it via mmcli to the Modem, you can get instructions to set this up [in his blog](https://karl.kashofer.org/pinephone/114)
+
+#2 By default yo might only get a v4 or v6 IP address and have problems reconnecting data service. Please follow [Marcin's guide](https://etherpad.gnome.org/p/dx7pbkPMCytMLMRl1eyo) to setup dual stack and get a better experience
