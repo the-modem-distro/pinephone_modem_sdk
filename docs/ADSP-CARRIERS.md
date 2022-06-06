@@ -9,7 +9,7 @@ For my use case, I use the latest version, 01.003.01.003. This works perfectly f
 ## Where do I get them?
 Here:
 * [ADSP Version 30.004.30.004](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_30.004.30.004/update/NON-HLOS.ubi)
-* [ADSP Version 01.003.01.003](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_01.003.01.003/update/NON-HLOS.ubi). 
+* [ADSP Version 01.003.01.003](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_01.003.01.003/update/NON-HLOS.ubi).
 * [ADSP Version 01.002.01.002](https://github.com/Biktorgj/quectel_eg25_recovery/raw/EG25GGBR07A08M2G_01.002.01.002/update/NON-HLOS.ubi)
 
 ## How do I flash them?
@@ -31,9 +31,10 @@ Here's an (almost empty) table with results from different providers. Feel free 
 | US | Mint Mobile | 01.003 | Data doesn't seem to work on 30.004 |
 | US | T-Mobile | 01.003 | |
 | US | Ting (T-Mobile) | 01.003 | Data is IPv6 only on 30.004 |
+| UK | EE | 01.002, 01.003 | Data doesn't seem to work on 30.004 |
 
 
-#1 If you use *Bob* in Austria, you might run into an issue where the time never syncs from the network, as the network never sends correct date and time to the Modem. This is a problem, because AGPS won't be valid if the modem thinks it's in 1980. A fallback method is implemented into the modem userspace where it will first try to sync the time from network. If that fails, it will try to sync from the baseband RTC instead. It will keep trying until a somewhat-correct date is detected. 
+#1 If you use *Bob* in Austria, you might run into an issue where the time never syncs from the network, as the network never sends correct date and time to the Modem. This is a problem, because AGPS won't be valid if the modem thinks it's in 1980. A fallback method is implemented into the modem userspace where it will first try to sync the time from network. If that fails, it will try to sync from the baseband RTC instead. It will keep trying until a somewhat-correct date is detected.
 
 User @karl implemented a script and a systemd unit that reads the correct date from the Pinephone and sends it via mmcli to the Modem, you can get instructions to set this up [in his blog](https://karl.kashofer.org/pinephone/114)
 
