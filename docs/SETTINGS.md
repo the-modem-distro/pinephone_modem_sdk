@@ -34,3 +34,8 @@ Sometimes the kernel is too aggressive trying to suspend the USB port when it's 
 - Edit `/usr/lib/udev/rules.d/80-modem-eg25.rules`
 - Look at the first line where it says `ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{power/control}="auto"`
 - And change it to ON `ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{power/control}="on"`
+
+3. Microphone audio is too loud during phone calls ( distorted audio and lots of background noise from your side )
+- Edit the ALSA UCM config file `/usr/share/alsa/ucm2/PinePhonePro/VoiceCall.conf` and look for the following parameters:
+  - `IN1 Boost`
+- Change the default value from 8 to 3 ( YMMV you may need to go a bit higher or lower, but 8 is way too much in my testing ).
