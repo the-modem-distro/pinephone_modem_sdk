@@ -1,11 +1,12 @@
 
 # HOW TO BUILD YOUR OWN FIRMWARE
 1. Make sure you have these packages preinstalled in your host:
- `gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint3 xterm python3-subunit mesa-common-dev zstd liblz4-tool`
-2. Make sure you have at least 50Gb of available space
-3. Do at least a quick read of Yocto's Project Quick build doc: http://docs.yoctoproject.org/brief-yoctoprojectqs/index.html
-4.	Clone this repository in your computer
-5.	Go to the folder where you downloaded your copy and run `./init.sh`
+ `gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint xterm python3-subunit mesa-common-dev zstd liblz4-tool`
+2. If you plan to make a build for fwupd, make sure you also have these packages preinstalled in your host: `php gcab`
+3. Make sure you have at least 50Gb of available space
+4. Do at least a quick read of Yocto's Project Quick build doc: http://docs.yoctoproject.org/brief-yoctoprojectqs/index.html
+5.	Clone this repository in your computer
+6.	Go to the folder where you downloaded your copy and run `./init.sh`
  * The init script should do the following things for you
    - Get the modem's bootloader source
    - Get the ARM toolchain to build the bootloader
@@ -13,7 +14,7 @@
    - Get the specific layers and dependencies to build it all
    - Initialize yocto and add the bitbake layers to the env
  
-6.	Run `make`, without arguments, to see what you can build:
+7.	Run `make`, without arguments, to see what you can build:
   - `everything`: Build Bootloader, System and Recovery and pack it
   - `aboot`: build the LK bootloader
   - `kernel`: Build the kernel and place a bootable image in target/
