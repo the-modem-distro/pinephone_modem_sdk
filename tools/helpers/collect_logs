@@ -3,7 +3,10 @@
 TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
 
 get_persistent_logs(){
-adb pull /var/log/openqti.log.1
+
+echo "  -> In case of persistent logging get logs of previous boot"
+
+adb pull /persist/openqti.log.1
 mv openqti.log.1 openqti-${TIMESTAMP}.log.1
 
 journalctl -u eg25-manager.service -e --boot -1 > eg25-manager-${TIMESTAMP}.log.1
@@ -23,7 +26,6 @@ journalctl -u eg25-manager.service -e > eg25-manager-${TIMESTAMP}.log
 journalctl -u ModemManager.service -e > modemmanager-${TIMESTAMP}.log
 journalctl -u NetworkManager.service -e > networkmanager-${TIMESTAMP}.log
 
-echo "  -> In case of persistent logging get logs of previous boot"
 get_persistent_logs
 
 exit 0
