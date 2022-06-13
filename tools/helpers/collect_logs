@@ -28,5 +28,7 @@ journalctl -u NetworkManager.service -e > networkmanager-${TIMESTAMP}.log
 
 get_persistent_logs
 
-exit 0
+SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+/usr/bin/bash ${SCRIPT_DIR}/scrub_logs
 
+exit 0
