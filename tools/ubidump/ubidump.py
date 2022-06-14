@@ -372,7 +372,7 @@ class UbiBlocks:
 
 
 
-################ filesytem level objects ##################
+################ filesystem level objects ##################
 
 UBIFS_INO_KEY = 0
 UBIFS_DATA_KEY = 1

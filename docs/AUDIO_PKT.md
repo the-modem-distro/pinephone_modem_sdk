@@ -37,7 +37,7 @@ These all are QMI control headers, and we don't care too much about them, we jus
 2. Message ID is 0x2e (Voice call indication)
 The rest can be discarded. In OpenQTI I also use frame and packet type to omit the registration from the Pinephone itself, since I don't need that to know when to enable or disable audio
 
-The next part of the data is a little mistery:
+The next part of the data is a little mystery:
 
 |Message length |   Constant data  |
 |:-------------:|:----------------:|
@@ -52,7 +52,7 @@ Now comes the interesting part:
 | state  | call type | direction | method |This data is always the same for voice|
 
 
-The first byte indicates the call is being set up (0x0a). It could also be an incoming call ringing (0x02), an outgoing call waiting to pick up (0x01), a call successfuly established and talking (0x04) etc.
+The first byte indicates the call is being set up (0x0a). It could also be an incoming call ringing (0x02), an outgoing call waiting to pick up (0x01), a call successfully established and talking (0x04) etc.
 
 The second byte show us the call type, if it is a normal voice call (0x00), Voice over IP (for VoLTE or VoWIFI) (0x02), or something else. We don't really need that right now as the modem only uses two mixer paths for setting up audio, but we'll keep note of this byte in case someone is able to implement HD Voice support in the PinePhone side of the software stack, since the modem supports it
 
