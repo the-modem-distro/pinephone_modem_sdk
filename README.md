@@ -4,7 +4,7 @@
 
 This repository contains everything you need to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.6.5](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
+### Latest release: [Version 0.6.7](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
 
 ### Supported devices:
 * Pinephone
@@ -21,7 +21,7 @@ This repository contains everything you need to make your own Modem userspace fo
 
 #### Current Status:
 * LK Bootloader: Working
-  * On reset, the bootloader enters into fastboot mode automatically for 2 seconds, and boots normally unless instructed to stay (leave the command `fastboot oem stay` running while rebooting the modem to make it stop at fastboot).
+  * On reset, the bootloader enters into fastboot mode automatically for 5 seconds, and boots normally unless instructed to stay (leave the command `fastboot oem stay` running while rebooting the modem to make it stop at fastboot).
    * Custom fastboot commands:
     * fastboot reboot-bootloader: Reboot to fastboot
     * fastboot oem stay: Stay in fastboot instead of booting normally
@@ -53,7 +53,7 @@ This repository contains everything you need to make your own Modem userspace fo
 2. [Testing] Fix audio when doing conferences (audio is cut off when hanging up the first call)
 3. [WIP] Internal SMS functionality (Working reliably with ModemManager and in testing with oFono):
   - Can send and receive messages to/from the modem
-  - Modem will answer to the number: +01 555 019 99 99
+  - Modem will answer to the number: +22 33 44 55 66 77
   - Send "help" for a list of commands or check the [docs](./docs/SMS_INTERFACE.md)
 4. [WIP] Internal call ability (Working with ModemManager / testing with oFono):
   - Can accept outgoing calls or automatically call you when requested from the chat (send "call me" or "call me in X" -seconds- to make it call you)
@@ -63,7 +63,7 @@ This repository contains everything you need to make your own Modem userspace fo
 
 #### Related Repositories
 This project depends on the following repositories:
-* [LK - Little Kernel bootloader](https://github.com/Biktorgj/quectel_lk)
+* [LK2nd fork with a few patches](https://github.com/Biktorgj/lk2nd)
 * [Downstream 3.18.140 Kernel based on CAF](https://github.com/Biktorgj/quectel_eg25_kernel)
 * [Forked meta-qcom repository](https://github.com/Biktorgj/meta-qcom)
 * [The Yocto Project](https://yoctoproject.org)
@@ -73,4 +73,4 @@ This project depends on the following repositories:
 I'm really bad at documentation, but you have some docs [here](./docs)
 
 #### Donations
-If you want, you can [buy me a coffee](https://ko-fi.com/biktorgj)
+If you want, you can buy me a coffee [ko-fi](https://ko-fi.com/biktorgj)/[liberapay](https://liberapay.com/biktorgj/donate)
