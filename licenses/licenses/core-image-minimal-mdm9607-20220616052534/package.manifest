@@ -41,6 +41,7 @@ mtd-utils-ubifs
 ncurses-terminfo-base
 netbase
 openssl-conf
+openssl-ossl-module-legacy
 packagegroup-core-boot
 patchelf
 recovery-scripts
