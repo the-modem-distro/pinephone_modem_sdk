@@ -9,6 +9,7 @@ $(shell mkdir -p target)
 VERSION?="0.0.0"
 
 all: help
+build: target_clean aboot root_fs recovery_fs package
 everything: target_clean aboot root_fs recovery_fs package meta_log zip_file cab_file
 cabinet_package: meta_log zip_file cab_file
 help:
@@ -21,6 +22,7 @@ help:
 	@echo "    make kernel : Will build the kernel and place it in /target"
 	@echo "    make root_fs : Will build you a rootfs from Yocto"
 	@echo "    make recovery_fs : Will build you a minimal recovery image from Yocto"
+	@echo "    make build: Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script."
 	@echo "    make everything [VERSION="X.Y.Z"]: Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script and a LVFS compatible cab file"
 	@echo "    ---- "
 	@echo "    make clean : Removes all the built images and temporary directories from bootloader and yocto"
@@ -57,9 +59,13 @@ recovery_fs:
 package: 
 	cp $(CURRENT_PATH)/tools/helpers/flashall $(CURRENT_PATH)/target && \
 	cd $(CURRENT_PATH)/target && \
-	sha512sum * > shasums.txt && \
+	sha512sum appsboot.mbn > shasums.txt && \
+	sha512sum boot-mdm9607.img >> shasums.txt && \
+	sha512sum recoveryfs.ubi >> shasums.txt && \
+	sha512sum rootfs-mdm9607.ubi >> shasums.txt && \
+	sha512sum flashall >> shasums.txt && \
 	chmod +x flashall && \
-	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi flashall shasums.txt && \
+	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recoveryfs.ubi rootfs-mdm9607.ubi flashall shasums.txt && \
 	sha512sum $(CURRENT_PATH)/target/package.tar.gz && \
 	rm -rf $(CURRENT_PATH)/licenses/licenses && \
 	cp -rf $(CURRENT_PATH)/yocto/build/tmp/deploy/licenses $(CURRENT_PATH)/licenses/
