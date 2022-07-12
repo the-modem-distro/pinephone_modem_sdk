@@ -63,3 +63,4 @@ tools/x86_64-oesdk-linux
 proprietary
 temp
 copybuild.sh
+keys/*

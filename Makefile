@@ -7,10 +7,16 @@ NUM_THREADS?=12
 # Cross compile
 $(shell mkdir -p target)
 VERSION?="0.0.0"
+KERNEL_COMMAND_LINE="console=ttyHSL0 ro androidboot.hardware=qcom ehci-hcd.park=3 msm_rtb.filter=0x37 lpm_levels.sleep_disabled=1"
 
 all: help
+bootable_ramdisks: rootfs_ram recoveryfs_ram
+signed_bootable_ramdisks: rootfs_ram recoveryfs_ram sign_boot_ramdisk sign_recovery_ramdisk
+rootfs_ram: root_fs rootfs_ramdisk
+recoveryfs_ram: recovery_fs recovery_ramdisk
 build: target_clean aboot root_fs recovery_fs package
 everything: target_clean aboot root_fs recovery_fs package meta_log zip_file cab_file
+everything_signed: target_clean aboot root_fs recovery_fs sign_boot sign_rootfs sign_recoveryfs package meta_log zip_file cab_file
 cabinet_package: meta_log zip_file cab_file
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
@@ -55,7 +61,42 @@ recovery_fs:
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/recoveryfs.ubi && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target/recovery.img
-	
+
+rootfs_ramdisk:
+	${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/mkbootimg --kernel ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/zImage \
+              --ramdisk ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.cpio.gz \
+              --output ${CURRENT_PATH}/target/boot-rootfs.img \
+              --pagesize 2048 \
+              --base 0x80000000 \
+              --tags-addr 0x81E00000 \
+              --dt ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/dtb.img \
+              --cmdline $(KERNEL_COMMAND_LINE)
+
+recovery_ramdisk:
+	${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/mkbootimg --kernel ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/zImage \
+              --ramdisk ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.cpio.gz \
+              --output ${CURRENT_PATH}/target/boot-recovery.img \
+              --pagesize 2048 \
+              --base 0x80000000 \
+              --tags-addr 0x81E00000 \
+              --dt ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/dtb.img \
+              --cmdline $(KERNEL_COMMAND_LINE)
+sign_boot_ramdisk:
+	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-rootfs.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
+
+sign_recovery_ramdisk:
+	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-rootfs.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
+
+sign_boot:
+	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-mdm9607.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
+
+# These aren't working right now
+sign_rootfs:
+	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/rootfs-mdm9607.ubi  --partition_name system --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
+
+sign_recoveryfs:
+	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/recoveryfs.ubi  --partition_name recoveryfs --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
+
 package: 
 	cp $(CURRENT_PATH)/tools/helpers/flashall $(CURRENT_PATH)/target && \
 	cd $(CURRENT_PATH)/target && \
