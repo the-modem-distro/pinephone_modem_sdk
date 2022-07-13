@@ -5,35 +5,43 @@ YOCTOBRANCH="kirkstone"
 
 mkdir -p target
 
-echo "Fetching Yocto"
+echo "1. Fetching Yocto"
 if [ ! -d "yocto" ]
 then
-    echo "Cloning Yocto repository from the Yocto Project"
+    echo "--> Cloning Yocto repository from the Yocto Project"
     git clone -b $YOCTOBRANCH git://git.yoctoproject.org/poky yocto
 else
-    echo "Yocto is already there"
+    echo "--> Updating yocto..."
+    cd yocto && \
+    git pull && \
+    cd $BASE_PATH
 fi
 
-echo "Get meta-qcom fork from github"
+echo "2. Get meta-qcom layer"
 if [ ! -d "yocto/meta-qcom" ]
 then
-    echo "Cloning meta-qcom repository"
+    echo "--> Cloning meta-qcom repository"
     git clone -b $YOCTOBRANCH https://github.com/Biktorgj/meta-qcom.git yocto/meta-qcom
 else
-    echo "Pulling latest changes from meta-qcom"
+    echo "--> Updating meta-qcom layer..."
     cd yocto/meta-qcom && \
     git pull && \
     cd $BASE_PATH
 fi
 
-echo "Fetching meta-openembedded (to provide support to meta-python)"
+echo "3. Get meta-openembedded layer"
 if [ ! -d "yocto/meta-openembedded" ]
 then
-    echo "Adding meta-oe"
-   git clone -b $YOCTOBRANCH https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
+    echo "--> Cloning meta-openembedded repository"
+    git clone -b $YOCTOBRANCH https://github.com/openembedded/meta-openembedded.git yocto/meta-openembedded
+else
+    echo "--> Updating meta-openembedded layer..."
+    cd yocto/meta-openembedded && \
+    git pull && \
+    cd $BASE_PATH
 fi
 
-echo "Setting up yocto initial configuration. Build path will be "$BASE_PATH/yocto/build
+echo "4. Setting up yocto initial configuration. Build path will be "$BASE_PATH/yocto/build
 cd $BASE_PATH/yocto
 if [ ! -d "build" ]
 then
@@ -48,4 +56,4 @@ fi
 cd $BASE_PATH
 mkdir -p yocto/build/conf
 cp tools/config/poky/rootfs.conf yocto/build/conf/
-echo " Now run make without arguments to see what you can build"
+echo " Now run 'make help' to see the available options"

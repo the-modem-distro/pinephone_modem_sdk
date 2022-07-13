@@ -2,61 +2,83 @@ SHELL := /bin/bash
 # Paths - Remember to first run the script "init.sh" to download
 CURRENT_PATH:=$(shell pwd)
 YOCTO_PATH:=$(CURRENT_PATH)/yocto
-# Number of threads to use when compiling LK
-NUM_THREADS?=12
-# Cross compile
 $(shell mkdir -p target)
+$(shell mkdir -p keys)
+
+# Version must be set when using 'make everything'
 VERSION?="0.0.0"
+# Used when building ramdisk images
 KERNEL_COMMAND_LINE="console=ttyHSL0 ro androidboot.hardware=qcom ehci-hcd.park=3 msm_rtb.filter=0x37 lpm_levels.sleep_disabled=1"
 
-all: help
+# Check if yocto/ source directory exists. If it doesn't, run init script
+.PHONY: all
+all:
+ifneq ($(wildcard $(CURRENT_PATH)/yocto),)
+	@echo "If in doubt, use 'make build' to make a build with a bootloader, kernel, rootfs and recovery"
+else
+	@echo "** The yocto source code doesn't seem to exist. Fetching repositories..."
+	@./init.sh
+endif
+all:help
+
 bootable_ramdisks: rootfs_ram recoveryfs_ram
 signed_bootable_ramdisks: rootfs_ram recoveryfs_ram sign_boot_ramdisk sign_recovery_ramdisk
 rootfs_ram: root_fs rootfs_ramdisk
 recoveryfs_ram: recovery_fs recovery_ramdisk
 build: target_clean aboot root_fs recovery_fs package
 everything: target_clean aboot root_fs recovery_fs package meta_log zip_file cab_file
-everything_signed: target_clean aboot root_fs recovery_fs sign_boot sign_rootfs sign_recoveryfs package meta_log zip_file cab_file
+everything_signed: target_clean aboot root_fs recovery_fs sign_boot package meta_log zip_file cab_file
 cabinet_package: meta_log zip_file cab_file
 help:
 	@echo "Welcome to the Pinephone Modem SDK"
 	@echo "------------------------------------"
-	@echo "Before running this makefile, you have to initialize the repositories using"
-	@echo "the init.sh script."
-	@echo "After you've done that, you can run: "
-	@echo "    make aboot : It will build the LK bootloader"
+	@echo " Available commands:"
+	@echo " --> Bootloader"
+	@echo "    make aboot : It will build the LK2ND bootloader and place the binary in /target"
+	@echo " --> Kernel"
 	@echo "    make kernel : Will build the kernel and place it in /target"
-	@echo "    make root_fs : Will build you a rootfs from Yocto"
-	@echo "    make recovery_fs : Will build you a minimal recovery image from Yocto"
-	@echo "    make build: Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script."
-	@echo "    make everything [VERSION="X.Y.Z"]: Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script and a LVFS compatible cab file"
+	@echo " --> Root Filesystems"
+	@echo "    make root_fs : Will build you a kernel + root filesystem in /target"
+	@echo "    make recovery_fs : Will build you a kernel + minimal adb-enabled shell in /target"
+	@echo " --> Non-flashable builds"
+	@echo "    make rootfs_ram : Will make a bootable-only build with all functionality. Boot it with 'fastboot boot boot-rootfs.img' "
+	@echo "    make recoveryfs_ram : Will build a bootable-only adb-enabled shell. Boot it with 'fastboot boot boot-recovery.img'"
+	@echo "    make bootable_ramdisks : Will build two bootable-only images, one with full modem capabilities and another one only with ADB and utilities"
+	@echo "    make signed_bootable_ramdisks : Same as above, but will also sign the files with the certificate stored in keys/"
+	@echo " --> Packaged builds"
+	@echo "    make build: Will build the bootloader, kernel, rootfs and recovery image and make a 'package.tar.gz'"
+	@echo "    make everything VERSION=\"X.Y.Z\": Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script and a LVFS compatible cab file"
+	@echo "    make everything_signed VERSION=\"X.Y.Z\": Will build the bootloader, kernel, rootfs and recovery image and pack it in a tgz with a flash script and a LVFS compatible cab file *and* sign it with a certificate stored in keys/ folder"
 	@echo "    ---- "
 	@echo "    make clean : Removes all the built images and temporary directories from bootloader and yocto"
+	@echo "    make sync : Pulls latest changes from the repositories"
+	@echo " "
 
+sync:
+	@./init.sh
 aboot:
-	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
+	@cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
 	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake virtual/bootloader && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/appsboot.mbn $(CURRENT_PATH)/target || exit 1
+	@cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/appsboot.mbn $(CURRENT_PATH)/target || exit 1
 
 kernel:
-	@mv $(YOCTO_PATH)/build/conf/local.conf $(YOCTO_PATH)/build/conf/backup.conf 
-	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
+	@cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
 	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake virtual/kernel && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target || exit 1
 
 root_fs:
-	@rm -rf $(YOCTO_PATH)/build/tmp && \
-	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf && \
+	@rm -rf $(YOCTO_PATH)/build/tmp
+	@cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf && \
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
+	@cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
+	@cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
 	
 recovery_fs:
 	@rm -rf $(YOCTO_PATH)/build/tmp
-	cp $(CURRENT_PATH)/tools/config/poky/recovery.conf $(YOCTO_PATH)/build/conf/local.conf
+	@cp $(CURRENT_PATH)/tools/config/poky/recovery.conf $(YOCTO_PATH)/build/conf/local.conf
 	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/recoveryfs.ubi && \
@@ -85,7 +107,7 @@ sign_boot_ramdisk:
 	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-rootfs.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
 
 sign_recovery_ramdisk:
-	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-rootfs.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
+	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-recovery.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
 
 sign_boot:
 	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-mdm9607.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
