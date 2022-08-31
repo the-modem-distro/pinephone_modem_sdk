@@ -92,7 +92,7 @@ recovery_fs:
 rootfs_ramdisk:
 	@echo "Building rootfs as a ramdisk only image..."
 	@${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/mkbootimg --kernel ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/zImage \
-              --ramdisk ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.cpio.gz \
+              --ramdisk ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ext3.gz \
               --output ${CURRENT_PATH}/target/boot-rootfs.img \
               --pagesize 2048 \
               --base 0x80000000 \
