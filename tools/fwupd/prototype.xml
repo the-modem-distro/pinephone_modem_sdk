@@ -37,7 +37,12 @@
   </releases>
   <requires>
     <id compare="ge" version="1.7.6">org.freedesktop.fwupd</id>
+    <!-- Pine64 PinePhone: U-Boot script boot -->
     <hardware>adad873f-33d3-5477-bd5e-0870eca37444</hardware>
+    <!-- Pine64 PinePhone: UEFI Manufacturer + ProductName -->
+    <hardware>cd16a41d-8ea0-52d1-9e97-4a2c5e94c067</hardware>
+    <!-- Pine64 PinePhone Pro: UEFI Manufacturer + ProductName -->
+    <hardware>10f570fd-23d3-5079-ae3f-5f4bda888bad</hardware>
   </requires>
   <keywords>
    %%KEYWORDS%%</keywords>
