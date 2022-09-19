@@ -39,3 +39,7 @@ Sometimes the kernel is too aggressive trying to suspend the USB port when it's 
 - Edit the ALSA UCM config file `/usr/share/alsa/ucm2/PinePhonePro/VoiceCall.conf` and look for the following parameters:
   - `IN1 Boost`
 - Change the default value from 8 to 3 ( YMMV you may need to go a bit higher or lower, but 8 is way too much in my testing ).
+
+4. If 1 and 2 are not enough, and you are using a megi kernel ( archlinux for example ) or a kernel that adds the reset quirk to the modem:
+ - Edit `/usr/lib/udev/rules.d/80-modem-eg25.rules`
+ - Add a new line after `ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{power/persist}="1"` that reads `ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{avoid_reset_quirk}="0"`
