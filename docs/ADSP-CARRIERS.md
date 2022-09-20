@@ -32,7 +32,7 @@ Here's an (almost empty) table with results from different providers. Feel free 
 | US | T-Mobile | 01.003 | |
 | US | Ting (T-Mobile) | 01.003 | Data is IPv6 only on 30.004 |
 | UK | EE | 01.002, 01.003 | Data doesn't seem to work on 30.004 |
-
+| Ukraine | Vodafone UA | 30.004 | Severe stability issues (modem loss) with 30.006 on OG pinephone |
 
 #1 If you use *Bob* in Austria, you might run into an issue where the time never syncs from the network, as the network never sends correct date and time to the Modem. This is a problem, because AGPS won't be valid if the modem thinks it's in 1980. A fallback method is implemented into the modem userspace where it will first try to sync the time from network. If that fails, it will try to sync from the baseband RTC instead. It will keep trying until a somewhat-correct date is detected.
 
