@@ -4,6 +4,7 @@ Interfacing with a device that has no keys and no screen, and only has limited, 
 Using AT commands for everything is also inconvenient, more so if you're on the go without a physical keyboard.
 
 This firmware implements a fake phone number you can interact with, directly from your preferred chat application. From 0.6.4 onwards, the modem will send you a message the first time you flash it if you have a SIM installed.
+If you have not received that message for any reason, then you can send the [commands](#Commands) to the following number: `+223344556677`.
 
 #### NOTE: You need to have an active SIM for this to work, as ModemManager/oFono won't even try to connect to the modem's Wireless Messaging Service if there's no SIM in the modem
 
