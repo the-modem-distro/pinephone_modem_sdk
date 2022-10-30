@@ -3,7 +3,12 @@
 # reboot the modem into fastboot mode
 # flash kernel + rootfs and reboot
 echo "Sending AT+QFASTBOOT..."
-sudo sh -c 'echo -ne "AT+QFASTBOOT\r" > /dev/ttyUSB2'
+if command -v doas >> /dev/null; then
+  root=doas
+else 
+  root=sudo
+fi
+$root sh -c 'echo -ne "AT+QFASTBOOT\r" > /dev/ttyUSB2'
 fastboot oem stay
 fastboot flash aboot appsboot.mbn || exit "Failed to flash the bootloader"
 fastboot reboot 
