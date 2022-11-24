@@ -1,0 +1,13 @@
+[Unit]
+Description=Retrieve recordings after resuming
+After=suspend.target
+
+[Service]
+User=root
+Type=oneshot
+ExecStart=/bin/bash /opt/modem/get_recordings
+TimeoutSec=0
+StandardOutput=syslog
+
+[Install]
+WantedBy=suspend.target

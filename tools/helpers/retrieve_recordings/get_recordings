@@ -1,0 +1,21 @@
+#!/bin/bash
+TARGETPATH="/path/to/save/the/recordings/"
+FILESTMP=`adb shell ls /tmp/`
+FILESPERSIST=`adb shell ls /persist/`
+mkdir -p $TARGETPATH
+cd $TARGETPATH
+for file in $FILESTMP; do
+        if [[ $file =~ .*\.(wav) ]]; then
+                THISFILE=$(echo $file|tr -d '\n'|tr -d '\r')
+                echo "Pulling "$THISFILE
+                adb  pull /tmp/${THISFILE} && adb shell rm /tmp/${THISFILE}
+        fi
+done;
+for file in $FILESPERSIST; do
+        if [[ $file =~ .*\.(wav) ]]; then
+                THISFILE=$(echo $file|tr -d '\n'|tr -d '\r')
+                echo "Pulling "$THISFILE
+                adb  pull /persist/${THISFILE} && adb shell rm /tmp/${THISFILE}
+        fi
+done;
+
