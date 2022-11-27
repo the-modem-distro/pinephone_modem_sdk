@@ -6,21 +6,21 @@ get_persistent_logs(){
 
 echo "  -> In case of persistent logging get logs of previous boot"
 
-adb pull /persist/openqti.log.1
-mv openqti.log.1 openqti-${TIMESTAMP}.log.1
+sudo sh -c "adb pull /persist/openqti-1.log"
+[ -f "openqti-1.log" ] && sudo mv openqti-1.log openqti-1-${TIMESTAMP}.log
 
-journalctl -u eg25-manager.service -e --boot -1 > eg25-manager-${TIMESTAMP}.log.1
-journalctl -u ModemManager.service -e --boot -1 > modemmanager-${TIMESTAMP}.log.1
-journalctl -u NetworkManager.service -e --boot -1 > networkmanager-${TIMESTAMP}.log.1
+journalctl -u eg25-manager.service -e --boot -1 > eg25-manager-1-${TIMESTAMP}.log
+journalctl -u ModemManager.service -e --boot -1 > modemmanager-1-${TIMESTAMP}.log
+journalctl -u NetworkManager.service -e --boot -1 > networkmanager-1-${TIMESTAMP}.log
 }
 
-adb shell 'echo Collecting dmesg... > /dev/kmsg'
-adb shell dmesg > dmesg-modem-${TIMESTAMP}.txt
-adb pull /var/log/openqti.log
-mv openqti.log openqti-${TIMESTAMP}.log
+sudo sh -c "adb shell 'echo Collecting dmesg... > /dev/kmsg'"
+sudo sh -c "adb shell dmesg > dmesg-modem-${TIMESTAMP}.txt"
+sudo sh -c "adb pull /var/log/openqti.log"
+[ -f "openqti.log" ] && sudo mv openqti.log openqti-${TIMESTAMP}.log
 
 sudo sh -c 'echo Collecting dmesg... > /dev/kmsg'
-dmesg > dmesg-pinephone-${TIMESTAMP}.txt
+sudo sh -c "dmesg > dmesg-pinephone-${TIMESTAMP}.txt"
 
 journalctl -u eg25-manager.service -e > eg25-manager-${TIMESTAMP}.log
 journalctl -u ModemManager.service -e > modemmanager-${TIMESTAMP}.log
@@ -29,6 +29,6 @@ journalctl -u NetworkManager.service -e > networkmanager-${TIMESTAMP}.log
 get_persistent_logs
 
 SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
-/usr/bin/bash ${SCRIPT_DIR}/scrub_logs
+/usr/bin/bash ${SCRIPT_DIR}/scrub_logs -t ${TIMESTAMP}
 
 exit 0
