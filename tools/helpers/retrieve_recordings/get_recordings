@@ -2,7 +2,7 @@
 TARGETPATH="/path/to/save/the/recordings/"
 mkdir -p $TARGETPATH
 cd $TARGETPATH
-for file in $(adb shell 'ls -1d /tmp/A*.wav /persist/A*.wav 2>/dev/null'|tr -d '\r');do
+for file in $(adb shell 'ls -1d /tmp/[A-Z]*.wav /persist/[A-Z]*.wav 2>/dev/null'|tr -d '\r');do
         echo "Pulling $file"
         adb pull $file && adb shell rm $file || echo "Failed to Pull $file"
 done
