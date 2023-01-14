@@ -4,7 +4,7 @@
 
 This repository contains everything you need to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.7.0](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
+### Latest release: [Version 0.7.2](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
 
 ### Supported devices:
 * Pinephone
