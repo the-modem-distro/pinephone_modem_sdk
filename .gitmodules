@@ -1,0 +1,6 @@
+[submodule "yocto/meta-openembedded"]
+	path = yocto/meta-openembedded
+	url = https://github.com/openembedded/meta-openembedded.git
+[submodule "yocto"]
+	path = yocto
+	url = git://git.yoctoproject.org/poky
