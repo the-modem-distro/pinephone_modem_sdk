@@ -1,0 +1,59 @@
+#!/bin/bash
+
+DFLT_BASE_URL="https://opencellid.themodemdistro.com/opencellid/"
+BASE_URL=""
+
+mmcliOut="$(mmcli -m any --location-get)"
+MCC=$(awk '/mcc:/ {print $NF}' <<< "$mmcliOut")
+MNC=$(awk '/mnc:/ {print $NF}' <<< "$mmcliOut")
+echo "MCC:${MCC} MNC:${MNC}"
+
+function getArgs {
+  while [ $# -gt 0 ]; do
+    case $1 in
+      "-u"|"--url")
+        shift
+        BASE_URL="${1%\/}/"
+        shift
+        ;;
+    esac
+  done
+  if [ -z "$BASE_URL" ]; then
+    BASE_URL="$DFLT_BASE_URL"
+  fi
+}
+
+function downloadFiles {
+  echo "Attempting to download ${BASE_URL}${MCC}-${MNC}.bin"
+  curl -o ${MCC}-${MNC}.bin -f ${BASE_URL}${MCC}-${MNC}.bin
+
+  curl -o ${MCC}-${MNC}.bin.sha -f ${BASE_URL}${MCC}-${MNC}.bin.sha
+}
+
+function checkDownload {
+  if [ ${MCC} -ge 1 ] && [ ${MNC} -ge 0 ]; then
+    echo "MCC and MNC are both set"
+
+    if [ -f ${MCC}-${MNC}.bin ]; then
+      echo "File ${MCC}-${MNC}.bin already found. Re-download?"
+      read -p "(y/N): " input
+      [ -z "${input}" ] && input="n"
+      if [[ "${input}" =~ ^[yY]$ ]]; then
+        downloadFiles
+      fi 
+    else
+      downloadFiles
+    fi
+  fi
+}
+
+function pushFile {
+  if [ -f ${MCC}-${MNC}.bin ]; then
+      echo "Attempting to push the file to the modem"
+      adb push ${MCC}-${MNC}.bin /tmp/
+  fi
+}
+
+getArgs "$@"
+checkDownload
+pushFile
