@@ -159,7 +159,7 @@ RECIPE NAME: modutils-initscripts
 LICENSE: MIT
 
 PACKAGE NAME: mtd-utils-ubifs
-PACKAGE VERSION: 2.1.4
+PACKAGE VERSION: 2.1.5
 RECIPE NAME: mtd-utils
 LICENSE: GPL-2.0-or-later
 
