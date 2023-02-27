@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DFLT_BASE_URL="https://opencellid.themodemdistro.com/opencellid/"
+DFLT_BASE_URL="https://themodemdistro.com/opencellid/"
 BASE_URL=""
 
 mmcliOut="$(mmcli -m any --location-get)"
