@@ -4,7 +4,7 @@
 
 This repository contains everything you need to make your own Modem userspace for your Pinephone.
 
-### Latest release: [Version 0.7.3](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
+### Latest release: [Version 0.7.4](https://github.com/Biktorgj/pinephone_modem_sdk/releases/latest)
 
 ### Supported devices:
 * Pinephone
@@ -37,9 +37,13 @@ This repository contains everything you need to make your own Modem userspace fo
 * Custom AT Commands: Please see this [document](./docs/AT_INTERFACE.md#custom-commands-in-this-firmware)
 
 #### Features not available on stock firmware:
+ * Signal tracking support (beta): Get notified whenever your modem changes towers, check against the OpenCellid database, and make it shutdown when it connects to an unknown cell
+ * Network data export as csv files
+ * Set a reminder on the modem and it will call you back and speak the message you sent it (perfect for boring meetings!)
+ * Call recording support (manual or automatic)
  * Cell broadcast relay to the host as SMS
  * Internal call and SMS support
-   * Functionality is added on every release, feel free to check out the [document for available commands](./docs/SMS_INTERFACE.md)
+   * Functionality is added on every release, check out the [document for available commands](./docs/SMS_INTERFACE.md)
  * Optional persistent storage: By default an unexpected shutdown can't mess your modem
    * If you want to keep logs after reboot, you can enable persistent storage
  * SMS logging capability: It can log every message you send or receive
