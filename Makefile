@@ -9,6 +9,7 @@ $(shell mkdir -p keys)
 VERSION?="0.0.0"
 # Used when building ramdisk images
 KERNEL_COMMAND_LINE="console=ttyHSL0 ro androidboot.hardware=qcom ehci-hcd.park=3 msm_rtb.filter=0x37 lpm_levels.sleep_disabled=1"
+MACHINE?="mdm9607"
 
 # Check if yocto/ source directory exists. If it doesn't, run init script
 .PHONY: all
@@ -59,26 +60,26 @@ sync:
 	@./init.sh
 aboot:
 	@echo "Building aboot..."
-	@cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
+	@cp $(CURRENT_PATH)/tools/config/poky/rootfs_${MACHINE}.conf $(YOCTO_PATH)/build/conf/local.conf
 	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake virtual/bootloader && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/appsboot.mbn $(CURRENT_PATH)/target || exit 1
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/appsboot.mbn $(CURRENT_PATH)/target || exit 1
 
 kernel:
 	@echo "Building the kernel..."
-	@cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf
+	@cp $(CURRENT_PATH)/tools/config/poky/rootfs_${MACHINE}.conf $(YOCTO_PATH)/build/conf/local.conf
 	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake virtual/kernel && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target || exit 1
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/boot-${MACHINE}.img $(CURRENT_PATH)/target || exit 1
 
 root_fs:
 	@echo "Building kernel + rootfs..."
 	@rm -rf $(YOCTO_PATH)/build/tmp
-	cp $(CURRENT_PATH)/tools/config/poky/rootfs.conf $(YOCTO_PATH)/build/conf/local.conf && \
+	cp $(CURRENT_PATH)/tools/config/poky/rootfs_${MACHINE}.conf $(YOCTO_PATH)/build/conf/local.conf && \
 	cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/rootfs-mdm9607.ubi && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/core-image-minimal-${MACHINE}.ubi $(CURRENT_PATH)/target/rootfs-${MACHINE}.ubi && \
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/boot-${MACHINE}.img $(CURRENT_PATH)/target
 	
 recovery_fs:
 	@echo "Building kernel + recoveryfs..."
@@ -86,29 +87,29 @@ recovery_fs:
 	@cp $(CURRENT_PATH)/tools/config/poky/recovery.conf $(YOCTO_PATH)/build/conf/local.conf
 	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
 	bitbake core-image-minimal && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ubi $(CURRENT_PATH)/target/recoveryfs.ubi && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/mdm9607/boot-mdm9607.img $(CURRENT_PATH)/target/recovery.img
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/core-image-minimal-${MACHINE}.ubi $(CURRENT_PATH)/target/recoveryfs.ubi && \
+	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/boot-${MACHINE}.img $(CURRENT_PATH)/target/recovery.img
 
 rootfs_ramdisk:
 	@echo "Building rootfs as a ramdisk only image..."
-	@${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/mkbootimg --kernel ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/zImage \
-              --ramdisk ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.ext3.gz \
+	@${YOCTO_PATH}/build/tmp/deploy/images/${MACHINE}/mkbootimg --kernel ${YOCTO_PATH}/build/tmp/deploy/images/${MACHINE}/zImage \
+              --ramdisk ${YOCTO_PATH}/build/tmp/deploy/images/${MACHINE}/core-image-minimal-${MACHINE}.ext3.gz \
               --output ${CURRENT_PATH}/target/boot-rootfs.img \
               --pagesize 2048 \
               --base 0x80000000 \
               --tags-addr 0x81E00000 \
-              --dt ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/dtb.img \
+              --dt ${YOCTO_PATH}/build/tmp/deploy/images/${MACHINE}/dtb.img \
               --cmdline $(KERNEL_COMMAND_LINE)
 
 recovery_ramdisk:
 	@echo "Building recoveryfs as a ramdisk only image..."
-	@${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/mkbootimg --kernel ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/zImage \
-              --ramdisk ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/core-image-minimal-mdm9607.cpio.gz \
+	@${YOCTO_PATH}/build/tmp/deploy/images/${MACHINE}/mkbootimg --kernel ${YOCTO_PATH}/build/tmp/deploy/images/${MACHINE}/zImage \
+              --ramdisk ${YOCTO_PATH}/build/tmp/deploy/images/${MACHINE}/core-image-minimal-${MACHINE}.cpio.gz \
               --output ${CURRENT_PATH}/target/boot-recovery.img \
               --pagesize 2048 \
               --base 0x80000000 \
               --tags-addr 0x81E00000 \
-              --dt ${YOCTO_PATH}/build/tmp/deploy/images/mdm9607/dtb.img \
+              --dt ${YOCTO_PATH}/build/tmp/deploy/images/${MACHINE}/dtb.img \
               --cmdline $(KERNEL_COMMAND_LINE)
 sign_boot_ramdisk:
 	@$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-rootfs.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
@@ -117,11 +118,11 @@ sign_recovery_ramdisk:
 	@$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-recovery.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
 
 sign_boot:
-	@$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-mdm9607.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
+	@$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/boot-${MACHINE}.img  --partition_name boot --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
 
 # These aren't working right now
 sign_rootfs:
-	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/rootfs-mdm9607.ubi  --partition_name system --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
+	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/rootfs-${MACHINE}.ubi  --partition_name system --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
 
 sign_recoveryfs:
 	$(CURRENT_PATH)/tools/avbtool/avbtool add_hash_footer --image target/recoveryfs.ubi  --partition_name recoveryfs --key $(CURRENT_PATH)/keys/private.key --algorith SHA256_RSA4096 --dynamic_partition_size
@@ -131,12 +132,12 @@ package:
 	@cp $(CURRENT_PATH)/tools/helpers/flashall $(CURRENT_PATH)/target && \
 	cd $(CURRENT_PATH)/target && \
 	sha512sum appsboot.mbn > shasums.txt && \
-	sha512sum boot-mdm9607.img >> shasums.txt && \
+	sha512sum boot-${MACHINE}.img >> shasums.txt && \
 	sha512sum recoveryfs.ubi >> shasums.txt && \
-	sha512sum rootfs-mdm9607.ubi >> shasums.txt && \
+	sha512sum rootfs-${MACHINE}.ubi >> shasums.txt && \
 	sha512sum flashall >> shasums.txt && \
 	chmod +x flashall && \
-	tar czvf package.tar.gz appsboot.mbn boot-mdm9607.img recoveryfs.ubi rootfs-mdm9607.ubi flashall shasums.txt && \
+	tar czvf package.tar.gz appsboot.mbn boot-${MACHINE}.img recoveryfs.ubi rootfs-${MACHINE}.ubi flashall shasums.txt && \
 	sha512sum $(CURRENT_PATH)/target/package.tar.gz && \
 	rm -rf $(CURRENT_PATH)/licenses/licenses && \
 	cp -rf $(CURRENT_PATH)/yocto/build/tmp/deploy/licenses $(CURRENT_PATH)/licenses/
@@ -148,7 +149,7 @@ meta_log:
 zip_file: 
 	@cp $(CURRENT_PATH)/tools/fwupd/partition_nand.xml $(CURRENT_PATH)/target && \
 	cd $(CURRENT_PATH)/target && \
-	zip package_$(VERSION).zip appsboot.mbn boot-mdm9607.img recovery.img recoveryfs.ubi rootfs-mdm9607.ubi partition_nand.xml
+	zip package_$(VERSION).zip appsboot.mbn boot-${MACHINE}.img recovery.img recoveryfs.ubi rootfs-${MACHINE}.ubi partition_nand.xml
 
 cab_file: 
 	@php $(CURRENT_PATH)/tools/fwupd/buildxml.php $(VERSION) $(CURRENT_PATH)/target/changelog.log $(CURRENT_PATH)/tools/fwupd/prototype.xml $(CURRENT_PATH)/target/package_$(VERSION).zip $(CURRENT_PATH)/target && \
@@ -161,7 +162,7 @@ target_extract:
 	rm -rf $(CURRENT_PATH)/target/dump ; \
 	mkdir -p $(CURRENT_PATH)/target/dump/rootfs ; \
 	mkdir -p $(CURRENT_PATH)/target/dump/recoveryfs ; \
-	python3 $(CURRENT_PATH)/tools/ubidump/ubidump.py $(CURRENT_PATH)/target/rootfs-mdm9607.ubi --savedir $(CURRENT_PATH)/target/dump/rootfs
+	python3 $(CURRENT_PATH)/tools/ubidump/ubidump.py $(CURRENT_PATH)/target/rootfs-${MACHINE}.ubi --savedir $(CURRENT_PATH)/target/dump/rootfs
 	python3 $(CURRENT_PATH)/tools/ubidump/ubidump.py $(CURRENT_PATH)/target/recoveryfs.ubi --savedir $(CURRENT_PATH)/target/dump/recoveryfs
 
 clean: aboot_clean target_clean yocto_clean yocto_cleancache
