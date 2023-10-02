@@ -2,6 +2,7 @@ SHELL := /bin/bash
 # Paths - Remember to first run the script "init.sh" to download
 CURRENT_PATH:=$(shell pwd)
 YOCTO_PATH:=$(CURRENT_PATH)/yocto
+APPSBOOT_PATH:=$(CURRENT_PATH)/lk2nd
 $(shell mkdir -p target)
 $(shell mkdir -p keys)
 
@@ -9,8 +10,19 @@ $(shell mkdir -p keys)
 VERSION?="0.0.0"
 # Used when building ramdisk images
 KERNEL_COMMAND_LINE="console=ttyHSL0 ro androidboot.hardware=qcom ehci-hcd.park=3 msm_rtb.filter=0x37 lpm_levels.sleep_disabled=1"
-MACHINE?="mdm9607"
+MACHINE?=mdm9607
+ABOOT_TOOLCHAIN="arm-none-eabi-"
 
+# aboot build settings
+ifeq ($(MACHINE), mdm9607)
+	ABOOT_PROJECT="mdm9607"
+	ABOOT_BUILD_FILENAME=$(APPSBOOT_PATH)/build-mdm9607/appsboot.mbn
+	ABOOT_BUILD_OUT=$(CURRENT_PATH)/target/appsboot_mdm9607.mbn
+else ifeq ($(MACHINE), mdm9640)
+	ABOOT_PROJECT="mdm9640"
+	ABOOT_BUILD_FILENAME=$(APPSBOOT_PATH)/build-mdm9640/appsboot.mbn
+	ABOOT_BUILD_OUT=$(CURRENT_PATH)/target/appsboot_mdm9640.mbn
+endif
 # Check if yocto/ source directory exists. If it doesn't, run init script
 .PHONY: all
 all:
@@ -55,16 +67,19 @@ help:
 	@echo "    make sync : Pulls latest changes from the repositories"
 	@echo " "
 
+# Sync the repos again
 sync:
 	@echo "Syncing repositories..."
 	@./init.sh
+
+# Build the bootloader
 aboot:
 	@echo "Building aboot..."
-	@cp $(CURRENT_PATH)/tools/config/poky/rootfs_${MACHINE}.conf $(YOCTO_PATH)/build/conf/local.conf
-	@cd $(YOCTO_PATH) && source $(YOCTO_PATH)/oe-init-build-env && \
-	bitbake virtual/bootloader && \
-	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/appsboot.mbn $(CURRENT_PATH)/target || exit 1
+	@cd $(APPSBOOT_PATH) && make -j $(NUM_THREADS) $(MACHINE) TOOLCHAIN_PREFIX=$(ABOOT_TOOLCHAIN) FASTBOOT_TIMER=1 || exit ; \
+	cp $(ABOOT_BUILD_FILENAME) $(ABOOT_BUILD_OUT) && \
+	cp $(ABOOT_BUILD_FILENAME) $(CURRENT_PATH)/target/appsboot.mbn
 
+# Build the kernel using Bitbake
 kernel:
 	@echo "Building the kernel..."
 	@cp $(CURRENT_PATH)/tools/config/poky/rootfs_${MACHINE}.conf $(YOCTO_PATH)/build/conf/local.conf
@@ -72,6 +87,7 @@ kernel:
 	bitbake virtual/kernel && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/boot-${MACHINE}.img $(CURRENT_PATH)/target || exit 1
 
+# Build the kernel + rootfs via Bitbake
 root_fs:
 	@echo "Building kernel + rootfs..."
 	@rm -rf $(YOCTO_PATH)/build/tmp
@@ -80,7 +96,8 @@ root_fs:
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/core-image-minimal-${MACHINE}.ubi $(CURRENT_PATH)/target/rootfs-${MACHINE}.ubi && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/boot-${MACHINE}.img $(CURRENT_PATH)/target
-	
+
+# Build kernel + recovery filesystem via Bitbake
 recovery_fs:
 	@echo "Building kernel + recoveryfs..."
 	@rm -rf $(YOCTO_PATH)/build/tmp
@@ -89,6 +106,7 @@ recovery_fs:
 	bitbake core-image-minimal && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/core-image-minimal-${MACHINE}.ubi $(CURRENT_PATH)/target/recoveryfs.ubi && \
 	cp $(YOCTO_PATH)/build/tmp/deploy/images/${MACHINE}/boot-${MACHINE}.img $(CURRENT_PATH)/target/recovery.img
+
 
 rootfs_ramdisk:
 	@echo "Building rootfs as a ramdisk only image..."

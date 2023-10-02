@@ -5,6 +5,18 @@ YOCTOBRANCH="langdale"
 
 mkdir -p target
 
+echo "0. Fetching LK2nd fork..."
+if [ ! -d "lk2nd" ]
+then
+    echo "--> Fetching forked lk2nd tree..."
+    git clone -b quectel-eg25-timer https://github.com/Biktorgj/lk2nd.git
+else
+    echo "--> Updating lk2nd..."
+    cd lk2nd && \
+    git pull && \
+    cd $BASE_PATH
+fi
+
 echo "1. Fetching Yocto"
 if [ ! -d "yocto" ]
 then
@@ -47,7 +59,7 @@ if [ ! -d "build" ]
 then
     echo "Initializing poky and copying the configuration file"
     source $BASE_PATH/yocto/oe-init-build-env $BASE_PATH/yocto/build && \
-    cp ../../tools/config/poky/rootfs.conf conf/ && \
+    cp ../../tools/config/poky/rootfs_mdm9607.conf conf/rootfs.conf && \
     bitbake-layers add-layer ../meta-qcom  && \
     bitbake-layers add-layer ../meta-openembedded/meta-oe && \
     bitbake-layers add-layer ../meta-openembedded/meta-python && \
@@ -55,5 +67,5 @@ then
 fi
 cd $BASE_PATH
 mkdir -p yocto/build/conf
-cp tools/config/poky/rootfs.conf yocto/build/conf/
+cp tools/config/poky/rootfs_mdm9607.conf yocto/build/conf/rootfs.conf
 echo " Now run 'make help' to see the available options"
