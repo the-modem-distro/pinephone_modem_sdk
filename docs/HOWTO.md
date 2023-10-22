@@ -1,7 +1,7 @@
 
 # HOW TO BUILD YOUR OWN FIRMWARE
 1. Make sure you have these packages preinstalled in your host:
- `gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint xterm python3-subunit mesa-common-dev zstd liblz4-tool`
+ `gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint xterm python3-subunit mesa-common-dev zstd liblz4-tool gcc-arm-none-eabi`
 2. If you plan to make a build for fwupd, make sure you also have these packages preinstalled in your host: `php gcab`
 3. Make sure you have at least 50Gb of available space
 4. Do at least a quick read of Yocto's Project Quick build doc: http://docs.yoctoproject.org/brief-yoctoprojectqs/index.html

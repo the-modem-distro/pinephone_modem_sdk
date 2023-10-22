@@ -1,4 +1,4 @@
-# Pinephone Modem SDK
+# The Modem Distro
 
 ### (nearly) Free custom firmware for your Pinephone's modem!
 
@@ -75,6 +75,7 @@ This project depends on the following repositories:
 
 #### Documentation
 I'm really bad at documentation, but you have some docs [here](./docs)
+I have a WIP site for this too [The Modem Distro](https://themodemdistro.com)
 
 #### Donations
 If you want, you can buy me a coffee [ko-fi](https://ko-fi.com/biktorgj)/[liberapay](https://liberapay.com/biktorgj/donate)
