@@ -1,7 +1,7 @@
 #!/bin/bash
 BASE_PATH=`pwd`
 
-YOCTOBRANCH="langdale"
+YOCTOBRANCH="mickledore"
 
 mkdir -p target
 
