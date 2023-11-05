@@ -51,8 +51,8 @@ If your Pinephone / Pro came with a really old stock firmware, you might need to
 7. Now you can flash everything:
   * `fastboot flash boot boot-mdm9607.img`
     * If you get an error flashing the kernel, run fastboot flash:raw : `fastboot flash:raw boot boot-mdm9607.img`
-  * `fastboot flash recovery mdm9607-boot.img`
+  * `fastboot flash recovery boot-mdm9607.img`
   * `fastboot flash system rootfs-mdm9607.ubi`
   * `fastboot flash recoveryfs recoveryfs.ubi`
 8. After you flashed everything, you can run 'fastboot reboot' and wait for it to come back (you might have to run `fastboot reboot` twice to clear Quectel's bootloader flags).
-
+9. If all has gone well, to enable `adb` you will likely need to send the "AT+ADBON" command to the modem.
