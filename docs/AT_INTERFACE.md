@@ -10,7 +10,8 @@ These are all the base commands that appear in Quectel's AT Command Manual (Vers
 
 To connect to the serial terminal with local echo and automatic LF trimming, you can use `sudo picocom --echo --omap ignlf /dev/ttyUSB2`.
 
-Alternatively, you can use mmcli to run a command non-interactively: `sudo mmcli -m any --command='AT+QMBNCFG="list"'`
+Alternatively, you can use mmcli to run a command non-interactively: `sudo mmcli -m any --command='AT+QMBNCFG="list"'`.
+In systemd OSes such as Mobian as of 2023, you will likely need to stop ModemManager and run it in debug mode in a separate terminal: `systemctl stop ModemManager; ModemManager --debug`, and then run `mmcli` commands as ordinary user.
 
 ### Notes:
 Handled by can be
