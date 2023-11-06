@@ -17,8 +17,10 @@ Sometimes the kernel is too aggressive trying to suspend the USB port when it's 
 - Look at the first line where it says `ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{power/control}="auto"`
 - And change it to ON `ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{power/control}="on"`
 
+If the modem USB disconnections occur on incoming calls, then you may try [some known workarounds](https://gitlab.gnome.org/GNOME/calls/-/issues/605).
+
 2. Audio volume is too low
-- Edit the ALSA UCM config file `/usr/share/alsa/ucm2/PinePhone/VoiceCall.conf` and look for the following parameters:
+- Edit the [ALSA UCM config](https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.html) file `/usr/share/alsa/ucm2/Allwinner/A64/PinePhone/PinePhone.conf` (or `/usr/share/alsa/ucm2/PinePhone/VoiceCall.conf` on older setups; [see the alsa-ucm-conf repository](https://github.com/alsa-project/alsa-ucm-conf)) and look for the following parameters:
   - `AIF2 DAC Playback Volume`
   - `AIF2 ADC Capture Volume`
 - Replace their values with `80%` or `90%` (some people noticed that 90% gets echo at the other side of the call, but doesn't happen to everyone, so feel free to experiment with the most suitable values for you) 
@@ -36,7 +38,7 @@ Sometimes the kernel is too aggressive trying to suspend the USB port when it's 
 - And change it to ON `ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{power/control}="on"`
 
 3. Microphone audio is too loud during phone calls ( distorted audio and lots of background noise from your side )
-- Edit the ALSA UCM config file `/usr/share/alsa/ucm2/PinePhonePro/VoiceCall.conf` and look for the following parameters:
+- Edit the ALSA UCM config file `/usr/share/alsa/ucm2/Rockchip/PinePhonePro/VoiceCall.conf` (Mobian/trixie; or `/usr/share/alsa/ucm2/PinePhonePro/VoiceCall.conf` in older setups) and look for the following parameters:
   - `IN1 Boost`
 - Change the default value from 8 to 3 ( YMMV you may need to go a bit higher or lower, but 8 is way too much in my testing ).
 
