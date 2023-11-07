@@ -64,6 +64,7 @@ If you have not received that message for any reason, then you can send the [com
 - `delete task [TASK_ID]`: Remove the ID of a pending task
 - `list tasks`: Shows scheduled tasks
 - `delete task X`: Removes the task from the list
+- `say X`: Responds with X. If in a call with the modem, responds via Text To Speech
 
 ### Cell broadcasting
 - `enable cell broadcast`: Enables receiving of all alerts. Any cell broadcast message received will show in the modem chat
