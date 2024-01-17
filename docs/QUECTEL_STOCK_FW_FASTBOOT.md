@@ -87,9 +87,10 @@ NOTE: MAKE SURE YOUR SERIAL PORT NUMBER MATCHES YOUR USB UART DEVICE (ttyUSB0, 1
 
 ### Computer
 
-We're going to spam the serial port with a CTRL+C cmd [ENTER] message with the script we did. That will make the modem enter fastboot mode if it catches it. So, on that root terminal we got ready, we'll simply run `watch -n0.1 ./serialcmd.sh`
+We're going to spam the serial port with a CTRL+C cmd [ENTER] message with the script we did. That will make the modem enter fastboot mode if it catches it. So, on that root terminal we got ready, we'll simply run `watch -n0.1 ./serialcmd.sh`. This will make the computer send the ctrl+c command every 100ms, which should be enough.
 
 You should see the USB UART leds blinking all the time, that's normal.
+
 Now we jump to the SSH shell on the phone and work from there
 
 ### Phone
@@ -99,7 +100,9 @@ Now we jump to the SSH shell on the phone and work from there
 3. On the first ssh session, run `dmesg -w` so you can see the kernel logs in real time
 4. On the second ssh session, type in `systemctl start eg25-manager` but don't hit enter yet
 5. Carefully place the TX wire you left plugged to the USB Uart adapter and connect it to the Modem's RX debug pin in the Pinephone Pro:
+
 ![](./img/PPP_Serial_uart.jpg)
+
 6. Actually run the `systemctl start eg25-manager` command to trigger a modem power up
 
 ## Did it work?
@@ -118,4 +121,4 @@ And this will land you in fastboot mode where you can flash another ADSP firmwar
 4. Go back to the phone part's step 4
 
 
-If you have good soldering skills, you can have solder both RX and TX to the board and this will make it a lot easier
+If you have good soldering skills, you can have solder both RX and TX to the board and it will make it a lot easier
