@@ -73,7 +73,7 @@ What this means is you need to be fast triggering it or it won't work.
 1. Open a *root* terminal
 2. Connect the USB Serial adapter to another USB port in your computer. It's important that you connect both phone and usb uart either to the same hub, or to direct ports in the computer, so you are sure they're sharing the same ground without interference (that way you don't have to connect the ground pin on the serial port, so you only need to use one wire)
 3. Connect your jumper wire on the TX pin on the USB UART:
-4. ![](./img/USB_Uart.jpg)
+4. ![](https://raw.githubusercontent.com/the-modem-distro/pinephone_modem_sdk/mickledore/docs/img/USB_Uart.jpg)
 5. Copy this into a script (more on that later), let's call it for example `serialcmd.sh`:
 
 ```
@@ -101,7 +101,7 @@ Now we jump to the SSH shell on the phone and work from there
 4. On the second ssh session, type in `systemctl start eg25-manager` but don't hit enter yet
 5. Carefully place the TX wire you left plugged to the USB Uart adapter and connect it to the Modem's RX debug pin in the Pinephone Pro:
 
-![](./img/PPP_Serial_uart.jpg)
+![](https://raw.githubusercontent.com/the-modem-distro/pinephone_modem_sdk/mickledore/docs/img/PPP_Serial_uart.jpg)
 
 6. Actually run the `systemctl start eg25-manager` command to trigger a modem power up
 
