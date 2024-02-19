@@ -78,7 +78,7 @@ What this means is you need to be fast triggering it or it won't work.
 
 ```
 #!/bin/sh
-echo "\003cmd\r" > /dev/ttyUSB0
+echo -e "\003cmd\r" > /dev/ttyUSB0
 ```
 NOTE: MAKE SURE YOUR SERIAL PORT NUMBER MATCHES YOUR USB UART DEVICE (ttyUSB0, 1...)
 6. In a shell, run `chmod +x serialcmd.sh`
