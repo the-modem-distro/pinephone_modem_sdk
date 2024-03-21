@@ -32,7 +32,7 @@ If the modem USB disconnections occur on incoming calls, then you may try [some 
  - And change persist to 1: `ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{power/persist}="1"`
  - Edit `/usr/share/eg25-manager/pine64,pinephone-pro.toml` and make sure `monitor_udev` is set to `false`
 
-2. Messages appear twice. The same problem as with the original Pinephone, but different behaviour. Some times the modem's USB port is suspended during a transaction, ending up in ModemManager losing a QMI message during a transaction. This manifests on SMS not being deleted from the modem because that part of the transaction was lost, or a message bein received twice. If this happens to you, here is an easy fix:
+2. Messages appear twice. The same problem as with the original Pinephone, but different behaviour. Some times the modem's USB port is suspended during a transaction, ending up in ModemManager losing a QMI message during a transaction. This manifests on SMS not being deleted from the modem because that part of the transaction was lost, or a message being received twice. If this happens to you, here is an easy fix:
 - Edit `/usr/lib/udev/rules.d/80-modem-eg25.rules`
 - Look at the first line where it says `ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{power/control}="auto"`
 - And change it to ON `ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="2c7c", ATTRS{idProduct}=="0125", ATTR{power/control}="on"`
