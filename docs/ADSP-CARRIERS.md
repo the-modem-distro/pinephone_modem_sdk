@@ -25,6 +25,9 @@ Here's an (almost empty) table with results from different providers. Feel free 
 | ------- |:-----------:|:----------:|:-----------:|
 | Austria | Bob | ? | Network doesn't provide any correct date & time [1](#1) |
 | Germany | 1&1 (using Telefonica network) | 01.003, 30.004 | No issues |
+| Israel | Cellcom | 30.004 | No issues |
+| Israel | Golan Telecom | 30.004 | No issues |
+| Israel | Orange | 30.004 | No issues |
 | Poland | Orange | 01.003, 30.004 | Data reconnect issues / Dual IPv4/6 issues [2](#2) |
 | Sweden | Fello (Telia based) | 01.003 (or 01.002) | No new issues. Updating firmware and installing SDK also fixed VoLTE! Details [here](https://github.com/Eliot-Roxbergh/notes_pinephone) |
 | Sweden | Hallon (Tre based) | 01.003 (or 01.002)  | See above |
